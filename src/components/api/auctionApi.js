@@ -1,8 +1,8 @@
 const { default: axiosClient } = require('./axiosClient');
 const auctionApi = {
-  getList (statusId) {
+  getList (statusId, params) {
     const url = `/auctions/${statusId}`;
-    return axiosClient.get(url);
+    return axiosClient.get(url, { params });
   },
   createAuction (title_ni,category_id, start_date, end_date) {
     const url = 'auctions/create';
