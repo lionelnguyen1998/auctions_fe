@@ -1,5 +1,7 @@
 export const statusKey = {
-  1: 'đang diễn ra',
-  2: 'sắp diễn ra',
-  3: 'đã kết thúc',
+  0: '全て',
+  1: '起こる',
+  2: 'もうすぐ',
+  3: '終わった',
+  4: '評価'
 };

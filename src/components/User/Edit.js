@@ -71,18 +71,13 @@ function Edit() {
     <Fragment>
         <div className="col-md-12">
         <div className="card card-container">
-            <img
-            src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-            alt="profile-img"
-            className="profile-img-card"
-            />
             <Form
             onSubmit={handleEdit}
             >
             {!successfull && (
                 <>
                 <div className="form-group">
-                    <label htmlFor="name">name</label>
+                    <label htmlFor="name">名前</label>
                     <Input
                     type="text"
                     className="form-control"
@@ -97,7 +92,7 @@ function Edit() {
                         </label>
                     </div>
                     )}
-                    <label htmlFor="email">Email</label>
+                    <label htmlFor="email">メールアドレス</label>
                     <Input
                     type="text"
                     className="form-control"
@@ -114,7 +109,7 @@ function Edit() {
                     )}
                 </div>
                 <div className="form-group">
-                    <label htmlFor="password">Password</label>
+                    <label htmlFor="password">パスワード</label>
                     <Input
                     type="password"
                     className="form-control"
@@ -131,7 +126,7 @@ function Edit() {
                     )}
                 </div>
                 <div className="form-group">
-                    <label htmlFor="re_pass">re_pass</label>
+                    <label htmlFor="re_pass">パスワードを確認する</label>
                     <Input
                     type="password"
                     className="form-control"
@@ -148,7 +143,7 @@ function Edit() {
                     )}
                 </div>
                 <div className="form-group">
-                    <label htmlFor="phone">phone</label>
+                    <label htmlFor="phone">電話番号</label>
                     <Input
                     type="text"
                     className="form-control"
@@ -165,7 +160,7 @@ function Edit() {
                     )}
                 </div>
                 <div className="form-group">
-                    <label htmlFor="address">address</label>
+                    <label htmlFor="address">アドレス</label>
                     <Input
                     type="text"
                     className="form-control"
@@ -182,7 +177,7 @@ function Edit() {
                     )}
                 </div>
                 <div className="form-group">
-                    <label htmlFor="avatar">avatar</label>
+                    <label htmlFor="avatar">アバター</label>
                     <Input
                     type="file"
                     className="form-control"
@@ -196,7 +191,7 @@ function Edit() {
                     }
                 </div>
                 <div className="form-group">
-                    <button className="site-btn">Sign Up</button>
+                    <button className="site-btn">編集</button>
                 </div>
                 </>
             )}

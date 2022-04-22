@@ -1,8 +1,11 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import contactApi from '../api/contactApi';
-import './index.css';
 import { useNavigate } from 'react-router-dom';
 import UploadService from "../services/FileUploadService";
+import Form from "react-validation/build/form";
+import Input from "react-validation/build/input";
+import Select from "react-select";
+import Textarea from "react-validation/build/textarea";
 
 function Contacts() {
     let navigate = useNavigate();
@@ -35,18 +38,20 @@ function Contacts() {
           file,
           typeReport
         ).then(
-            () => {
-                navigate("/");
-                window.location.reload();
-              },
-              (error) => {
-                const errors = error.response.data.errors
-                setMessageName(errors.name);
-                setMessageEmail(errors.email);
-                setMessagePhone(errors.phone);
-                setMessageContent(errors.content);
-                setMessageType(errors.report_type)
-              }
+            (res) => {
+                if (res.data.code === 1000) {
+                    navigate("/");
+                    window.location.reload();
+                } else {
+                    const errors = res.data.message.split('&')
+                    console.log(errors);
+                    setMessageName(errors[0].slice(6));
+                    setMessageEmail(errors[2].slice(7));
+                    setMessagePhone(errors[1].slice(7));
+                    setMessageContent(errors[3].slice(9));
+                    setMessageType(errors[4].slice(12))
+                }
+            }
         );
     }
 
@@ -72,23 +77,27 @@ function Contacts() {
         setSelectedFile(undefined);
       };
 
+    const options = [
+        {value:'1', label: '1: システムエラー'},
+        {value:'2', label: '2: 使い方'},
+        {value:'3', label: '3: 他に'},
+    ]
+
     return (
         <Fragment>
-            <div className="footer__widget col-md-12">
-                <form
+             <div className="container">  
+                <Form 
+                    className="form-test"
                     method="POST"
-                    target="_blank"
-                    onSubmit={handleContact}>
-                    <div className="mb-3 pt-0">
-                        <select
-                        name="report_type"
-                        onChange={e => setType(e.target.value)}
-                        >
-                            <option value="">Chọn loại thông báo</option>
-                            <option value="1">Lỗi hệ thống</option>
-                            <option value="2">Cách sử dụng</option>
-                            <option value="3">Khác</option>
-                        </select>
+                    onSubmit={handleContact}
+                    >
+                    <div className="form-group">
+                        <label htmlFor="report_type"><b>レポートのタイプ </b><i className="fa fa-asterisk" style={{color:"red"}}></i></label>
+                        <Select name='report_type' 
+                            onChange={e => setType(e.value)}
+                            placeholder='選択してください'
+                            options={options}
+                        />
                         {messageType && (
                             <div className="form-group">
                             <label style={{color:"red"}}>
@@ -97,13 +106,14 @@ function Contacts() {
                             </div>
                         )}
                     </div>
-                    <div className="mb-3 pt-0">
-                        <input
-                        type="text"
-                        placeholder="Your name"
-                        name="name"
-                        className="px-3 py-3 placeholder-gray-400 text-gray-600 relative bg-white bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full"
-                        onChange={e => setName(e.target.value)}
+                    <div className="form-group">
+                        <label htmlFor="name"><b>名前 </b><i className="fa fa-asterisk" style={{color:"red"}}></i></label>
+                        <Input
+                            type="text"
+                            className="form-control"
+                            name="name"
+                            onChange={e => setName(e.target.value)}
+                            placeholder='名前を入力してください'
                         />
                         {messageName && (
                             <div className="form-group">
@@ -113,13 +123,14 @@ function Contacts() {
                             </div>
                         )}
                     </div>
-                    <div className="mb-3 pt-0">
-                        <input
-                        type="text"
-                        placeholder="Email"
-                        name="email"
-                        className="px-3 py-3 placeholder-gray-400 text-gray-600 relative bg-white bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full"
-                        onChange={e => setEmail(e.target.value)}
+                    <div className="form-group">
+                        <label htmlFor="email"><b>メールアドレス </b><i className="fa fa-asterisk" style={{color:"red"}}></i></label>
+                        <Input
+                            type="text"
+                            className="form-control"
+                            name="email"
+                            onChange={e => setEmail(e.target.value)}
+                            placeholder='メールアドレスを入力してください'
                         />
                         {messageEmail && (
                             <div className="form-group">
@@ -129,13 +140,14 @@ function Contacts() {
                             </div>
                         )}
                     </div>
-                    <div className="mb-3 pt-0">
-                        <input
-                        type="text"
-                        placeholder="phone"
-                        name="phone"
-                        className="px-3 py-3 placeholder-gray-400 text-gray-600 relative bg-white bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full"
-                        onChange={e => setPhone(e.target.value)}
+                    <div className="form-group">
+                        <label htmlFor="phone"><b>電話番号 </b><i className="fa fa-asterisk" style={{color:"red"}}></i></label>
+                        <Input
+                            type="text"
+                            className="form-control"
+                            name="phone"
+                            onChange={e => setPhone(e.target.value)}
+                            placeholder='電話番号を入力してください'
                         />
                         {messagePhone && (
                             <div className="form-group">
@@ -145,12 +157,14 @@ function Contacts() {
                             </div>
                         )}
                     </div>
-                    <div className="mb-3 pt-0">
-                        <textarea
-                        placeholder="Your message"
-                        name="content"
-                        className="px-3 py-3 placeholder-gray-400 text-gray-600 relative bg-white bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full"
-                        onChange={e => setContent(e.target.value)}
+                    <div className="form-group">
+                        <label htmlFor="content"><b>内容 </b><i className="fa fa-asterisk" style={{color:"red"}}></i></label>
+                        <Textarea
+                            type="text"
+                            className="form-control"
+                            name="content"
+                            onChange={e => setContent(e.target.value)}
+                            placeholder='内容を入力してください'
                         />
                         {messageContent && (
                             <div className="form-group">
@@ -160,40 +174,37 @@ function Contacts() {
                             </div>
                         )}
                     </div>
-                    <div className="mb-3 pt-0">
-                        <input
-                            type="file"
-                            placeholder="File"
-                            className="px-3 py-3 placeholder-gray-400 text-gray-600 relative bg-white bg-white rounded text-sm border-0 shadow outline-none focus:outline-none focus:ring w-full"
-                            onChange={selectFile}
-                        />
-                        {
-                            <input hidden name="file" value={file}/>
-                        }
-                        <button
-                            className="site-btn button2"
-                            disabled={!selectedFile}
-                            onClick={upload}
-                            >
-                            Upload File
-                        </button>
+                    <div className="form-group">
+                        <label htmlFor="address"><b>写真</b></label>
+                        <div className="row my-3">
+                            <div className="col-8">
+                            <label className="btn btn-default p-0">
+                                <input type="file" onChange={selectFile} />
+                                {
+                                    <input hidden name="file" value={file}/>
+                                }
+                            </label>
+                            </div>
+                        </div>
                         {
                             imagePreview && (
-                                <img src={imagePreview.preview} alt="" width="80%"/>
+                                <img src={imagePreview.preview} alt="" width="20%"/>
                             )
                         }
                     </div>
-                    <div className="mb-3 pt-0">
-                        <button className="site-btn button1">
-                            <span>Send</span>
+                    <div className="form-group">
+                        <button 
+                            className="site-btn"
+                            disabled={!selectFile}
+                            onClick={upload}
+                        >
+                            <span>送信</span>
                         </button>
                     </div>
-                    
-                </form>
-                <div className="google-map-code">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14898.763660245146!2d105.83685507841687!3d21.00502340917457!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ad5569f4fbf1%3A0x5bf30cadcd91e2c3!2zQ-G7lW5nIFRy4bqnbiDEkOG6oWkgTmdoxKlhIC0gxJDhuqFpIEjhu41jIELDoWNoIEtob2EgSMOgIE7hu5lp!5e0!3m2!1svi!2s!4v1645605534507!5m2!1svi!2s" width="100%" height="450" style={{border:0}} allowfullscreen="" loading="lazy"></iframe>
-                </div>
-                
+                </Form>
+            </div>
+            <div className="google-map-code">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14898.763660245146!2d105.83685507841687!3d21.00502340917457!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ad5569f4fbf1%3A0x5bf30cadcd91e2c3!2zQ-G7lW5nIFRy4bqnbiDEkOG6oWkgTmdoxKlhIC0gxJDhuqFpIEjhu41jIELDoWNoIEtob2EgSMOgIE7hu5lp!5e0!3m2!1svi!2s!4v1645605534507!5m2!1svi!2s" width="100%" height="450" style={{border:0}} allowfullscreen="" loading="lazy"></iframe>
             </div>
         </Fragment>
     )

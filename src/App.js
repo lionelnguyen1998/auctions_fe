@@ -12,6 +12,7 @@ import Sell from './components/Auction/Sell';
 import Item from './components/Auction/Item';
 import AuthService from "./components/services/auth.service";
 import Detail from './components/Auction/Detail';
+import Auctions from './components/Auction/Auctions';
 
 
 function App() {
@@ -39,7 +40,7 @@ function App() {
                     <Route path={`/detail/:id`}
                       element={<Detail />}
                     />
-                    
+                    <Route path="/auctions" element={<Auctions />}/>
                 </Routes>
             <Footer />
         </div>

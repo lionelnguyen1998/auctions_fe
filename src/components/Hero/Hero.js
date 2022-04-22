@@ -11,7 +11,7 @@ function Hero() {
                        <div className="hero__categories">
                            <div className="hero__categories__all">
                                <i className="fa fa-bars"></i>
-                               <span>all categories</span>
+                               <span>全てカテゴリー</span>
                            </div>
                            <ul>
                                <li><a href="#">categories1</a></li>
@@ -24,11 +24,11 @@ function Hero() {
                            <div className="hero__search__form">
                                <form action="#">
                                    <div className="hero__search__categories">
-                                       All Categories
+                                      全てカテゴリー
                                        <span className="arrow_carrot-down"></span>
                                    </div>
-                                   <input type="text" placeholder="What do yo u need?" />
-                                   <button type="submit" className="site-btn">SEARCH</button>
+                                   <input type="text" placeholder="検索" />
+                                   <button type="submit" className="site-btn">検索</button>
                                </form>
                            </div>
                            <div className="hero__search__phone">
@@ -37,7 +37,7 @@ function Hero() {
                                </div>
                                <div className="hero__search__phone__text">
                                    <h5>1234567890</h5>
-                                   <span>support 24/7 time</span>
+                                   <span>８時午前～２２時午後</span>
                                </div>
                            </div>
                        </div>

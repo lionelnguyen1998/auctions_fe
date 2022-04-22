@@ -1,15 +1,14 @@
 import axios from "axios";
 const API_URL = "http://localhost:8080/api/";
 const register = (name, email, password, address, phone, re_pass, avatar) => {
-  const avatars = avatar.preview;
-  return axios.post(API_URL + "register", {
+  return axios.post(API_URL + "signup", {
     name,
     email,
     password,
     address,
     phone,
     re_pass,
-    avatars,
+    avatar,
   });
 };
 const login = (email, password) => {
@@ -19,8 +18,8 @@ const login = (email, password) => {
       password,
     })
     .then((response) => {
-      if (response.data.access_token) {
-        localStorage.setItem("user", JSON.stringify(response.data));
+      if (response.data.code === 1000) {
+        localStorage.setItem("user", JSON.stringify(response.data.data));
       }
       return response.data;
     });

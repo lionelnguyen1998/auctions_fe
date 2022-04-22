@@ -32,22 +32,19 @@ const Login = () => {
     form.current.validateAll();
     if (checkBtn.current.context._errors.length === 0) {
       AuthService.login(email, password).then(
-        () => {
-          navigate("/");
-          window.location.reload();
-        },
-        (error) => {
-          const resMessage =
-            (error.response &&
-              error.response.data &&
-              error.response.data.message) ||
-            error.message ||
-            error.toString();
-          const errors = error.response.data.errors;
-          setLoading(false);
-          setMessage(resMessage);
-          setMessageEmail(errors.email);
-          setMessagePassword(errors.password)
+        (response) => {
+          if (response.code === 1000) {
+            navigate("/");
+            window.location.reload();
+          } else if (response.code === 1001) {
+            const errors = response.message.split("&");
+            setLoading(false);
+            setMessageEmail(errors[0].slice(7));
+            setMessagePassword(errors[1].slice(10))
+          } else {
+            setLoading(false);
+            setMessage(response.message);
+          }
         }
       );
     } else {
@@ -57,22 +54,23 @@ const Login = () => {
   return (
     <div className="col-md-12">
       <div className="card card-container">
-        {message && (
-          <div className="form-group">
-            <label style={{color:"red"}}>
-              {message}
-            </label>
-          </div>
-        )}
         <Form onSubmit={handleLogin} ref={form}>
+          {message && (
+            <div className="form-group">
+              <label style={{color:"red"}}>
+                {message}
+              </label>
+            </div>
+          )}
           <div className="form-group">
-            <label htmlFor="email">email</label>
+            <label htmlFor="email"><b>メールアドレス </b><i className="fa fa-asterisk" style={{color:"red"}}></i></label>
             <Input
               type="text"
               className="form-control"
               name="email"
               value={email}
               onChange={onChangeUsername}
+              placeholder='メールアドレスを入力してください'
             />
             {messageEmail && (
               <div className="form-group">
@@ -83,13 +81,14 @@ const Login = () => {
             )}
           </div>
           <div className="form-group">
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password"><b>パスワード </b><i className="fa fa-asterisk" style={{color:"red"}}></i></label>
             <Input
               type="password"
               className="form-control"
               name="password"
               value={password}
               onChange={onChangePassword}
+              placeholder='パスワードを入力してください'
             />
             {messagePassword && (
               <div className="form-group">
@@ -104,7 +103,7 @@ const Login = () => {
               {loading && (
                 <span className="spinner-border spinner-border-sm"></span>
               )}
-              <span>Login</span>
+              <span>ログイン</span>
             </button>
           </div>
           <CheckButton style={{ display: "none" }} ref={checkBtn} />

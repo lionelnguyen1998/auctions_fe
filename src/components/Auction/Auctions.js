@@ -1,13 +1,14 @@
-import React, { Fragment, useEffect, useState } from 'react';
-import {statusKey} from "../constant/index";
+import React, {Fragment, useEffect, useState} from 'react';
 import auctionApi from '../api/auctionApi';
+import {statusKey} from "../constant/index";
 import { Link } from 'react-router-dom';
 import Pagination from "@mui/material/Pagination";
 import Button from '@mui/material/Button';
 import './index.css'
 
-const tabs = [0, 1, 2, 3];
-function Features(){
+const tabs = [0, 1, 2, 3, 4];
+
+function Auctions() {
     const [auctions, setAuctions] = useState([]);
     const [status, setStatus] = useState(0);
     const [index, setPage] = useState(1);
@@ -26,10 +27,9 @@ function Features(){
         }
         return params;
     };
-
     const retrieveAuctions = () => {
-        const params = getRequestParams( index, count);
-        auctionApi.getList(status, params)
+        const params = getRequestParams(index, count);
+        auctionApi.getAllAuctionsOfUser(status, params)
             .then((response) => {
                 const { auctions, total} = response.data.data;
                 setAuctions(auctions);
@@ -39,7 +39,7 @@ function Features(){
             .catch((e) => {
                 console.log(e);
             });
-      };
+        };
 
     useEffect(retrieveAuctions, [status, index, count]);
 
@@ -132,4 +132,4 @@ function Features(){
     )
 }
 
-export default Features;
+export default Auctions;

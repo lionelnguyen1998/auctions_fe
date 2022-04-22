@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import AuthService from "../services/auth.service";
+import './index.css'
 
 function Header({auth}) {
     const logOut = () => {
@@ -18,18 +19,18 @@ function Header({auth}) {
                         <div className="col-lg-6 col-md-6">
                             <div className="header__top__right">
                                     <div className="header__top__right__social">
-                                        <a href="#"><i className="fa fa-facebook"></i></a>
-                                        <a href="#"><i className="fa fa-twitter"></i></a>
+                                        <i className="fa fa-facebook"></i>
+                                        <i className="fa fa-twitter"></i>
                                     </div>
                                     <div className="header__top__right__language">
                                         {
                                             auth ? (
                                                 <>
-                                                    <div>Hi {auth.user.name}</div>
+                                                    <div>おはよう {auth.user.name}</div>
                                                     <span className="arrow_carrot-down"></span>
                                                     <ul>
-                                                        <li><a href="/" className="nav-link" onClick={logOut}>Logout</a></li>
-                                                        <li><Link to="/edit">Edit</Link></li>
+                                                        <li><a href="/" className="nav-link" onClick={logOut}>ログアウト</a></li>
+                                                        <li><Link to="/edit">編集</Link></li>
                                                     </ul>
                                                 </>
                                             ) : (
@@ -37,8 +38,8 @@ function Header({auth}) {
                                                     <div><i className="fa fa-user" style={{color:"black"}}></i></div>
                                                     <span className="arrow_carrot-down"></span>
                                                     <ul>
-                                                        <li> <Link to="/login" style={{color:"white"}}>Login</Link></li>
-                                                        <li> <Link to="/register" style={{color:"white"}}>Register</Link></li>
+                                                        <li> <Link to="/login" style={{color:"white"}}>ログイン</Link></li>
+                                                        <li> <Link to="/register" style={{color:"white"}}>登録</Link></li>
                                                     </ul>
                                                 </>
                                             )
@@ -53,18 +54,18 @@ function Header({auth}) {
                 <div className="row">
                     <div className="col-lg-3">
                         <div className="header__logo">
-                            <Link to="/" className="logo">Auctions</Link>
+                            <Link to="/" className="logo"><b>オークション</b></Link>
                         </div>
                     </div>
                     <div className="col-lg-6">
                         <nav className="header__menu">
                             <ul>
-                                <li className="active"><Link to="/">Home</Link></li>
+                                <li className="active"><Link to="/">ホーム</Link></li>
                                 {
                                     auth ? (
-                                        <li><Link to="/sell">sell</Link></li>
+                                        <li><Link to="/sell">販売</Link></li>
                                     ) : (
-                                        <li><Link to="/login">sell</Link></li>
+                                        <li><Link to="/login">販売</Link></li>
                                     )
                                 }
                                 <li><a href="#">Pages</a>
@@ -76,16 +77,21 @@ function Header({auth}) {
                                     </ul>
                                 </li>
                                 <li><a href="#">News</a></li>
-                                <li><Link to="/contacts">Contact</Link></li>
+                                <li><Link to="/contacts">お問い合わせ</Link></li>
                             </ul>
                         </nav>
                     </div>
                     <div className="col-lg-3">
                         <div className="header__cart">
-                            <ul>
-                                <li><a href="#"><i className="fa fa-heart"></i> <span>1</span></a></li>
-                                <li><a href="#"><i className="fa fa-shopping-bag"></i> <span>3</span></a></li>
-                            </ul>
+                            {
+                                auth && (
+                                    <ul>
+                                        <li><a href="#"><i className="fa fa-heart"></i><span>1</span></a></li>
+                                        <li><a href="#"><i className="fa fa-bell"></i><span>1</span></a></li>
+                                        <li><Link to="/auctions"><i className="fa fa-buysellads"></i></Link></li>
+                                    </ul>
+                                )
+                            }
                         </div>
                     </div>
                 </div>

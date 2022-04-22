@@ -1,7 +1,15 @@
 const { default: axiosClient } = require('./axiosClient');
 const auctionApi = {
+  getAllAuctions (params) {
+    const url = '/auctions';
+    return axiosClient.get(url, { params });
+  },
+  getAllAuctionsOfUser (statusId, params) {
+    const url = `/auctions/listAuctionsByUser/${statusId}`;
+    return axiosClient.get(url, { params });
+  },
   getList (statusId, params) {
-    const url = `/auctions/${statusId}`;
+    const url = `/auctions/listAuctionsByStatus/${statusId}`;
     return axiosClient.get(url, { params });
   },
   createAuction (title_ni,category_id, start_date, end_date) {
@@ -37,6 +45,14 @@ const auctionApi = {
     const url = `auctions/detail/${auctionId}`
     return axiosClient.get(url);
   },
+  update () {
+    const url = 'auctions/update/status';
+    return axiosClient.get(url);
+  },
+  detail1 (auctionId) {
+    const url = `auctions/detail1/${auctionId}`;
+    return axiosClient.get(url);
+  }
 };
 
 export default auctionApi;
