@@ -161,9 +161,10 @@
     padding: 50px;
   }
   .details .img-container{
-    max-width: 400px;
+    max-width: 500px;
     width: 100%;
     margin: 20px;
+    margin-right: -200px;
     height: 450px;
     background-position: center;
     background-size: cover;
@@ -176,9 +177,10 @@
   }
   
   .box-details{
-    max-width: 500px;
+    max-width: 400px;
     width: 100%;
     margin: 20px;
+    margin-left: 200px
   }
   .box-details h2{
     text-transform: uppercase;
@@ -188,9 +190,9 @@
   }
   .box-details button,
   .box-details .cart{
-    border: 1px solid #555;
+    /* border: 1px solid #555; */
     outline: none;
-    background: #333;
+    /* background: #333; */
     cursor: pointer;
     color: white;
     margin-right: 5px;
@@ -311,4 +313,21 @@
   .total h3{
     margin-right: 50px;
     color: crimson;
+  }
+
+  select {
+    word-wrap: normal;
+    height: 31px;
+    border: 1px solid #ccc!important;
+    border-radius: 5px;
+  }
+
+  .select-paginate {
+    margin-top: 16px !important;
+  }
+
+  .send {
+    float: right;
+    margin-bottom: 10px;
+    border-radius: 10px;
   }

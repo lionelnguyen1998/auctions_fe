@@ -5,3 +5,18 @@ export const statusKey = {
   3: '終わった',
   4: '評価'
 };
+
+export const tabKey = {
+  'bids': '入札',
+  'comments': 'コメント'
+};
+
+export const role = {
+  1: '管理者',
+  2: 'ユーザー'
+}
+
+export const typeNotification = {
+  1: 'アクセプタンス',
+  2: '拒否'
+}

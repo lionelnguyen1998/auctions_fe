@@ -4,3 +4,6 @@ select {
     border: 1px solid #ccc!important;
     border-radius: 5px;
 }
+.select-paginate {
+    margin-top: 16px !important;
+}

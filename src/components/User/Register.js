@@ -203,7 +203,7 @@ function Register() {
                   )}
                 </div>
                 <div className="form-group">
-                  <label htmlFor="address"><b>アバター</b></label>
+                  <label htmlFor="file"><b>アバター</b></label>
                   <div className="row my-3">
                     <div className="col-8">
                       <label className="btn btn-default p-0">

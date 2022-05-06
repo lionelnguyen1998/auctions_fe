@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect} from 'react';
 import Hero from '../Hero/Hero';
 import Category from '../Category/Category';
 import Features from '../Features/Features';
@@ -11,8 +11,8 @@ function HomePage(){
     return (
         <Fragment>
             <Hero />
-            <Category/>
             <Features />
+            <Category/>
         </Fragment>
     )
 }

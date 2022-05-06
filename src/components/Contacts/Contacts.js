@@ -6,6 +6,7 @@ import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import Select from "react-select";
 import Textarea from "react-validation/build/textarea";
+import { Paper } from '@mui/material'
 
 function Contacts() {
     let navigate = useNavigate();
@@ -85,124 +86,126 @@ function Contacts() {
 
     return (
         <Fragment>
-             <div className="container">  
-                <Form 
-                    className="form-test"
-                    method="POST"
-                    onSubmit={handleContact}
-                    >
-                    <div className="form-group">
-                        <label htmlFor="report_type"><b>レポートのタイプ </b><i className="fa fa-asterisk" style={{color:"red"}}></i></label>
-                        <Select name='report_type' 
-                            onChange={e => setType(e.value)}
-                            placeholder='選択してください'
-                            options={options}
-                        />
-                        {messageType && (
-                            <div className="form-group">
-                            <label style={{color:"red"}}>
-                                {messageType}
-                            </label>
-                            </div>
-                        )}
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="name"><b>名前 </b><i className="fa fa-asterisk" style={{color:"red"}}></i></label>
-                        <Input
-                            type="text"
-                            className="form-control"
-                            name="name"
-                            onChange={e => setName(e.target.value)}
-                            placeholder='名前を入力してください'
-                        />
-                        {messageName && (
-                            <div className="form-group">
-                            <label style={{color:"red"}}>
-                                {messageName}
-                            </label>
-                            </div>
-                        )}
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="email"><b>メールアドレス </b><i className="fa fa-asterisk" style={{color:"red"}}></i></label>
-                        <Input
-                            type="text"
-                            className="form-control"
-                            name="email"
-                            onChange={e => setEmail(e.target.value)}
-                            placeholder='メールアドレスを入力してください'
-                        />
-                        {messageEmail && (
-                            <div className="form-group">
-                            <label style={{color:"red"}}>
-                                {messageEmail}
-                            </label>
-                            </div>
-                        )}
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="phone"><b>電話番号 </b><i className="fa fa-asterisk" style={{color:"red"}}></i></label>
-                        <Input
-                            type="text"
-                            className="form-control"
-                            name="phone"
-                            onChange={e => setPhone(e.target.value)}
-                            placeholder='電話番号を入力してください'
-                        />
-                        {messagePhone && (
-                            <div className="form-group">
-                            <label style={{color:"red"}}>
-                                {messagePhone}
-                            </label>
-                            </div>
-                        )}
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="content"><b>内容 </b><i className="fa fa-asterisk" style={{color:"red"}}></i></label>
-                        <Textarea
-                            type="text"
-                            className="form-control"
-                            name="content"
-                            onChange={e => setContent(e.target.value)}
-                            placeholder='内容を入力してください'
-                        />
-                        {messageContent && (
-                            <div className="form-group">
-                            <label style={{color:"red"}}>
-                                {messageContent}
-                            </label>
-                            </div>
-                        )}
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="address"><b>写真</b></label>
-                        <div className="row my-3">
-                            <div className="col-8">
-                            <label className="btn btn-default p-0">
-                                <input type="file" onChange={selectFile} />
-                                {
-                                    <input hidden name="file" value={file}/>
-                                }
-                            </label>
-                            </div>
-                        </div>
-                        {
-                            imagePreview && (
-                                <img src={imagePreview.preview} alt="" width="20%"/>
-                            )
-                        }
-                    </div>
-                    <div className="form-group">
-                        <button 
-                            className="site-btn"
-                            disabled={!selectFile}
-                            onClick={upload}
+            <Paper style={{ padding: "20px", marginBottom: "40px"}} className="container">
+                <div className="container">  
+                    <Form 
+                        className="form-test"
+                        method="POST"
+                        onSubmit={handleContact}
                         >
-                            <span>送信</span>
-                        </button>
-                    </div>
-                </Form>
-            </div>
+                        <div className="form-group">
+                            <label htmlFor="report_type"><b>レポートのタイプ </b><i className="fa fa-asterisk" style={{color:"red"}}></i></label>
+                            <Select name='report_type' 
+                                onChange={e => setType(e.value)}
+                                placeholder='選択してください'
+                                options={options}
+                            />
+                            {messageType && (
+                                <div className="form-group">
+                                <label style={{color:"red"}}>
+                                    {messageType}
+                                </label>
+                                </div>
+                            )}
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="name"><b>名前 </b><i className="fa fa-asterisk" style={{color:"red"}}></i></label>
+                            <Input
+                                type="text"
+                                className="form-control"
+                                name="name"
+                                onChange={e => setName(e.target.value)}
+                                placeholder='名前を入力してください'
+                            />
+                            {messageName && (
+                                <div className="form-group">
+                                <label style={{color:"red"}}>
+                                    {messageName}
+                                </label>
+                                </div>
+                            )}
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="email"><b>メールアドレス </b><i className="fa fa-asterisk" style={{color:"red"}}></i></label>
+                            <Input
+                                type="text"
+                                className="form-control"
+                                name="email"
+                                onChange={e => setEmail(e.target.value)}
+                                placeholder='メールアドレスを入力してください'
+                            />
+                            {messageEmail && (
+                                <div className="form-group">
+                                <label style={{color:"red"}}>
+                                    {messageEmail}
+                                </label>
+                                </div>
+                            )}
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="phone"><b>電話番号 </b><i className="fa fa-asterisk" style={{color:"red"}}></i></label>
+                            <Input
+                                type="text"
+                                className="form-control"
+                                name="phone"
+                                onChange={e => setPhone(e.target.value)}
+                                placeholder='電話番号を入力してください'
+                            />
+                            {messagePhone && (
+                                <div className="form-group">
+                                <label style={{color:"red"}}>
+                                    {messagePhone}
+                                </label>
+                                </div>
+                            )}
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="content"><b>内容 </b><i className="fa fa-asterisk" style={{color:"red"}}></i></label>
+                            <Textarea
+                                type="text"
+                                className="form-control"
+                                name="content"
+                                onChange={e => setContent(e.target.value)}
+                                placeholder='内容を入力してください'
+                            />
+                            {messageContent && (
+                                <div className="form-group">
+                                <label style={{color:"red"}}>
+                                    {messageContent}
+                                </label>
+                                </div>
+                            )}
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="address"><b>写真</b></label>
+                            <div className="row my-3">
+                                <div className="col-8">
+                                <label className="btn btn-default p-0">
+                                    <input type="file" onChange={selectFile} />
+                                    {
+                                        <input hidden name="file" value={file}/>
+                                    }
+                                </label>
+                                </div>
+                            </div>
+                            {
+                                imagePreview && (
+                                    <img src={imagePreview.preview} alt="" width="20%"/>
+                                )
+                            }
+                        </div>
+                        <div className="form-group">
+                            <button 
+                                className="site-btn"
+                                disabled={!selectFile}
+                                onClick={upload}
+                            >
+                                <span>送信</span>
+                            </button>
+                        </div>
+                    </Form>
+                </div>
+            </Paper>
             <div className="google-map-code">
                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14898.763660245146!2d105.83685507841687!3d21.00502340917457!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ad5569f4fbf1%3A0x5bf30cadcd91e2c3!2zQ-G7lW5nIFRy4bqnbiDEkOG6oWkgTmdoxKlhIC0gxJDhuqFpIEjhu41jIELDoWNoIEtob2EgSMOgIE7hu5lp!5e0!3m2!1svi!2s!4v1645605534507!5m2!1svi!2s" width="100%" height="450" style={{border:0}} allowfullscreen="" loading="lazy"></iframe>
             </div>

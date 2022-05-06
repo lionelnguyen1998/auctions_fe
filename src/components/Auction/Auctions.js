@@ -1,10 +1,11 @@
 import React, {Fragment, useEffect, useState} from 'react';
 import auctionApi from '../api/auctionApi';
 import {statusKey} from "../constant/index";
-import { Link } from 'react-router-dom';
-import Pagination from "@mui/material/Pagination";
-import Button from '@mui/material/Button';
+import { Pagination, Paper, Avatar, Grid, Typography} from "@mui/material";
 import './index.css'
+import ListAuction from './ListAuction.js'
+import userApi from '../api/userApi';
+import {role} from "../constant/index";
 
 const tabs = [0, 1, 2, 3, 4];
 
@@ -15,8 +16,18 @@ function Auctions() {
     const [counts, setCount] = useState(1);
     const [count, setPageSize] = useState(4);
     const pageSizes = [4, 8, 12];
-    const colors = ['#2196F3', '#4CAF50', '#FF9800', '#F44336'];
+    const [userInfo, setUserInfo] = useState('')
 
+    useEffect(() => {
+        userApi.info()
+            .then((res) => {
+                setUserInfo(res.data.data)
+            })
+            .catch((e) => {
+                console.log(e);
+            });
+    }, [])
+    
     const getRequestParams = (index, count) => {
         let params = {};
         if (index) {
@@ -54,80 +65,103 @@ function Auctions() {
 
     return (
         <Fragment>
-            <section className="featured spad">
-                <div className="container">
-                    <div className="row">
-                    <div className="col-lg-12">
-                        <div className="section-title">
-                            <h2>オークションの一覧</h2>
+            <Paper style={{ padding: "20px", marginBottom: "40px"}} className="container">
+                
+                <Grid container spacing={10}>
+                    <Grid item>
+                    <Avatar
+                        alt={userInfo.name}
+                        src={userInfo.avatar}
+                        sx={{ width: 150, height: 150 }}
+                    />
+                    </Grid>
+                    <Grid item xs={12} sm container>
+                    <Grid item xs container direction="column" spacing={2}>
+                        <Grid item xs>
+                            <Typography gutterBottom variant="subtitle1" component="div">
+                                <b>名前:　　　　　　　</b> {userInfo.name}
+                            </Typography>
+                            <Typography gutterBottom variant="subtitle1" component="div">
+                                <b>メールアドレス:　　</b> {userInfo.email}
+                            </Typography>
+                            <Typography gutterBottom variant="subtitle1" component="div">
+                                <b>電話番号:　　　　　</b> {userInfo.phone}
+                            </Typography>
+                            <Typography gutterBottom variant="subtitle1" component="div">
+                                <b>アドレス:　　　　　</b> {userInfo.address}
+                            </Typography>
+                            <Typography gutterBottom variant="subtitle1" component="div">
+                                <b>役割:　　　　　　　</b> {role[userInfo.role]}
+                            </Typography>
+                        </Grid>
+                    </Grid>
+                    <Grid item>
+                        <Typography variant="subtitle1" component="div">
+                            <b>オークション:　　　</b> {userInfo.total_auctions} オークション
+                        </Typography>
+                        <Typography variant="subtitle1" component="div">
+                            <b>気に入る:　　　　　</b> {userInfo.total_like} オークション
+                        </Typography>
+                    </Grid>
+                    </Grid>
+                </Grid>
+            </Paper>
+            <Paper style={{ padding: "20px", marginBottom: "40px"}} className="container">
+                <section className="featured spad">
+                    <div className="container">
+                        <div className="row">
+                        <div className="col-lg-12">
+                            <div className="section-title">
+                                <h2>users オークションの一覧</h2>
+                            </div>
+                            <div className="featured__controls">
+                                    <ul>
+                                        {
+                                            tabs.map(tab => (
+                                                <li 
+                                                    key={tab}
+                                                    style={status === tab ? {
+                                                        color: '#7FAD39',
+                                                    } : {}}
+                                                    onClick={() => setStatus(tab)}
+                                                >
+                                                    <b>{statusKey[tab]}</b>
+                                                </li>
+                                            ))
+                                        }
+                                    </ul>
+                            </div>
                         </div>
-                        <div className="featured__controls">
-                                <ul>
-                                    {
-                                        tabs.map(tab => (
-                                            <li 
-                                                key={tab}
-                                                style={status === tab ? {
-                                                    color: '#7FAD39',
-                                                } : {}}
-                                                onClick={() => setStatus(tab)}
-                                            >
-                                                <b>{statusKey[tab]}</b>
-                                            </li>
-                                        ))
-                                    }
-                                </ul>
-                        </div>
-                    </div>
-                    </div>
-                    <div>
-                        <div className="row featured__filter">
-                            {
-                                auctions.map((auction) => (
-                                    <div className="col-lg-3 col-md-4 col-sm-6 mix oranges" key={auction.auction_id}>
-                                        <div className="featured__item">
-                                            <div className="featured__item__pic set-bg" data-setbg={auction.category.image} style={{backgroundImage: `url(${auction.category.image})`}}>
-                                                <ul className="featured__item__pic__hover">
-                                                    <li><Link to={`/detail/${auction.auction_id}`}><i className="fa fa-heart"></i></Link></li>
-                                                    <li><Link to={`/detail/${auction.auction_id}`}><i className="fa fa-retweet"></i></Link></li>
-                                                </ul>
-                                            </div>
-                                            <div className="featured__item__text">
-                                                <h6>{auction.title}</h6>
-                                                <Link to={`/detail/${auction.auction_id}`}>
-                                                    <Button size="small" variant="outlined" style={{ color: colors[auction.statusId], height: '20px'}}>
-                                                        <b>{auction.status}</b>
-                                                    </Button>
-                                                </Link>
-                                            </div>
-                                        </div>
-                                    </div>
-                                ))
-                            }
                         </div>
                         <div>
-                            <select onChange={handlePageSizeChange} value={count}>
-                                {pageSizes.map((size) => (
-                                <option key={size} value={size}>
-                                    {size}
-                                </option>
-                                ))}
-                            </select>
-                            <Pagination
-                                className="my-3"
-                                count={counts}
-                                page={index}
-                                siblingCount={1}
-                                boundaryCount={1}
-                                variant="outlined"
-                                shape="rounded"
-                                onChange={handlePageChange}
-                                color="success"
+                            <ListAuction
+                                auctions={auctions}
                             />
+                            <div>
+                                <select className="select-paginate" onChange={handlePageSizeChange} value={count}>
+                                    {pageSizes.map((size) => (
+                                    <option key={size} value={size}>
+                                        {size}
+                                    </option>
+                                    ))}
+                                </select>
+                                <Pagination
+                                    style={{float: "right"}}
+                                    className="my-3"
+                                    count={counts}
+                                    page={index}
+                                    siblingCount={1}
+                                    boundaryCount={1}
+                                    variant="outlined"
+                                    shape="rounded"
+                                    onChange={handlePageChange}
+                                    color="success"
+                                />
+                            </div>
                         </div>
                     </div>
-                </div>
-            </section>
+                </section>
+            </Paper>
         </Fragment>
     )
 }

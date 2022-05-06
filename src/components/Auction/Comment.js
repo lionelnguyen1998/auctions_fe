@@ -1,27 +1,17 @@
-import React,{useState, useRef, useEffect} from 'react'
-import DetailsThumb from './DetailsThumb'
-import auctionApi from '../api/auctionApi';
-import './detail.css'
-import {Avatar, Pagination, Paper, Grid, Button, Link} from "@mui/material";
+import React, {Fragment, useEffect, useState, useRef} from 'react';
+import {Avatar, Pagination, Paper, Grid, Button} from "@mui/material";
 import Textarea from "react-validation/build/textarea";
 import Form from "react-validation/build/form";
 import { useNavigate } from 'react-router-dom';
 import {tabKey} from "../constant/index";
 import AuthService from "../services/auth.service";
-import DeleteComment from './DeleteComment';
+import auctionApi from '../api/auctionApi';
 
 const tabs = ['bids', 'comments'];
-const colors = ['#2196F3', '#4CAF50', '#FF9800', '#F44336', '#2196F3'];
-export default function Detail() {
-    const currentUser = AuthService.getCurrentUser();
+function Comment(props) {
+  console.log(props)
+  const currentUser = AuthService.getCurrentUser();
     let navigate = useNavigate();
-    const [indexs, setIndex] = useState(0);
-    const imgDiv = useRef();
-    const link = window.location.href;
-    const auctionId = link.slice(29);
-    const [item, setItem] = useState([]);
-    const [maxPrice, setMaxPrice] = useState('');
-    const [auction, setAuction] = useState('');
     const [index, setPage] = useState(1);
     const [counts, setCount] = useState(1);
     const [count, setPageSize] = useState(4);
@@ -33,202 +23,90 @@ export default function Detail() {
     const [price, setPrice] = useState('')
     const [priceM, setPriceM] = useState('');
     const [type, setType] = useState('bids');
-    const [sellingUser, setSellingUser] = useState('');
-    const [liked, setLiked] = useState('')
-    
     const pageSizes = [4, 8, 12];
-    
-    useEffect(() => {
-        auctionApi.detail(auctionId)
-            .then((res) => {
-                setItem(res.data.data.items)
-                setAuction(res.data.data.auctions)
-                setSellingUser(res.data.data.selling_user)
-                setLiked(res.data.data.auctions.like)
-            })
-    }, [])
-
-    useEffect(() => {
-        auctionApi.maxBid(auctionId)
-            .then((res) => {
-                setMaxPrice(res.data.data)
-            })
-    }, [totalPrice])
-
-    const handleMouseMove = e =>{
-        const {left, top, width, height} = e.target.getBoundingClientRect();
-        const x = (e.pageX - left) / width * 100
-        const y = (e.pageY - top) / height * 100
-        imgDiv.current.style.backgroundPosition = `${x}% ${y}%`
-    }
 
     const getRequestParams = (index, count) => {
-        let params = {};
-        if (index) {
-          params["index"] = index;
-        }
-        if (count) {
-          params["count"] = count;
-        }
-        return params;
+      let params = {};
+      if (index) {
+        params["index"] = index;
+      }
+      if (count) {
+        params["count"] = count;
+      }
+      return params;
     };
+
 
     const retrieveAuctionsBidComment = () => {
-        const params = getRequestParams( index, count);
-        auctionApi.getListCommentsBids (type, auctionId, params)
-            .then((response) => {
-                if (type === 'comments') {
-                    const { comments, total} = response.data.data;
-                    setComments(comments);
-                    setTotal(total)
-                    const totalPage = Math.ceil(total/count)
-                    setCount(totalPage);
-                } else {
-                    const { bids, total} = response.data.data;
-                    setBids(bids);
-                    setTotalPrice(total)
-                    const totalPage = Math.ceil(total/count)
-                    setCount(totalPage);
-                }
-            })
-            .catch((e) => {
-                console.log(e);
-            });
-    };
+      const params = getRequestParams( index, count);
+      auctionApi.getListCommentsBids (type, props.auctionId, params)
+          .then((response) => {
+              if (type === 'comments') {
+                  const { comments, total} = response.data.data;
+                  setComments(comments);
+                  const totalPage = Math.ceil(total/count)
+                  setCount(totalPage);
+              } else {
+                  const { bids, total} = response.data.data;
+                  setBids(bids);
+                  const totalPage = Math.ceil(total/count)
+                  setCount(totalPage);
+              }
+          })
+          .catch((e) => {
+              console.log(e);
+          });
+  };
 
-    useEffect(retrieveAuctionsBidComment, [type, auctionId, index, count, total, totalPrice]);
+  useEffect(retrieveAuctionsBidComment, [type, props.auctionId, index, count, total, totalPrice]);
 
-    const handlePageChange = (event, value) => {
-        setPage(value);
-    };
+  const handlePageChange = (event, value) => {
+      setPage(value);
+  };
 
-    const handlePageSizeChange = (event) => {
-        setPageSize(event.target.value);
-        setPage(1);
-    };
+  const handlePageSizeChange = (event) => {
+      setPageSize(event.target.value);
+      setPage(1);
+  };
 
-    const handleCreateComment = (e) => {
-        e.preventDefault();
-        auctionApi.createComment(
-            auctionId,
-            content
-        )
-        .then(res => {     
-          setTotal(res.data.total)
-        })
-        .catch((e) => {
-            navigate("/login");
-        })
-        setContent('')
-    }
+  const handleCreateComment = (e) => {
+      e.preventDefault();
+      auctionApi.createComment(
+        props.auctionId,
+          content
+      )
+      .then(res => {
+      })
+      .catch((e) => {
+          navigate("/login");
+      })
+      setTotal(total + 1)
+      setContent('')
+  }
 
-    const handleCreateBid = (e) => {
-        e.preventDefault();
-        setPriceM('')
-        auctionApi.createBid(
-            auctionId,
-            price
-        )
-        .then(res => {
-            if (res.data.code === 1001) {
-                const errors = res.data.message
-                setPriceM(errors.slice(7))
-            } else {
-                setTotalPrice(res.data.total)
-            }
-        })
-        .catch((e) => {
-            navigate("/login");
-        })
-        
-        setPrice('')
-        
-    }
+  const handleCreateBid = (e) => {
+      e.preventDefault();
+      setPriceM('')
+      auctionApi.createBid(
+        props.auctionId,
+          price
+      )
+      .then(res => {
+          if (res.data.code === 1001) {
+              const errors = res.data.message
+              setPriceM(errors.slice(7))
+          }
+      })
+      .catch((e) => {
+          navigate("/login");
+      })
+      setTotalPrice(totalPrice + 1)
+      setPrice('')
+  }
 
-    const handleLiked = (e) => {
-        e.preventDefault();
-        auctionApi.like(auctionId)
-        .then(res => {
-            setLiked(res.data.data.is_liked)
-        })
-        .catch((e) => {
-            navigate("/login");
-        })
-    }
-
-    return (
-        <>
-        <Paper style={{ padding: "20px", marginBottom: "40px"}} className="container">
-           {
-            item.images && (
-                   <div className="details">
-                       <div className="img-container" 
-                        ref={imgDiv}
-                        onMouseMove={handleMouseMove}
-                        onMouseLeave={() => imgDiv.current.style.backgroundPosition = `center`}
-                        style={{backgroundImage: `url(${item.images[indexs]})`}}
-                        >
-                       </div>
-                       <div className="box-details">
-                            <Grid container wrap="nowrap" spacing={5} style={{marginBottom: '15px'}}>
-                                <Grid item>
-                                    <Avatar
-                                    sx={{ width: 60, height: 60 }}
-                                    alt={sellingUser.selling_user_name} 
-                                    src={sellingUser.selling_user_avatar} />
-                                </Grid>
-                                <Grid justifyContent="left" item xs zeroMinWidth>
-                                    <div>
-                                        <b style={{ margin: 0, textAlign: "left", fontSize: '30px'}}>{sellingUser.selling_user_name}</b>
-                                    </div>
-                                </Grid>
-                            </Grid>
-                            <h2 title={item.name}>アイテムの名前　{item.name}</h2>
-                            <h3>始値: {Number(item.starting_price).toLocaleString()} 円</h3>
-                            <h3>最高価格: {maxPrice ? Number(maxPrice).toLocaleString() : '--'} 円</h3>
-                            <p>ブランド: {item.brand}</p>
-                            <p>シリーズ: {item.series ?? '--'}</p>
-                            <p>ディスクリプション: {item.description}</p>
-                            <Button disabled size="small" variant="outlined" style={{ color: '#4CAF50', height: '20px'}}>
-                                <b>{auction.start_date}</b>
-                            </Button>
-                            <Button disabled size="small" variant="outlined" style={{ color: '#F44336', height: '20px'}}>
-                                <b>{auction.end_date}</b>
-                            </Button>
-                            <Button disabled size="small" variant="outlined" style={{ color: colors[auction.statusId], height: '20px'}}>
-                                <b>{auction.status}</b>
-                            </Button>
-                            <DetailsThumb images={item.images} setIndex={setIndex} />
-                            {/* {
-                                (auction.statusId === 2) && (
-                                    <CountDown
-                                    startDate = {auction.start_date}
-                                    />
-                                )
-                            }
-                            {
-                                (auction.statusId === 3) && (
-                                    <CountDown
-                                    startDate = {auction.end_date}
-                                    />
-                                )
-                            } */}
-                            <Button size="small" style={{color:'#4CAF50', marginLeft: '10px', height: '20px'}}
-                                onClick={handleLiked}
-                            >
-                                {
-                                    currentUser ? ((liked == true) ? (<i className="fa fa-heart"></i>) : (<i class="fa fa-heart-o" aria-hidden="true"></i>)) 
-                                        : (<Link to='/login'><i class="fa fa-heart-o" aria-hidden="true"></i></Link>)
-                                }
-                            </Button>
-                       </div>
-                   </div>
-                )
-           }
-        </Paper>
-        {
-            (auction.statusId !== 4) && (
-                <Paper style={{ padding: "20px 200px", marginBottom: '40px' }} className="container">
+  return (
+    <Fragment>
+        <Paper style={{ padding: "20px 200px", marginBottom: '40px' }} className="container">
                     <section>
                         <div className="container">
                             <div className="row">
@@ -277,19 +155,13 @@ export default function Detail() {
                                                     </button>
                                                 </div>
                                             </Form>
-                                            
                                         </div>
                                     )
                                 }
                                 {
                                     (type === 'comments') && (
-                                        <p>{total} コメント</p>
-                                    )
-                                }
-                                {
-                                    (type === 'comments') && (
-                                        comments.map((comment) => (
-                                            <div key={comment.comment_id}>
+                                        comments.map((comment, index) => (
+                                            <div key={index}>
                                                 <Grid container wrap="nowrap" spacing={2}>
                                                     <Grid item>
                                                         <Avatar alt={comment.user_name} src={comment.user_avatar} />
@@ -304,11 +176,8 @@ export default function Detail() {
                                                         </p>
                                                         <p style={{ textAlign: "left", color: "gray" }}>
                                                         <Button color="success"><i class="fa fa-thumbs-up" aria-hidden="true"></i></Button>
-                                                        <Button color="success"><i class="fa fa-pencil-square-o" style={{color: '#007bff'}} aria-hidden="true"></i></Button>
-                                                        <DeleteComment 
-                                                        commentId = {comment.comment_id}
-                                                        auctionId = {auctionId}
-                                                        />
+                                                        <Button color="success"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></Button>
+                                                        <Button color="success"><i class="fa fa-trash" aria-hidden="true"></i></Button>
                                                         </p>
                                                     </Grid>
                                                     
@@ -319,7 +188,7 @@ export default function Detail() {
 
                                 }
                                 {
-                                    (type === 'bids') && (auction.statusId === 1) && (
+                                    (type === 'bids') && (props.auction.statusId === 1) && (
                                         <div>
                                             <Form
                                             method="POST"
@@ -348,13 +217,7 @@ export default function Detail() {
                                                     </button>
                                                 </div>
                                             </Form>
-                                            
                                         </div>
-                                    )
-                                }
-                                {
-                                    (type === 'bids') && (
-                                        <p>{totalPrice} 入札</p>
                                     )
                                 }
                                 {
@@ -371,22 +234,23 @@ export default function Detail() {
                                                             <span style={{float:"right"}}>{bid.updated_at}</span>
                                                         </div>
                                                         <p style={{ textAlign: "left" }}>
-                                                            {Number(bid.price).toLocaleString()} 円
+                                                            {bid.price}
                                                         </p>
                                                         <p style={{ textAlign: "left", color: "gray" }}>
                                                         <Button color="success"><i class="fa fa-thumbs-up" aria-hidden="true"></i></Button>
-                                                        <Button color="success"><i class="fa fa-pencil-square-o" style={{color: '#007bff'}} aria-hidden="true"></i></Button>
+                                                        <Button color="success"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></Button>
+                                                        <Button color="success"><i class="fa fa-trash" aria-hidden="true"></i></Button>
                                                         {
-                                                            (auction.statusId === 3) 
-                                                            && (currentUser.user.user_id === sellingUser.selling_user_id) 
-                                                            && (bid.price === maxPrice) 
+                                                            (props.auction.statusId === 3) 
+                                                            && (currentUser.user.user_id === props.sellingUser.selling_user_id) 
+                                                            && (bid.price === props.maxPrice) 
                                                             && (
                                                                 <>
                                                                     <Button size="small" variant="outlined" style={{ color: '#4CAF50', height: '20px', marginRight: '20px'}}>
-                                                                        アクセプタンス
+                                                                        chap nhan
                                                                     </Button>
                                                                     <Button size="small" variant="outlined" style={{ color: '#FF9800', height: '20px'}}>
-                                                                        相談する
+                                                                        thuong luong
                                                                     </Button>
                                                                 </>
                                                             )
@@ -425,8 +289,8 @@ export default function Detail() {
                         </div>
                     </section>
                 </Paper>
-            )
-        }
-        </>
-    )
+    </Fragment>
+  )
 }
+
+export default Comment;

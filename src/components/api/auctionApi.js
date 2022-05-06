@@ -12,6 +12,38 @@ const auctionApi = {
     const url = `/auctions/listAuctionsByStatus/${statusId}`;
     return axiosClient.get(url, { params });
   },
+  getListLike (statusId, params) {
+    const url = `/likes/${statusId}`;
+    return axiosClient.get(url, { params });
+  },
+  getTotalLikeOfUser () {
+    const url = `/listLikes`;
+    return axiosClient.get(url);
+  },
+  getListCommentsBids (type, auctionId, params) {
+    const url = `/${type}/${auctionId}`;
+    return axiosClient.get(url, {params});
+  },
+  getListComments (auctionId, params) {
+    const url = `/comments/${auctionId}`;
+    return axiosClient.get(url, {params});
+  },
+  createComment (auctionId, content) {
+    const url = `/comments/create/${auctionId}`;
+    return axiosClient.post(url, {
+      content
+    });
+  },
+  deleteComment (commentId) {
+    const url = `/comments/delete/${commentId}`;
+    return axiosClient.post(url);
+  },
+  createBid (auctionId, price) {
+    const url = `/bids/create/${auctionId}`;
+    return axiosClient.post(url, {
+      price
+    });
+  },
   createAuction (title_ni,category_id, start_date, end_date) {
     const url = 'auctions/create';
     return axiosClient.post(url, {
@@ -45,6 +77,10 @@ const auctionApi = {
     const url = `auctions/detail/${auctionId}`
     return axiosClient.get(url);
   },
+  maxBid (auctionId) {
+    const url = `auctions/maxBid/${auctionId}`
+    return axiosClient.get(url);
+  },
   update () {
     const url = 'auctions/update/status';
     return axiosClient.get(url);
@@ -52,6 +88,18 @@ const auctionApi = {
   detail1 (auctionId) {
     const url = `auctions/detail1/${auctionId}`;
     return axiosClient.get(url);
+  },
+  slider () {
+    const url = 'slider';
+    return axiosClient.get(url);
+  },
+  like (auctionId) {
+    const url = `updateLike/${auctionId}`;
+    return axiosClient.post(url);
+  },
+  search (params) {
+    const url = '/search';
+    return axiosClient.get(url, {params});
   }
 };
 

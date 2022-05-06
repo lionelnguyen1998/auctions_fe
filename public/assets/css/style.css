@@ -132,7 +132,7 @@ ol {
 }
 
 .spad {
-	padding-top: 100px;
+	/* padding-top: 100px; */
 	padding-bottom: 100px;
 }
 
@@ -625,8 +625,9 @@ ol {
 }
 
 .hero__search {
-	overflow: hidden;
+	/* overflow: hidden; */
 	margin-bottom: 30px;
+	margin-top:-20px
 }
 
 .hero__search__form {
@@ -687,6 +688,7 @@ ol {
 
 .hero__search__phone {
 	float: right;
+	margin-top: -46px
 }
 
 .hero__search__phone__icon {
@@ -769,7 +771,7 @@ ol {
 	text-transform: uppercase;
 	letter-spacing: 2px;
 	padding: 12px 0 10px;
-	background: #ffffff;
+	background: #E6EFE6;
 	display: block;
 }
 
@@ -802,8 +804,8 @@ ol {
 -----------------------*/
 
 .featured {
-	padding-top: 80px;
-	padding-bottom: 40px;
+	/* padding-top: 80px; */
+	padding-bottom: 0px;
 }
 
 .featured__controls {
@@ -2605,7 +2607,7 @@ ol {
 -----------------------*/
 
 .footer {
-	background: #F3F6FA;
+	background: #FFFF;
 	padding-top: 70px;
 	padding-bottom: 0;
 }

@@ -13,6 +13,9 @@ import Item from './components/Auction/Item';
 import AuthService from "./components/services/auth.service";
 import Detail from './components/Auction/Detail';
 import Auctions from './components/Auction/Auctions';
+import Like from './components/Auction/Like';
+import AuctionByCategory from './components/Auction/AuctionByCategory';
+import Notification from './components/Notification/Notification';
 
 
 function App() {
@@ -41,6 +44,13 @@ function App() {
                       element={<Detail />}
                     />
                     <Route path="/auctions" element={<Auctions />}/>
+                    {
+                      currentUser && (
+                        <Route path="/likes" element={<Like />}/>
+                      )
+                    }
+                    <Route path="/notifications" element={<Notification />}/>
+                    <Route path="/auctionsByCategory" element={<AuctionByCategory />}/>
                 </Routes>
             <Footer />
         </div>

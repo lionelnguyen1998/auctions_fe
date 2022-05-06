@@ -6,6 +6,7 @@ import Select from 'react-select';
 import DateTimePicker from 'react-datetime-picker';
 import auctionApi from '../api/auctionApi';
 import { useNavigate } from 'react-router-dom';
+import { Paper } from '@mui/material'
 
 function Sell() {
     let navigate = useNavigate();
@@ -50,7 +51,7 @@ function Sell() {
       ;(async () => {
           try {
               const response = await auctionApi.getListCategory()
-              setCategory(response.data.data.categories)
+              setCategory(response.data.data)
           } catch (error) {
               console.log(error.message)
           }
@@ -65,83 +66,85 @@ function Sell() {
     
     return (
         <Fragment>
-          <div className="container">  
-            <Form 
-              className="form-test"
-              method="POST"
-              onSubmit={handleCreateAuction}
-              >
-              <div className="form-group">
-                <label htmlFor="name"><b>オークションのタイトル </b><i className="fa fa-asterisk" style={{color:"red"}}></i></label>
-                <Input
-                  type="text"
-                  className="form-control"
-                  name="name"
-                  onChange={e => setName(e.target.value)}
-                  placeholder='入力してください'
-                />
-              {messageName && (
-                  <div className="form-group">
-                    <label style={{color:"red"}}>
-                      {messageName}
-                    </label>
-                  </div>
-                )}
-              </div>
-              <div className="form-group">
-                <label htmlFor="category"><b>カテゴリー </b><i className="fa fa-asterisk" style={{color:"red"}}></i></label>
-                <Select name='category'
-                  onChange={e => setCategoryId(e.value)}
-                  options={options[0]}
-                  placeholder='選択してください'
-                />
-                {messageCategory && (
-                  <div className="form-group">
-                    <label style={{color:"red"}}>
-                      {messageCategory}
-                    </label>
-                  </div>
-                )}
-              </div>
-              <label htmlFor="start_date"><b>始まる時間 </b><i className="fa fa-asterisk" style={{color:"red"}}></i></label>
-              <div className="form-group">
-                <DateTimePicker 
-                    onChange={e => setStartDate(e)} 
-                    value={start_date}
-                    name="start_date"
+          <Paper style={{ padding: "20px", marginBottom: "40px"}} className="container">
+            <div className="container">  
+              <Form 
+                className="form-test"
+                method="POST"
+                onSubmit={handleCreateAuction}
+                >
+                <div className="form-group">
+                  <label htmlFor="name"><b>オークションのタイトル </b><i className="fa fa-asterisk" style={{color:"red"}}></i></label>
+                  <Input
+                    type="text"
                     className="form-control"
-                />
-                {messageStartDate && (
-                  <div className="form-group">
-                    <label style={{color:"red"}}>
-                      {messageStartDate}
-                    </label>
-                  </div>
-                )}
-              </div>
-              <label htmlFor="end_date"><b>終わる時間 </b><i className="fa fa-asterisk" style={{color:"red"}}></i></label>
-              <div className="form-group">
-                <DateTimePicker 
-                    onChange={e => setEndDate(e)} 
-                    value={end_date} 
-                    name="end_date"
-                    className="form-control"
-                />
-                {messageEndDate && (
-                  <div className="form-group">
-                    <label style={{color:"red"}}>
-                      {messageEndDate}
-                    </label>
-                  </div>
-                )}
-              </div>
-              <div className="form-group">
-                <button className="site-btn">
-                  <span>登録</span>
-                </button>
-              </div>
-            </Form>
-          </div>
+                    name="name"
+                    onChange={e => setName(e.target.value)}
+                    placeholder='入力してください'
+                  />
+                {messageName && (
+                    <div className="form-group">
+                      <label style={{color:"red"}}>
+                        {messageName}
+                      </label>
+                    </div>
+                  )}
+                </div>
+                <div className="form-group">
+                  <label htmlFor="category"><b>カテゴリー </b><i className="fa fa-asterisk" style={{color:"red"}}></i></label>
+                  <Select name='category'
+                    onChange={e => setCategoryId(e.value)}
+                    options={options[0]}
+                    placeholder='選択してください'
+                  />
+                  {messageCategory && (
+                    <div className="form-group">
+                      <label style={{color:"red"}}>
+                        {messageCategory}
+                      </label>
+                    </div>
+                  )}
+                </div>
+                <label htmlFor="start_date"><b>始まる時間 </b><i className="fa fa-asterisk" style={{color:"red"}}></i></label>
+                <div className="form-group">
+                  <DateTimePicker 
+                      onChange={e => setStartDate(e)} 
+                      value={start_date}
+                      name="start_date"
+                      className="form-control"
+                  />
+                  {messageStartDate && (
+                    <div className="form-group">
+                      <label style={{color:"red"}}>
+                        {messageStartDate}
+                      </label>
+                    </div>
+                  )}
+                </div>
+                <label htmlFor="end_date"><b>終わる時間 </b><i className="fa fa-asterisk" style={{color:"red"}}></i></label>
+                <div className="form-group">
+                  <DateTimePicker 
+                      onChange={e => setEndDate(e)} 
+                      value={end_date} 
+                      name="end_date"
+                      className="form-control"
+                  />
+                  {messageEndDate && (
+                    <div className="form-group">
+                      <label style={{color:"red"}}>
+                        {messageEndDate}
+                      </label>
+                    </div>
+                  )}
+                </div>
+                <div className="form-group">
+                  <button className="site-btn">
+                    <span>登録</span>
+                  </button>
+                </div>
+              </Form>
+            </div>
+          </Paper>
         </Fragment>
     );
 }

@@ -5,3 +5,11 @@
 .react-datetime-picker__wrapper {
     border: none !important;
 }
+.select-paginate {
+    margin-top: 16px !important;
+}
+.h3-auction {
+    font-weight: bolder;
+    color: #7FAD39;
+    margin-bottom: 10px;
+}
