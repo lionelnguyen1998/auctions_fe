@@ -1,33 +1,16 @@
+import React from 'react';
 import "./conversation.css";
-import React, {useState, useEffect} from 'react';
-import chatApi from '../api/chatApi';
 
-export default function Conversation() {
-//   const [user, setUser] = useState(null);
-//   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
-
-//   useEffect(() => {
-//     const friendId = conversation.members.find((m) => m !== currentUser._id);
-
-//     const getUser = async () => {
-//       try {
-//         const res = await axios("/users?userId=" + friendId);
-//         setUser(res.data);
-//       } catch (err) {
-//         console.log(err);
-//       }
-//     };
-//     getUser();
-//   }, [currentUser, conversation]);
-
+export default function Conversation({conversation}) {
+  const userReceive = conversation.user_receive_info;
   return (
     <div className="conversation">
       <img
         className="conversationImg"
-        src='https://jes.edu.vn/wp-content/uploads/2017/10/h%C3%ACnh-%E1%BA%A3nh.jpg'
-        alt=""
+        src={userReceive ? userReceive.avatar : `http://img.phebinhvanhoc.com.vn/wp-content/uploads/2021/07/imager_1_2269_700-1.jpg`}
+        alt={userReceive ? userReceive.name : ''}
       />
-      <span className="conversationName">Tra Nguyen</span>
+      <span className="conversationName">{userReceive ? userReceive.name : ''}</span>
     </div>
   );
 }
