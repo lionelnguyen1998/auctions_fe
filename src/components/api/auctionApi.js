@@ -8,6 +8,10 @@ const auctionApi = {
     const url = `/auctions/listAuctionsByUser/${statusId}`;
     return axiosClient.get(url, { params });
   },
+  getAllAuctionsOfUserK (userId, statusId, params) {
+    const url = `/auctions/listAuctionsByUserK/${userId}/${statusId}`;
+    return axiosClient.get(url, { params });
+  },
   getList (statusId, params) {
     const url = `/auctions/listAuctionsByStatus/${statusId}`;
     return axiosClient.get(url, { params });
@@ -65,9 +69,14 @@ const auctionApi = {
       images
     });
   },
+  
   getListCategory () {
     const url = 'categories';
     return axiosClient.get(url);
+  },
+  listAuctionOfCategory (statusId, params) {
+    const url = `listAuctionOfCategory/${statusId}`;
+    return axiosClient.get(url, { params });
   },
   getListBrand () {
     const url = 'brands';
@@ -100,6 +109,22 @@ const auctionApi = {
   search (params) {
     const url = '/search';
     return axiosClient.get(url, {params});
+  },
+  getListCategoryBuy () {
+    const url ='/items/categories'
+    return axiosClient.get(url);
+  },
+  getListItemOfCategoryBuy (categoryId) {
+    const url =`/items/listBuy/${categoryId}`
+    return axiosClient.get(url);
+  },
+  getDetailItem (itemId) {
+    const url = `/items/detail/${itemId}`;
+    return axiosClient.get(url);
+  },
+  acceptBid (auctionId, selling_info) {
+    const url = `/accept/${auctionId}`;
+    return axiosClient.post(url, {selling_info});
   }
 };
 

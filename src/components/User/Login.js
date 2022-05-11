@@ -54,6 +54,13 @@ const Login = () => {
   return (
     <div className="col-md-12">
       <div className="card card-container">
+        <div className="row">
+            <div className="col-lg-12">
+            <div className="section-title">
+                    <h2>ログイン</h2>
+                </div>
+            </div>
+        </div>
         <Form onSubmit={handleLogin} ref={form}>
           {message && (
             <div className="form-group">

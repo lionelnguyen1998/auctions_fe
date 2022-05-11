@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
-import { Paper, Link, Button, Pagination} from "@mui/material";
+import { Paper, Button, Pagination } from "@mui/material";
 import notificationApi from '../api/notificationApi';
+import { Link } from 'react-router-dom';
 import {typeNotification} from "../constant/index";
 import './index.css'
 
@@ -36,7 +37,7 @@ export default function Notification() {
             .catch((e) => {
                 console.log(e);
             });
-      };
+    };
 
     useEffect(allNotifications, [index, count]);
 
@@ -56,66 +57,66 @@ export default function Notification() {
                     <div className="row">
                         <div className="col-lg-12">
                         <div className="section-title">
-                                <h2>notifications 一覧</h2>
+                                <h2>お知らせ一覧</h2>
                             </div>
                         </div>
                     </div>
                     <div>
                         <div>
                             <table id="customers">
-                            <tr>
-                                <th>Title</th>
-                                <th>Auctions</th>
-                                <th>Date</th>
-                                <th></th>
-                            </tr>
-                            {
-                                notifications.map((notification, index) => (
-                                <tr key={index} className={`${notification.is_read ? 'isRead' : 'notRead'}`}>
-                                    <td>
-                                        { notification.reason.substr(0, 20) + '...' }
-                                    </td>
-                                    <td>
-                                        {notification.title}
-                                    </td>
-                                    <td>
-                                        {notification.updated_at}
-                                    </td>
-                                    <td>
-                                        <Button disabled size="small" variant="outlined" style={{marginRight: '20px',  height: '20px'}}>
-                                            <b className={`${(typeNotification[notification.type] === 1) ? 'accept' : 'reject'}`} >{typeNotification[notification.type]}</b>
-                                        </Button>
-                                        <a href='/login'>
-                                            <Button size="small" variant="outlined"style={{ height: '20px'}}>
-                                                    <i class="fa fa-eye" aria-hidden="true" style={{color: '#007bff'}}></i>
-                                            </Button>
-                                        </a>
-                                    </td>
+                                <tr>
+                                    <th>タイトル</th>
+                                    <th>オークション</th>
+                                    <th>時間</th>
+                                    <th></th>
                                 </tr>
-                                ))
-                            }
+                                {
+                                    notifications.map((notification, index) => (
+                                    <tr key={index} className={`${notification.is_read ? 'isRead' : 'notRead'}`}>
+                                        <td style={{width: '35%'}}>
+                                            { notification.reason.substr(0, 20) + '...' }
+                                        </td>
+                                        <td style={{width: '25%'}}>
+                                            {notification.title}
+                                        </td>
+                                        <td style={{width: '23%'}}>
+                                            {notification.updated_at}
+                                        </td>
+                                        <td>
+                                            <Button disabled size="small" variant="outlined" style={{marginRight: '20px',  height: '20px'}}>
+                                                <b className={`${(typeNotification[notification.type] === 1) ? 'accept' : 'reject'}`} >{typeNotification[notification.type]}</b>
+                                            </Button>
+                                            <Link to={`/notifications/${notification.auction_id}`}>
+                                                <Button size="small" variant="outlined"style={{ height: '20px', marginRight: '20px'}}>
+                                                        <i class="fa fa-eye" aria-hidden="true" style={{color: '#007bff'}}></i>
+                                                </Button>
+                                            </Link>
+                                        </td>
+                                    </tr>
+                                    ))
+                                }
                             </table>
                         </div>
                         <div>
-                        <select className="select-paginate" onChange={handlePageSizeChange} value={count}>
-                            {pageSizes.map((size) => (
-                            <option key={size} value={size}>
-                                {size}
-                            </option>
-                            ))}
-                        </select>
-                        <Pagination
-                            style={{float: "right"}}
-                            className="my-3"
-                            count={counts}
-                            page={index}
-                            siblingCount={1}
-                            boundaryCount={1}
-                            variant="outlined"
-                            shape="rounded"
-                            onChange={handlePageChange}
-                            color="success"
-                        />
+                            <select className="select-paginate" onChange={handlePageSizeChange} value={count}>
+                                {pageSizes.map((size) => (
+                                <option key={size} value={size}>
+                                    {size}
+                                </option>
+                                ))}
+                            </select>
+                            <Pagination
+                                style={{float: "right"}}
+                                className="my-3"
+                                count={counts}
+                                page={index}
+                                siblingCount={1}
+                                boundaryCount={1}
+                                variant="outlined"
+                                shape="rounded"
+                                onChange={handlePageChange}
+                                color="success"
+                            />
                         </div>
                     </div>
                 </div>

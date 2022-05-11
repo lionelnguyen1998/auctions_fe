@@ -29,6 +29,11 @@ const logout = () => {
 };
 const getCurrentUser = () => {
   return JSON.parse(localStorage.getItem("user"));
+  // return axios
+  //   .get(API_URL + "info")
+  //   .then((response) => {
+  //     return response.data;
+  //   });
 };
 const AuthService = {
   register,

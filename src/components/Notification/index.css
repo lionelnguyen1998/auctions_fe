@@ -74,3 +74,30 @@
 .reject {
     color: #dc3545;
 }
+.reason-reject {
+    word-wrap: break-word;
+    color: crimson;
+    max-width: 600px;
+    margin-left: 266px
+}
+
+.section-title p {
+    position: relative;
+    float:right;
+}
+
+.section-title p:after {
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    right: 0;
+    height: 2px;
+    width: 80px;
+    background: #7fad39;
+    content: "";
+    margin: 0 auto;
+}
+
+.css-i9fmh8-MuiBackdrop-root-MuiModal-backdrop {
+    background-color: #ebebebe0 !important;
+}

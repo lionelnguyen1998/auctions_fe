@@ -14,16 +14,35 @@ function ListAuction(props) {
                             <div className="featured__item">
                                 <div className="featured__item__pic set-bg" data-setbg={auction.category.image} style={{backgroundImage: `url(${auction.category.image})`}}>
                                     <ul className="featured__item__pic__hover">
-                                        <li><Link to={`/detail/${auction.auction_id}`}><i className="fa fa-retweet"></i></Link></li>
+                                        <li>
+                                            {
+                                                auction.statusId === 4 ? (
+                                                    <Link to={`/detailwait/${auction.auction_id}`}><i className="fa fa-retweet"></i></Link>
+                                                ) : (
+                                                    <Link to={`/detail/${auction.auction_id}`}><i className="fa fa-retweet"></i></Link>
+                                                )
+                                            }
+                                           
+                                        </li>
                                     </ul>
                                 </div>
                                 <div className="featured__item__text">
                                     <h6>{auction.title}</h6>
-                                    <Link to={`/detail/${auction.auction_id}`}>
-                                        <Button size="small" variant="outlined" style={{ color: colors[auction.statusId], height: '20px'}}>
-                                            <b>{auction.status}</b>
-                                        </Button>
-                                    </Link>
+                                    {
+                                        auction.statusId === 4 ? (
+                                            <Link to={`/detailwait/${auction.auction_id}`}>
+                                                <Button size="small" variant="outlined" style={{ color: colors[auction.statusId], height: '20px', borderColor:colors[auction.statusId]}}>
+                                                    <b>{auction.status}</b>
+                                                </Button>
+                                            </Link>
+                                        ) : (
+                                            <Link to={`/detail/${auction.auction_id}`}>
+                                                <Button size="small" disabled variant="outlined" style={{ color: colors[auction.statusId], height: '20px', borderColor:colors[auction.statusId]}}>
+                                                    <b>{auction.status}</b>
+                                                </Button>
+                                            </Link>
+                                        )
+                                    }
                                 </div>
                             </div>
                         </div>

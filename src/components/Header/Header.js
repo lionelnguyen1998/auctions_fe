@@ -56,14 +56,13 @@ function Header({auth}) {
         const params = getRequestParams( index, count, isNotRead);
         notificationApi.getAllNotification(params)
             .then((res) => {
-               console.log(res.data.data)
                 setNotifications(res.data.data.denys)
                 setTotalNotRead(res.data.data.total_not_read)
             })
             .catch((e) => {
                 console.log(e);
             });
-    }, [])
+    }, [totalNotRead])
     
     return (
         <Fragment>
@@ -80,12 +79,13 @@ function Header({auth}) {
                                         {
                                             auth ? (
                                                 <>
-                                                    <div>おはよう {userInfo.name}</div>
+                                                    <div><b>おはよう {userInfo.name}</b></div>
                                                     <span className="arrow_carrot-down"></span>
                                                     <ul className="dropdown">
                                                         <div class="dropdown-content">
                                                             <li><a href="/" className="nav-link" onClick={logOut} style={{color:"#1C1C1C"}}>ログアウト</a></li>
                                                             <li><Link to="/edit" style={{color:"#1C1C1C"}}>編集</Link></li>
+                                                            <li><Link to="/changepass" style={{color:"#1C1C1C"}}>パスワードを変更</Link></li>
                                                         </div>
                                                     </ul>
                                                 </>
@@ -126,7 +126,7 @@ function Header({auth}) {
                                         <li><Link to="/login">販売</Link></li>
                                     )
                                 }
-                                <li><a href="#">News</a></li>
+                                <li><Link to='/news'>ニュース</Link></li>
                                 <li><Link to="/contacts">お問い合わせ</Link></li>
                             </ul>
                         </nav>
@@ -151,14 +151,15 @@ function Header({auth}) {
                                                 {
                                                     notifications.map((notification, index) => (
                                                         <div key={index}>
-                                                            <Link to='/'>{ notification.reason.substr(0, 20) + '...' }</Link>
+                                                            <Link to={`/notifications/${notification.auction_id}`}>{ notification.reason.substr(0, 20) + '...' }</Link>
                                                         </div>
                                                     ))
                                                 }
-                                                <Link to="/notifications">All notifications</Link>
+                                                <Link to="/notifications"><b>すべて見る</b></Link>
                                             </div>
                                         </li>
                                         <li><Link to="/auctions"><i className="fa fa-buysellads"></i></Link></li>
+                                        <li><Link to="/chat"><i class="fa fa-comments" aria-hidden="true"></i></Link></li>
                                     </ul>
                                 )
                             }

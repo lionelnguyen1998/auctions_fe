@@ -87,6 +87,13 @@ function Register() {
     <Fragment>
       <div className="col-md-12">
         <div className="card card-container">
+          <div className="row">
+              <div className="col-lg-12">
+              <div className="section-title">
+                      <h2>登録</h2>
+                  </div>
+              </div>
+          </div>
           <Form
             onSubmit={handleRegister}
           >

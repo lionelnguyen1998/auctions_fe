@@ -3,7 +3,8 @@ export const statusKey = {
   1: '起こる',
   2: 'もうすぐ',
   3: '終わった',
-  4: '評価'
+  4: '評価',
+  6: '売りました'
 };
 
 export const tabKey = {

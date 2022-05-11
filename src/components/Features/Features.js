@@ -94,7 +94,7 @@ function Features(){
                                                 </div>
                                                 <div className="featured__item__text">
                                                     <h6>{auction.title}</h6>
-                                                    <Button disabled size="small" variant="outlined" style={{ color: colors[auction.statusId], height: '20px'}}>
+                                                    <Button disabled size="small" variant="outlined" style={{ color: colors[auction.statusId], height: '20px', borderColor:colors[auction.statusId]}}>
                                                         <b>{auction.status}</b>
                                                     </Button>
                                                     

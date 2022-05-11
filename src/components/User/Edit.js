@@ -9,24 +9,21 @@ import { useNavigate } from 'react-router-dom';
 function Edit() {
     let navigate = useNavigate();
     const currentUser = AuthService.getCurrentUser();
+    console.log(currentUser);
     let userInfo = currentUser.user;
     const [email, setEmail] = useState(userInfo.email);
     const [address, setAddress] = useState(userInfo.address);
     const [phone, setPhone] = useState(userInfo.phone);
     const [name, setName] = useState(userInfo.name);
-    const [password, setPassword] = useState('');
-    const [re_pass, setRePass] = useState('');
     const [messageN, setMessageN] = useState('');
     const [messageE, setMessageE] = useState('');
-    const [messageP, setMessageP] = useState('');
     const [messageA, setMessageA] = useState('');
     const [messagePhone, setMessagePhone] = useState('');
-    const [messageRePass, setMessageRePass] = useState('');
     const [successfull, setSuccessfull] = useState(false);
     const [image, setImage] = useState(userInfo.avatar);
     const [imagePreview, setImagePreview] = useState([]);
     const [selectedFile, setSelectedFile] = useState(undefined);
-  
+
     useEffect(() => {
         return () => {
             image && URL.revokeObjectURL(image.preview)
@@ -53,19 +50,15 @@ function Edit() {
     const handleEdit = (e) => {
         e.preventDefault();
         setMessageN('');
-        setMessageP('');
         setMessageE('');
         setMessageA('');
         setMessagePhone('');
-        setMessageRePass('');
         setSuccessfull(false);
         userApi.edit(
             name,
             email,
-            password,
             address,
             phone,
-            re_pass,
             image,
         ).then(
             response => {
@@ -79,8 +72,6 @@ function Edit() {
                     setMessagePhone(errors[1].slice(7))
                     setMessageA(errors[2].slice(9))
                     setMessageE(errors[3].slice(7))
-                    setMessageP(errors[4].slice(10))
-                    setMessageRePass(errors[5].slice(9))
                     setSuccessfull(false)
                 }
                 }
@@ -90,6 +81,13 @@ function Edit() {
     <Fragment>
         <div className="col-md-12">
         <div className="card card-container">
+            <div className="row">
+                <div className="col-lg-12">
+                <div className="section-title">
+                        <h2>プロファールを編集</h2>
+                    </div>
+                </div>
+            </div>
             <Form
             onSubmit={handleEdit}
             >
@@ -123,40 +121,6 @@ function Edit() {
                     <div className="form-group">
                         <label style={{color:"red"}}>
                         {messageE}
-                        </label>
-                    </div>
-                    )}
-                </div>
-                <div className="form-group">
-                    <label htmlFor="password"><b>パスワード </b><i className="fa fa-asterisk" style={{color:"red"}}></i></label>
-                    <Input
-                    type="password"
-                    className="form-control"
-                    name="password"
-                    value={password}
-                    onChange={e => setPassword(e.target.value)}
-                    />
-                    {messageP && (
-                    <div className="form-group">
-                        <label style={{color:"red"}}>
-                        {messageP}
-                        </label>
-                    </div>
-                    )}
-                </div>
-                <div className="form-group">
-                    <label htmlFor="re_pass"><b>パスワードを確認する </b></label>
-                    <Input
-                    type="password"
-                    className="form-control"
-                    name="re_pass"
-                    value={re_pass}
-                    onChange={e=> setRePass(e.target.value)}
-                    />
-                    {messageRePass && (
-                    <div className="form-group">
-                        <label style={{color:"red"}}>
-                        {messageRePass}
                         </label>
                     </div>
                     )}
@@ -208,8 +172,10 @@ function Edit() {
                         </div>
                     </div>
                     {
-                        imagePreview && (
+                        imagePreview === true ? (
                             <img src={imagePreview.preview} alt="" width="20%"/>
+                        ) : (
+                            <img src={image} alt="" width="20%"/>
                         )
                     }
                 </div>

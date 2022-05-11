@@ -309,7 +309,7 @@ function Item() {
                     onChange={e => setDescription(e.target.value)}
                     placeholder='ディスクリプションを入力してください'
                   />
-                {messageDescription && (
+                  {messageDescription && (
                     <div className="form-group">
                       <label style={{color:"red"}}>
                         {messageDescription}

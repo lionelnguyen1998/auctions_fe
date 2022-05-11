@@ -1,11 +1,13 @@
-import React, {Fragment, useState} from 'react';
+import React, {Fragment} from 'react';
 import Pagination from "@mui/material/Pagination";
+import './index.css'
 
 function Paginate(props) {
-    console.log(props)
-    const [index, setPage] = useState(1);
-    const [counts, setCount] = useState(1);
-    const [count, setPageSize] = useState(4);
+    const counts = props.counts;
+    const index = props.index;
+    const setPage = props.setPage;
+    const count = props.count;
+    const setPageSize = props.setPageSize
     const pageSizes = [4, 8, 12];
 
     const handlePageChange = (event, value) => {
@@ -19,7 +21,7 @@ function Paginate(props) {
     return (
         <Fragment>
             <div>
-                <select onChange={handlePageSizeChange} value={count}>
+                <select className="select-paginate" onChange={handlePageSizeChange} value={count}>
                     {pageSizes.map((size) => (
                     <option key={size} value={size}>
                         {size}
@@ -27,6 +29,7 @@ function Paginate(props) {
                     ))}
                 </select>
                 <Pagination
+                    style={{float: "right"}}
                     className="my-3"
                     count={counts}
                     page={index}

@@ -61,7 +61,7 @@ a {
   text-decoration: none;
 }
 
-a:hover {
+.dataResult a:hover {
   background-color: #E6EFE6;
 }
 
