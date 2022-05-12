@@ -5,7 +5,7 @@
     cursor: pointer;
     margin-top: 10px;
 }
-  
+
 .chatOnlineImgContainer {
     position: relative;
     margin-right: 10px;
@@ -28,14 +28,23 @@
     top: 2px;
     right: 2px;
 }
+
+.chatOnlineBadgeAdmin {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    position: absolute;
+    top: 2px;
+    right: 2px;
+}
   
 @media screen and (max-width: 768px) {
     .chatOnlineName {
       display: none;
     }
 }
-.chatOnline {
-    height: 100%;
-    overflow-y: scroll;
-    padding-right: 10px;
+
+.adminStar {
+    margin-left: -1px;
+    margin-top: -23px;
 }

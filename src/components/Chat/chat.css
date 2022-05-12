@@ -52,7 +52,7 @@
     border: none;
     border-radius: 10px;
     cursor: pointer;
-    background-color: #7fad39;
+    background-color: #42640e;
     color: white;
 }
 
@@ -104,7 +104,7 @@
 }
 .conversationTop {
     background-color: #e6efe6;
-    border-radius: 32px;
+    border-radius: 23px;
     font-size:20px
 }
 
@@ -124,4 +124,56 @@
     .conversationNameTop {
         display: none;
     }
+}
+
+.chatOnlineImgAuth {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid white;
+}
+
+.chatOnlineBadgeAuth {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: limegreen;
+    position: absolute;
+    top: -1px;
+    right: 4px;
+}
+.chatOnlineBadgeAuthAdmin{
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    position: absolute;
+    top: -1px;
+    right: 4px;
+}
+
+.adminStarAuth {
+    margin-left: 1px;
+    margin-top: -12px;
+}
+
+.chatOnlineAuth {
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    margin-top: 10px;
+}
+
+.chatOnlineBadgeBox{
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    position: absolute;
+    top: -1px;
+    right: 4px;
+}
+
+.adminStarBox {
+    margin-left: -449px;
+    margin-top: 42px;
 }

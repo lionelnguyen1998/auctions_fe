@@ -8,6 +8,7 @@
 
 .conversation:hover {
     background-color: #e6efe6;
+    border-radius: 10px
 }
 
 .conversationImg {
@@ -26,4 +27,18 @@
     .conversationName {
         display: none;
     }
+}
+
+.chatOnlineBadgeAdminConv {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    position: absolute;
+    top: 2px;
+    right: 2px;
+}
+
+.adminStarConv {
+    margin-left: -75px;
+    margin-top: -23px;
 }
