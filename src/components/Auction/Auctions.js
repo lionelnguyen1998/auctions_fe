@@ -10,6 +10,7 @@ import Paginate from '../Paginate/Paginate.js'
 import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
 import { Link } from 'react-router-dom'
+import Search from './Search.js'
 
 const tabs = [0, 1, 2, 3, 4, 6];
 const responsive = {
@@ -26,6 +27,14 @@ function Auctions() {
     const [userInfo, setUserInfo] = useState('')
     const [categories, setCategories] = useState([])
     const [total, setTotal] = useState([])
+    const [query, setQuery] = useState('')
+    
+    const keys = ['title', 'start_date', 'end_date'];
+
+    const search = (data) => {
+        return data.filter((auction) => keys.some((key) => auction[key].toLowerCase().includes(query)));
+    };
+
     useEffect(() => {
         auctionApi.getListCategoryBuy()
             .then(res => {
@@ -89,6 +98,9 @@ function Auctions() {
                             
                             <div className="featured__controls">
                                     <ul>
+                                    <Search 
+                                        setQuery={setQuery}
+                                    />
                                         {
                                             tabs.map(tab => (
                                                 <li 
@@ -109,7 +121,7 @@ function Auctions() {
                         <div>
                             <b style={{color:'#7FAD39'}}>{total} オークション</b>
                             <ListAuction
-                                auctions={auctions}
+                                auctions={search(auctions)}
                             />
                             <Paginate 
                             counts={counts}

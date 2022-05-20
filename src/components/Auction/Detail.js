@@ -1,17 +1,18 @@
-import React,{useState, useRef, useEffect} from 'react'
-import DetailsThumb from './DetailsThumb'
+import React,{useState, useEffect} from 'react'
 import auctionApi from '../api/auctionApi';
 import './detail.css'
-import {Avatar, Pagination, Paper, Grid, Button, Modal, Box} from "@mui/material";
+import {Avatar, Paper, Grid, Button, Modal, Box} from "@mui/material";
 import Textarea from "react-validation/build/textarea";
 import Form from "react-validation/build/form";
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate} from 'react-router-dom';
 import {tabKey} from "../constant/index";
 import AuthService from "../services/auth.service";
 import DeleteComment from './DeleteComment';
+import Paginate from '../Paginate/Paginate.js'
+import Info from './Info';
+import { format } from "timeago.js";
 
 const tabs = ['bids', 'comments'];
-const colors = ['#2196F3', '#4CAF50', '#FF9800', '#F44336', '#2196F3'];
 const style = {
     position: 'absolute',
     top: '50%',
@@ -29,17 +30,15 @@ const style = {
 export default function Detail() {
     const currentUser = AuthService.getCurrentUser();
     let navigate = useNavigate();
-    const [indexs, setIndex] = useState(0);
-    const imgDiv = useRef();
     const link = window.location.href;
     const auctionId = link.slice(29);
-    const [item, setItem] = useState([]);
     const [maxPrice, setMaxPrice] = useState('');
     const [auction, setAuction] = useState('');
     const [index, setPage] = useState(1);
     const [counts, setCount] = useState(1);
     const [count, setPageSize] = useState(4);
     const [comments, setComments] = useState([])
+    const [messageError, setMessageError] = useState('')
     const [content, setContent] = useState('')
     const [total, setTotal] = useState(0)
     const [totalPrice, setTotalPrice] = useState(0)
@@ -48,21 +47,17 @@ export default function Detail() {
     const [priceM, setPriceM] = useState('');
     const [type, setType] = useState('bids');
     const [sellingUser, setSellingUser] = useState('');
-    const [liked, setLiked] = useState('')
-    const [categoryInfo, setCategoryInfo] = useState('')
     const [open, setOpen] = useState('')
+    const [open2, setOpen2] = useState('')
     const [sellingInfo, setSellingInfo] = useState('')
     const [sellingInfoM, setSellingInfoM] = useState('')
-
-    const pageSizes = [4, 8, 12];
+    const [categoryInfo, setCategoryInfo] = useState('')
     
     useEffect(() => {
         auctionApi.detail(auctionId)
             .then((res) => {
-                setItem(res.data.data.items)
                 setAuction(res.data.data.auctions)
                 setSellingUser(res.data.data.selling_user)
-                setLiked(res.data.data.auctions.like)
                 setCategoryInfo(res.data.data.category)
             })
     }, [])
@@ -73,13 +68,6 @@ export default function Detail() {
                 setMaxPrice(res.data.data)
             })
     }, [totalPrice])
-
-    const handleMouseMove = e =>{
-        const {left, top, width, height} = e.target.getBoundingClientRect();
-        const x = (e.pageX - left) / width * 100
-        const y = (e.pageY - top) / height * 100
-        imgDiv.current.style.backgroundPosition = `${x}% ${y}%`
-    }
 
     const getRequestParams = (index, count) => {
         let params = {};
@@ -117,30 +105,25 @@ export default function Detail() {
 
     useEffect(retrieveAuctionsBidComment, [type, auctionId, index, count, total, totalPrice]);
 
-    const handlePageChange = (event, value) => {
-        setPage(value);
-    };
-
-    const handlePageSizeChange = (event) => {
-        setPageSize(event.target.value);
-        setPage(1);
-    };
-
     const handleCreateComment = (e) => {
         e.preventDefault();
         auctionApi.createComment(
             auctionId,
             content
         )
-        .then(res => {     
-          setTotal(res.data.total)
+        .then(res => {
+            if (res.data.code === 1000) {
+                setTotal(res.data.total)
+            } else {
+                setMessageError(res.data.message)
+            }
         })
         .catch((e) => {
             navigate("/login");
         })
+        setMessageError('')
         setContent('')
     }
-
     const handleCreateBid = (e) => {
         e.preventDefault();
         setPriceM('')
@@ -159,20 +142,7 @@ export default function Detail() {
         .catch((e) => {
             navigate("/login");
         })
-        
         setPrice('')
-        
-    }
-
-    const handleLiked = (e) => {
-        e.preventDefault();
-        auctionApi.like(auctionId)
-        .then(res => {
-            setLiked(res.data.data.is_liked)
-        })
-        .catch((e) => {
-            navigate("/login");
-        })
     }
 
     const handleAccept = () => {
@@ -188,13 +158,25 @@ export default function Detail() {
             console.log(e);
         });
     }
-
+    
     const handleOpen = () => {
         setOpen(true);
     };
-
+    
     const handleClose = () => {
         setOpen(false);
+    };
+
+    const handleNegotiate = () => {
+        navigate('/chat')
+    }
+
+    const handleOpen2 = () => {
+        setOpen2(true);
+    };
+
+    const handleClose2 = () => {
+        setOpen2(false);
     };
 
     return (
@@ -210,77 +192,14 @@ export default function Detail() {
                 </div>
             </div>
         </section>
-        <Paper style={{ padding: "20px", marginBottom: "40px"}} className="container">
-           {
-            item.images && (
-                   <div className="details">
-                       <div className="img-container" 
-                        ref={imgDiv}
-                        onMouseMove={handleMouseMove}
-                        onMouseLeave={() => imgDiv.current.style.backgroundPosition = `center`}
-                        style={{backgroundImage: `url(${item.images[indexs]})`}}
-                        >
-                       </div>
-                       <div className="box-details">
-                            <Grid container wrap="nowrap" spacing={5} style={{marginBottom: '15px'}}>
-                                <Grid item>
-                                    <Link to={`/auctions/${sellingUser.selling_user_id}`}>
-                                        <Avatar
-                                        sx={{ width: 60, height: 60 }}
-                                        alt={sellingUser.selling_user_name} 
-                                        src={sellingUser.selling_user_avatar} />
-                                    </Link>
-                                </Grid>
-                                <Grid justifyContent="left" item xs zeroMinWidth>
-                                    <div>
-                                        <b style={{ margin: 0, textAlign: "left", fontSize: '30px'}}>{sellingUser.selling_user_name}</b>
-                                    </div>
-                                </Grid>
-                            </Grid>
-                            <h2 title={item.name}>アイテムの名前　{item.name}</h2>
-                            <h3>始値: {Number(item.starting_price).toLocaleString()} 円</h3>
-                            <h3>最高価格: {maxPrice ? Number(maxPrice).toLocaleString() : '--'} 円</h3>
-                            <p>カテゴリー: {categoryInfo.name}</p>
-                            <p>ブランド: {item.brand}</p>
-                            <p>シリーズ: {item.series ?? '--'}</p>
-                            <p>ディスクリプション: {item.description}</p>
-                            <Button disabled size="small" variant="outlined" style={{ color: '#4CAF50', height: '20px', borderColor:'#4CAF50'}}>
-                                <b>{auction.start_date}</b>
-                            </Button>
-                            <Button disabled size="small" variant="outlined" style={{ color: '#F44336', height: '20px', borderColor:'#F44336'}}>
-                                <b>{auction.end_date}</b>
-                            </Button>
-                            <Button disabled size="small" variant="outlined" style={{ color: colors[auction.statusId], height: '20px', borderColor: colors[auction.statusId]}}>
-                                <b>{auction.status}</b>
-                            </Button>
-                            <DetailsThumb images={item.images} setIndex={setIndex} />
-                            {/* {
-                                (auction.statusId === 2) && (
-                                    <CountDown
-                                    startDate = {auction.start_date}
-                                    />
-                                )
-                            }
-                            {
-                                (auction.statusId === 3) && (
-                                    <CountDown
-                                    startDate = {auction.end_date}
-                                    />
-                                )
-                            } */}
-                            <Button size="small" style={{color:'#4CAF50', marginLeft: '10px', height: '20px'}}
-                                onClick={handleLiked}
-                            >
-                                {
-                                    currentUser ? ((liked == true) ? (<i className="fa fa-heart" style={{fontSize:'40px'}}></i>) : (<i class="fa fa-heart-o" style={{fontSize:'40px'}} aria-hidden="true"></i>)) 
-                                        : (<Link to='/login'><i class="fa fa-heart-o" style={{fontSize:'40px'}} aria-hidden="true"></i></Link>)
-                                }
-                            </Button>
-                       </div>
-                   </div>
-                )
-           }
-        </Paper>
+        <Info 
+            auctionId={auctionId}
+            maxPrice={maxPrice}
+            sellingUser={sellingUser}
+            auction={auction}
+            categoryInfo={categoryInfo}
+            currentUser={currentUser}
+        />
         <Paper style={{ padding: "20px 200px", marginBottom: '40px' }} className="container">
             <section>
                 <div className="container">
@@ -323,6 +242,13 @@ export default function Detail() {
                                             value={content}
                                             onChange={e => setContent(e.target.value)}
                                             />
+                                            {   messageError && (
+                                                <div className="form-group">
+                                                    <label style={{color:"red"}}>
+                                                    {messageError}
+                                                    </label>
+                                                </div>
+                                            )}
                                         </div>
                                         <div className="form-group">
                                             <button className="site-btn send">
@@ -350,7 +276,7 @@ export default function Detail() {
                                             <Grid justifyContent="left" item xs zeroMinWidth>
                                                 <div>
                                                     <h4 style={{ margin: 0, textAlign: "left" }}>{comment.user_name}</h4>
-                                                    <span style={{float:"right"}}>{comment.updated_at}</span>
+                                                    <span style={{float:"right"}}>{ format(comment.updated_at) }</span>
                                                 </div>
                                                 <p style={{ textAlign: "left" }}>
                                                     {comment.content}
@@ -361,6 +287,7 @@ export default function Detail() {
                                                 <DeleteComment 
                                                 commentId = {comment.comment_id}
                                                 auctionId = {auctionId}
+                                                setTotal = {setTotal}
                                                 />
                                                 </p>
                                             </Grid>
@@ -421,7 +348,7 @@ export default function Detail() {
                                             <Grid justifyContent="left" item xs zeroMinWidth>
                                             <div>
                                                     <h4 style={{ margin: 0, textAlign: "left" }}>{bid.user_name}</h4>
-                                                    <span style={{float:"right"}}>{bid.updated_at}</span>
+                                                    <span style={{float:"right"}}>{ format(bid.updated_at) }</span>
                                                 </div>
                                                 <p style={{ textAlign: "left" }}>
                                                     {Number(bid.price).toLocaleString()} 円
@@ -431,7 +358,7 @@ export default function Detail() {
                                                 <Button color="success"><i class="fa fa-pencil-square-o" style={{color: '#007bff'}} aria-hidden="true"></i></Button>
                                                 {
                                                     (auction.statusId === 3) 
-                                                    && (currentUser.user.user_id === sellingUser.selling_user_id) 
+                                                    && (currentUser.user.user_id === sellingUser.selling_user_id)
                                                     && (bid.price === maxPrice) 
                                                     && (
                                                         <>
@@ -470,10 +397,33 @@ export default function Detail() {
                                                                 <Button onClick={handleClose} style={{float:'right'}} variant="outlined">キャンセル</Button>
                                                                 </Box>
                                                             </Modal>
-                                                            <Button size="small" variant="outlined" style={{ color: '#FF9800', borderColor:'#FF9800', height: '20px'}}>
+                                                            <Button size="small" onClick={handleOpen2} variant="outlined" style={{ color: '#FF9800', borderColor:'#FF9800', height: '20px'}}>
                                                                 相談する
                                                             </Button>
+                                                            <Modal
+                                                                open={open2}
+                                                                onClose={handleClose2}
+                                                                aria-labelledby="parent-modal-title"
+                                                                aria-describedby="parent-modal-description"
+                                                            >
+                                                                <Box sx={{ ...style, width: 450 }}>
+                                                                <h4 id="parent-modal-title" style={{color: '#FF9800'}}><b>値段について相談したいですか？</b></h4>
+                                                                <br/>
+                                                                <hr></hr>
+                                                                <Button onClick={handleNegotiate} variant="outlined" style={{color: '#FF9800', borderColor:'#FF9800'}}>はい</Button>
+                                                                <Button onClick={handleClose2} style={{float:'right'}} variant="outlined">いいえ</Button>
+                                                                </Box>
+                                                            </Modal>
                                                         </>
+                                                    )
+                                                }
+                                                {
+                                                    (auction.statusId === 6)
+                                                    && (bid.price === maxPrice) 
+                                                    && (
+                                                        <Button size="small" disabled onClick={handleOpen} variant="outlined" style={{ color: '#4CAF50', borderColor:'#4CAF50', height: '20px', marginRight: '20px'}}>
+                                                            配信中
+                                                        </Button>
                                                     )
                                                 }
                                                 </p>
@@ -483,29 +433,15 @@ export default function Detail() {
                                 ))
                             )
                         }
-                        
                     
                     </div>
-                        <div>
-                            <select className="select-paginate" onChange={handlePageSizeChange} value={count}>
-                                {pageSizes.map((size) => (
-                                <option key={size} value={size}>
-                                    {size}
-                                </option>
-                                ))}
-                            </select>
-                            <Pagination style={{float: "right"}}
-                                className="my-3"
-                                count={counts}
-                                page={index}
-                                siblingCount={1}
-                                boundaryCount={1}
-                                variant="outlined"
-                                shape="rounded"
-                                onChange={handlePageChange}
-                                color="success"
-                            />
-                        </div>
+                    <Paginate 
+                        counts={counts}
+                        index={index}
+                        setPage={setPage}
+                        count={count}
+                        setPageSize={setPageSize}
+                    />
                     </div>
                 </div>
             </section>

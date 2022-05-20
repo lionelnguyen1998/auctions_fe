@@ -110,26 +110,27 @@ function Chat() {
         <>
         <Paper style={{padding: "20px", marginBottom: "40px"}} className="container">
             <div className="messenger">
-                <div className="chatMenu">
-                    <div className="chatOnlineAuth">
-                        <div className="chatOnlineImgContainer">
-                            <img
-                                className="chatOnlineImgAuth"
-                                src={currentUser.user.avatar}
-                                alt={currentUser.user.name}
-                            />
-                            {
-                                (currentUser.user.role === 1) ? (
-                                    <div className="chatOnlineBadgeAuthAdmin">
-                                        <img className="adminStarAuth" src='https://freesvg.org/img/1289679474.png' alt='admin'/>
-                                    </div>
-                                ) : (
-                                    <div className="chatOnlineBadgeAuth"></div>
-                                )
-                            }
-                        </div>
-                        <span className="chatOnlineName"><h4 style={{fontWeight:'bold'}}>{currentUser.user.name}</h4></span>
+                <div className="chatOnlineAuth">
+                    <div className="chatOnlineImgContainer">
+                        <img
+                            className="chatOnlineImgAuth"
+                            src={currentUser.user.avatar}
+                            alt={currentUser.user.name}
+                        />
+                        {
+                            (currentUser.user.role === 1) ? (
+                                <div className="chatOnlineBadgeAuthAdmin">
+                                    <img className="adminStarAuth" src='https://freesvg.org/img/1289679474.png' alt='admin'/>
+                                </div>
+                            ) : (
+                                <div className="chatOnlineBadgeAuth"></div>
+                            )
+                        }
                     </div>
+                    <span className="chatOnlineName"><h4 style={{fontWeight:'bold'}}>{currentUser.user.name}</h4></span>
+                </div>
+                  
+                <div className="chatMenu">
                     <div className="chatMenuWrapper">
                         {
                             conversations.map((c, index) => (

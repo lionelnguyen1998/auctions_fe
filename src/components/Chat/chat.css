@@ -1,5 +1,5 @@
 .messenger {
-    height: calc(100vh - 50px);
+    height: calc(100vh - 200px);
     display: flex;
 }
 
@@ -26,6 +26,12 @@
 }
 
 .chatBoxTop {
+    height: 100%;
+    overflow-y: scroll;
+    padding-right: 10px;
+}
+
+.chatMenu {
     height: 100%;
     overflow-y: scroll;
     padding-right: 10px;
@@ -174,6 +180,6 @@
 }
 
 .adminStarBox {
-    margin-left: -449px;
+    margin-left: -384px;
     margin-top: 42px;
 }

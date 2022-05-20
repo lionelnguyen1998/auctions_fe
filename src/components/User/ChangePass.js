@@ -3,6 +3,7 @@ import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import userApi from '../api/userApi';
 import { useNavigate } from 'react-router-dom';
+import AuthService from "../services/auth.service";
 
 function ChangePass() {
     let navigate = useNavigate();
@@ -25,6 +26,7 @@ function ChangePass() {
         ).then(
             response => {
                 if (response.data.code === 1000) {
+                    AuthService.logout();
                     navigate("/");
                     window.location.reload();
                 } else {
@@ -100,8 +102,9 @@ function ChangePass() {
                     )}
                 </div>
                 <div className="form-group">
-                    <button className="site-btn"
-                    >編集</button>
+                    <button className="site-btn">
+                        編集
+                    </button>
                 </div>
             </Form>
         </div>

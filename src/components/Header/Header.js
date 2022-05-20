@@ -86,6 +86,7 @@ function Header({auth}) {
                                                             <li><a href="/" className="nav-link" onClick={logOut} style={{color:"#1C1C1C"}}>ログアウト</a></li>
                                                             <li><Link to="/edit" style={{color:"#1C1C1C"}}>編集</Link></li>
                                                             <li><Link to="/changepass" style={{color:"#1C1C1C"}}>パスワードを変更</Link></li>
+                                                            
                                                         </div>
                                                     </ul>
                                                 </>
@@ -160,6 +161,15 @@ function Header({auth}) {
                                         </li>
                                         <li><Link to="/auctions"><i className="fa fa-buysellads"></i></Link></li>
                                         <li><Link to="/chat"><i class="fa fa-comments" aria-hidden="true"></i></Link></li>
+                                        {
+                                            (auth.user.role === 1) && (
+                                                <li>   
+                                                    <a target="_blank" href="http://admin.localhost:443/">
+                                                        <i class="fa fa-tachometer" aria-hidden="true"></i>
+                                                    </a>
+                                                </li>
+                                            )
+                                        }
                                     </ul>
                                 )
                             }

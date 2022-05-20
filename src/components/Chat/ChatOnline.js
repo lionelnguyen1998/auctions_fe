@@ -26,7 +26,7 @@ export default function ChatOnline({ onlineUsers, currentId, setCurrentChat }) {
             })
             .catch(e => console.log(e))
     }
-    console.log(onlineFriends)
+    
     return (
         <>
             <input 

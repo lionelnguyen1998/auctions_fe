@@ -1,10 +1,9 @@
 import React, {Fragment, useState} from 'react';
 import auctionApi from '../api/auctionApi';
 import {Button} from "@mui/material";
-import { useNavigate } from 'react-router-dom';
+import 'react-toastify/dist/ReactToastify.css';
 
-function DeleteComment({commentId, auctionId}) {
-    let navigate = useNavigate();
+function DeleteComment({commentId, auctionId, setTotal}) {
     const [deleteComment, setDeleteComment] = useState('');
     const handleDeleteComment = () => {
         auctionApi.deleteComment(commentId)
@@ -12,7 +11,7 @@ function DeleteComment({commentId, auctionId}) {
                 if (response.data.code === 1006) {
                     setDeleteComment(response.data.message)
                 } else {
-                    navigate(`/detail/${auctionId}`)
+                    setTotal(response.data.data.total)
                 }
             })
             .catch((e) => {

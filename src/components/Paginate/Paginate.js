@@ -8,7 +8,7 @@ function Paginate(props) {
     const setPage = props.setPage;
     const count = props.count;
     const setPageSize = props.setPageSize
-    const pageSizes = [4, 8, 12];
+    const pageSizes = [4, 8, 12, 24];
 
     const handlePageChange = (event, value) => {
         setPage(value);
@@ -20,7 +20,7 @@ function Paginate(props) {
     };
     return (
         <Fragment>
-            <div>
+            <div style={{magrinTop: '10px'}}>
                 <select className="select-paginate" onChange={handlePageSizeChange} value={count}>
                     {pageSizes.map((size) => (
                     <option key={size} value={size}>

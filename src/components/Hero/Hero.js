@@ -11,10 +11,10 @@ const options = [
     { value: '2', label: '始まる時間' },
     { value: '3', label: '終わる時間' },
     { value: '4', label: 'オークション' }
-  ]
+]
 
 function Hero() {
-    const [type, setType] = useState(1)
+    const [type, setType] = useState()
     const [key, setKey] = useState('')
     const [values, setValues] = useState([])
     const [filterData, setFilterData] = useState([])
@@ -59,16 +59,16 @@ function Hero() {
                                 <span>全てカテゴリー</span>
                             </div>
                             <ul>
-                                <li><a href="#">categories1</a></li>
-                                <li><a href="#">categories2</a></li>
-                                <li><a href="#">categories1</a></li>
-                                <li><a href="#">categories2</a></li>
-                                <li><a href="#">categories1</a></li>
-                                <li><a href="#">categories2</a></li>
-                                <li><a href="#">categories1</a></li>
-                                <li><a href="#">categories2</a></li>
-                                <li><a href="#">categories1</a></li>
-                                <li><a href="#">categories2</a></li>
+                                <li className="li-hover"><Link to={`/auctionByTypeOfCategory/1`}>電子</Link></li>
+                                <li className="li-hover"><Link to={`/auctionByTypeOfCategory/2`}>ファッション</Link></li>
+                                <li className="li-hover"><Link to={`/auctionByTypeOfCategory/3`}>健康と着飾る</Link></li>
+                                <li className="li-hover"><Link to={`/auctionByTypeOfCategory/4`}>家事</Link></li>
+                                <li className="li-hover"><Link to={`/auctionByTypeOfCategory/5`}>他に</Link></li>
+                                <li><a>　</a></li>
+                                <li><a>　</a></li>
+                                <li><a>　</a></li>
+                                <li><a>　</a></li>
+                                <li><a>　</a></li>
                             </ul>
                         </div>
                     </div>
@@ -78,7 +78,7 @@ function Hero() {
                                 <Select name='search-options'
                                     onChange={e => setType(e.value)}
                                     options={options}
-                                    placeholder="検索" 
+                                    placeholder="検索　　" 
                                 />
                                 <input type="text" 
                                 placeholder="検索" 

@@ -31,7 +31,6 @@ function ListItem() {
         const params = getRequestParams(index, count);
         auctionApi.getListItemOfCategoryBuy(categoryId, params)
             .then((response) => {
-                console.log(response.data.data)
                 const { info, total} = response.data.data;
                 setInfos(info);
                 setTotal(total)
@@ -78,7 +77,7 @@ function ListItem() {
                                     infos.map((info) => (
                                         <div className="col-lg-3 col-md-4 col-sm-6 mix oranges" key={info.item.item_id}>
                                             <div className="featured__item">
-                                                <div className="featured__item__pic set-bg" data-setbg={info.item.name} style={{backgroundImage: `url(${info.item.mainImage})`}}>
+                                                <div className="featured__item__pic set-bg" data-setbg={info.item.name} >
                                                     <img src={info.item.mainImage}/>
                                                     <ul className="featured__item__pic__hover">
                                                         <li>

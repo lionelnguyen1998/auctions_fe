@@ -45,7 +45,6 @@ function Contacts() {
                     window.location.reload();
                 } else {
                     const errors = res.data.message.split('&')
-                    console.log(errors);
                     setMessageName(errors[0].slice(6));
                     setMessageEmail(errors[2].slice(7));
                     setMessagePhone(errors[1].slice(7));
@@ -207,7 +206,7 @@ function Contacts() {
                 </div>
             </Paper>
             <div className="google-map-code">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14898.763660245146!2d105.83685507841687!3d21.00502340917457!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ad5569f4fbf1%3A0x5bf30cadcd91e2c3!2zQ-G7lW5nIFRy4bqnbiDEkOG6oWkgTmdoxKlhIC0gxJDhuqFpIEjhu41jIELDoWNoIEtob2EgSMOgIE7hu5lp!5e0!3m2!1svi!2s!4v1645605534507!5m2!1svi!2s" width="100%" height="450" style={{border:0}} allowfullscreen="" loading="lazy"></iframe>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3109.6504851923864!2d105.84081554309465!3d21.000018685759812!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135adc56146714b%3A0x540247151005b711!2zxJDhuqFpIGjhu41jIGLDoWNoIGtob2EgaMOgIG7hu5lp!5e0!3m2!1svi!2s!4v1653013052239!5m2!1svi!2s" width="100%" height="450" style={{border:0}} allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
         </Fragment>
     )

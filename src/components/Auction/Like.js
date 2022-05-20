@@ -1,12 +1,12 @@
 import React, {Fragment, useEffect, useState} from 'react';
 import auctionApi from '../api/auctionApi';
 import {statusKey} from "../constant/index";
-import { Link } from 'react-router-dom';
-import { Pagination, Paper } from "@mui/material";
+import { Paper } from "@mui/material";
 import './index.css'
-import ListAuction from './ListAuction.js'
+import ListAuction from './ListAuction.js';
+import Paginate from '../Paginate/Paginate.js'
 
-const tabs = [0, 1, 2, 3];
+const tabs = [0, 1, 2, 3, 6];
 
 function Auctions() {
     const [auctions, setAuctions] = useState([]);
@@ -15,7 +15,7 @@ function Auctions() {
     const [counts, setCount] = useState(1);
     const [count, setPageSize] = useState(4);
     const [total, setTotal] = useState('')
-    const pageSizes = [4, 8, 12];
+    const [query, setQuery] = useState('')
 
     const getRequestParams = (index, count) => {
         let params = {};
@@ -43,15 +43,6 @@ function Auctions() {
         };
 
     useEffect(retrieveAuctions, [status, index, count]);
-
-    const handlePageChange = (event, value) => {
-        setPage(value);
-    };
-
-    const handlePageSizeChange = (event) => {
-        setPageSize(event.target.value);
-        setPage(1);
-    };
 
     return (
         <Fragment>
@@ -86,28 +77,15 @@ function Auctions() {
                             <b style={{color:'#7FAD39'}}>{total} オークション</b>
                             <ListAuction
                                 auctions={auctions}
+                                query={query}
                             />
-                            <div>
-                                <select className="select-paginate" onChange={handlePageSizeChange} value={count}>
-                                    {pageSizes.map((size) => (
-                                    <option key={size} value={size}>
-                                        {size}
-                                    </option>
-                                    ))}
-                                </select>
-                                <Pagination
-                                    style={{float: "right"}}
-                                    className="my-3"
-                                    count={counts}
-                                    page={index}
-                                    siblingCount={1}
-                                    boundaryCount={1}
-                                    variant="outlined"
-                                    shape="rounded"
-                                    onChange={handlePageChange}
-                                    color="success"
-                                />
-                            </div>
+                            <Paginate 
+                                counts={counts}
+                                index={index}
+                                setPage={setPage}
+                                count={count}
+                                setPageSize={setPageSize}
+                            />
                         </div>
                     </div>
                 </section>

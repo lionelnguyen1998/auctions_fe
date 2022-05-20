@@ -1,23 +1,31 @@
 import React, {Fragment, useEffect, useState} from 'react';
 import auctionApi from '../api/auctionApi';
 import {statusKey} from "../constant/index";
-import { Pagination, Paper, Avatar, Grid, Typography} from "@mui/material";
+import { Paper, Avatar, Grid, Typography} from "@mui/material";
 import './index.css'
 import ListAuction from './ListAuction.js'
 import {role} from "../constant/index";
+import Search from './Search.js';
+import Paginate from '../Paginate/Paginate.js'
 
-const tabs = [0, 1, 2, 3];
+const tabs = [0, 1, 2, 3, 6];
 
 function AuctionsK() {
+    const link = window.location.href;
+    const userId = link.slice(31);
     const [auctions, setAuctions] = useState([]);
     const [status, setStatus] = useState(0);
     const [index, setPage] = useState(1);
     const [counts, setCount] = useState(1);
     const [count, setPageSize] = useState(4);
-    const link = window.location.href;
-    const userId = link.slice(31);
-    const pageSizes = [4, 8, 12];
+    const [total, setTotal] = useState('');
     const [userInfo, setUserInfo] = useState('');
+    const [query, setQuery] = useState('');
+    const keys = ['title', 'start_date', 'end_date'];
+
+    const search = (data) => {
+        return data.filter((auction) => keys.some((key) => auction[key].toLowerCase().includes(query)));
+    };
     
     const getRequestParams = (index, count) => {
         let params = {};
@@ -35,6 +43,7 @@ function AuctionsK() {
             .then((response) => {
                 const { auctions, total} = response.data.data;
                 setAuctions(auctions);
+                setTotal(total);
                 const totalPage = Math.ceil(total/count)
                 setCount(totalPage);
                 setUserInfo(response.data.data.userInfo)
@@ -45,15 +54,6 @@ function AuctionsK() {
         };
 
     useEffect(retrieveAuctions, [status, index, count]);
-
-    const handlePageChange = (event, value) => {
-        setPage(value);
-    };
-
-    const handlePageSizeChange = (event) => {
-        setPageSize(event.target.value);
-        setPage(1);
-    };
 
     return (
         <Fragment>
@@ -100,6 +100,9 @@ function AuctionsK() {
                             </div>
                             <div className="featured__controls">
                                     <ul>
+                                        <Search 
+                                            setQuery={setQuery}
+                                        />
                                         {
                                             tabs.map(tab => (
                                                 <li 
@@ -118,30 +121,18 @@ function AuctionsK() {
                         </div>
                         </div>
                         <div>
+                            <b style={{color:'#7FAD39'}}>{total} オークション</b>
                             <ListAuction
-                                auctions={auctions}
+                                auctions={search(auctions)}
+                                query={query}
                             />
-                            <div>
-                                <select className="select-paginate" onChange={handlePageSizeChange} value={count}>
-                                    {pageSizes.map((size) => (
-                                    <option key={size} value={size}>
-                                        {size}
-                                    </option>
-                                    ))}
-                                </select>
-                                <Pagination
-                                    style={{float: "right"}}
-                                    className="my-3"
-                                    count={counts}
-                                    page={index}
-                                    siblingCount={1}
-                                    boundaryCount={1}
-                                    variant="outlined"
-                                    shape="rounded"
-                                    onChange={handlePageChange}
-                                    color="success"
-                                />
-                            </div>
+                           <Paginate 
+                            counts={counts}
+                            index={index}
+                            setPage={setPage}
+                            count={count}
+                            setPageSize={setPageSize}
+                            />
                         </div>
                     </div>
                 </section>

@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from 'react';
-import { Paper, Button, Pagination } from "@mui/material";
+import { Paper, Button} from "@mui/material";
 import notificationApi from '../api/notificationApi';
 import { Link } from 'react-router-dom';
 import {typeNotification} from "../constant/index";
+import Paginate from '../Paginate/Paginate.js'
 import './index.css'
 
 export default function Notification() {
@@ -11,7 +12,6 @@ export default function Notification() {
     const [counts, setCount] = useState(1);
     const [count, setPageSize] = useState(5);
     const [total, setTotal] = useState('');
-    const pageSizes = [5, 10, 20];
 
     const getRequestParams = (index, count) => {
         let params = {};
@@ -40,15 +40,6 @@ export default function Notification() {
     };
 
     useEffect(allNotifications, [index, count]);
-
-    const handlePageChange = (event, value) => {
-        setPage(value);
-    };
-
-    const handlePageSizeChange = (event) => {
-        setPageSize(event.target.value);
-        setPage(1);
-    };
   
     return (
         <Paper style={{ padding: "20px", marginBottom: "40px"}} className="container">
@@ -97,27 +88,13 @@ export default function Notification() {
                                 }
                             </table>
                         </div>
-                        <div>
-                            <select className="select-paginate" onChange={handlePageSizeChange} value={count}>
-                                {pageSizes.map((size) => (
-                                <option key={size} value={size}>
-                                    {size}
-                                </option>
-                                ))}
-                            </select>
-                            <Pagination
-                                style={{float: "right"}}
-                                className="my-3"
-                                count={counts}
-                                page={index}
-                                siblingCount={1}
-                                boundaryCount={1}
-                                variant="outlined"
-                                shape="rounded"
-                                onChange={handlePageChange}
-                                color="success"
-                            />
-                        </div>
+                        <Paginate 
+                            counts={counts}
+                            index={index}
+                            setPage={setPage}
+                            count={count}
+                            setPageSize={setPageSize}
+                        />
                     </div>
                 </div>
             </section>

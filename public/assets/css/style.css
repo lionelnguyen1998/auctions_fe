@@ -103,6 +103,7 @@ ol {
 -----------------------*/
 
 .section-title {
+	/* margin-bottom: 50px; */
 	margin-bottom: 50px;
 	text-align: center;
 }
@@ -114,6 +115,30 @@ ol {
 }
 
 .section-title h2:after {
+	position: absolute;
+	left: 0;
+	bottom: -15px;
+	right: 0;
+	height: 4px;
+	width: 80px;
+	background: #7fad39;
+	content: "";
+	margin: 0 auto;
+}
+
+.section-title1 {
+	/* margin-bottom: 50px; */
+	/* margin-bottom: 50px; */
+	text-align: center;
+}
+
+.section-title1 h2 {
+	color: #1c1c1c;
+	font-weight: 700;
+	position: relative;
+}
+
+.section-title1 h2:after {
 	position: absolute;
 	left: 0;
 	bottom: -15px;
@@ -611,6 +636,7 @@ ol {
 	padding-left: 40px;
 	padding-top: 10px;
 	padding-bottom: 12px;
+	background-color: #ffff !important;
 }
 
 .hero__categories ul li {
@@ -2609,7 +2635,7 @@ ol {
 
 .footer {
 	background: #FFFF;
-	padding-top: 70px;
+	padding-top: 15px;
 	padding-bottom: 0;
 }
 

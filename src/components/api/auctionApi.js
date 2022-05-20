@@ -125,6 +125,22 @@ const auctionApi = {
   acceptBid (auctionId, selling_info) {
     const url = `/accept/${auctionId}`;
     return axiosClient.post(url, {selling_info});
+  },
+  getListAuctionByCategory (categoryId, statusId, params) {
+    const url = `/auctions/listAuctionOfCategory/${categoryId}/${statusId}`;
+    return axiosClient.get(url, {params});
+  },
+  getListAuctionByType (typeId, statusId, params) {
+    const url = `/auctions/listAuctions/${typeId}/${statusId}`;
+    return axiosClient.get(url, {params});
+  },
+  getInfo (auctionId) {
+    const url = `/auctions/info/${auctionId}`;
+    return axiosClient.get(url);
+  },
+  editAuction (auctionId) {
+    const url = `/auctions/edit/${auctionId}`;
+    return axiosClient.post(url);
   }
 };
 

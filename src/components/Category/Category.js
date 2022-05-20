@@ -2,6 +2,7 @@ import React, { Fragment, useState, useEffect } from 'react';
 import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
 import { Paper } from "@mui/material";
+import { Link } from 'react-router-dom';
 import auctionApi from '../api/auctionApi';
 
 const responsive = {
@@ -41,7 +42,7 @@ function Category() {
                                 {
                                     categories.map((category, index) => (
                                         <div key={index} className="categories__item set-bg" style={{ backgroundImage: `url(${category.image})`, marginRight: '20px' }}>
-                                            <h5><a href="#">{category.name}</a></h5>
+                                            <h5><Link to={`/auctionsByCategory/${category.category_id}`}>{category.name}</Link></h5>
                                         </div>
                                     ))
                                 }

@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import Button from '@mui/material/Button';
 
 const colors = ['#2196F3', '#4CAF50', '#FF9800', '#F44336'];
-function ListAuction(props) {
-    const auctions = props.auctions
+function ListAuction({auctions}) {
+    console.log(auctions)
     return (
         <Fragment>
             <div className="row featured__filter">
@@ -41,6 +41,17 @@ function ListAuction(props) {
                                                     <b>{auction.status}</b>
                                                 </Button>
                                             </Link>
+                                        )
+                                    }
+                                    {
+                                        (auction.statusId === 2) ? (
+                                            <Button disabled size="small" variant="outlined" style={{ color: colors[auction.statusId], height: '20px', borderColor:colors[auction.statusId], marginLeft: '5px'}}>
+                                                <b>{auction.start_date}</b>
+                                            </Button>
+                                        ) : (
+                                            <Button size="small" variant="outlined" style={{ color: colors[auction.statusId], height: '20px', borderColor:colors[auction.statusId], marginLeft: '5px'}}>
+                                                <b>{auction.end_date}</b>
+                                            </Button>
                                         )
                                     }
                                 </div>

@@ -220,15 +220,18 @@ function Item() {
             <div className="container">  
               {
                 auction && (
-                  <div className="section-title">    
+                  <div className="">    
                     <h3 className="h3-auction">オークション</h3>
-                    <p><b>オークションのタイトル:　　　　　　　</b>{auction.auctions.title}</p>
-                    <p><b>カテゴリー:　　　　　　　　　　　　　　　</b>{auction.category.name}</p>
-                    <p><b>始まる時間:　　　　　　　　　</b>{auction.auctions.start_date}</p>
-                    <p><b>終わる時間:　　　　　　　　　</b>{auction.auctions.end_date}</p>
+                    <p><b>オークションのタイトル:  </b>{auction.auctions.title}</p>
+                    <p><b>カテゴリー:  </b>{auction.category.name}</p>
+                    <p><b>始まる時間:  </b>{auction.auctions.start_date}</p>
+                    <p><b>終わる時間:  </b>{auction.auctions.end_date}</p>
                   </div>
                 )
               }
+              <br/>
+              <hr/>
+              <br/>
               <Form 
                 className="form-test"
                 method="POST"

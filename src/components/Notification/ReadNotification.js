@@ -45,6 +45,8 @@ function ReadNotification(){
             });
     }, [])
 
+    console.log(item);
+    
     const handleMouseMove = e =>{
         const {left, top, width, height} = e.target.getBoundingClientRect();
         const x = (e.pageX - left) / width * 100
@@ -98,16 +100,19 @@ function ReadNotification(){
                         </div>
                     </div>
                     <div className="section-title">
-                        <h4 className="reason-reject">{auction.reason}</h4>
+                        <h4 className="reason-reject" style={{whiteSpace: 'pre-line'}}>{auction.reason}</h4>
                     </div>
                 </section>
             </Paper>
             <Paper style={{ padding: "20px", marginBottom: "40px"}} className="container">
                 <section className="featured spad">
                     <div className="container">
+                        <div className="section-title1">
+                            <h2>{auction.title}</h2>
+                        </div>
                         <div>
                         {
-                            item.images && (
+                            item ? (item.images && (
                                 <div className="details">
                                     <div className="img-container" 
                                         ref={imgDiv}
@@ -122,11 +127,11 @@ function ReadNotification(){
                                         <p>カテゴリー: {notification.category.name}</p>
                                         <p>ブランド: {item.brand}</p>
                                         <p>シリーズ: {item.series ?? '--'}</p>
-                                        <p>ディスクリプション: {item.description}</p>
-                                        <Button disabled size="small" variant="outlined" style={{ color: '#4CAF50', height: '20px'}}>
+                                        <p style={{whiteSpace: 'pre-line'}}>ディスクリプション: {item.description}</p>
+                                        <Button disabled size="small" variant="outlined" style={{ color: '#4CAF50', height: '20px', marginRight: '5px'}}>
                                             <b>{auction.start_date}</b>
                                         </Button>
-                                        <Button disabled size="small" variant="outlined" style={{ color: '#F44336', height: '20px'}}>
+                                        <Button disabled size="small" variant="outlined" style={{ color: '#F44336', height: '20px', marginRight: '5px'}}>
                                             <b>{auction.end_date}</b>
                                         </Button>
                                         <Button disabled size="small" variant="outlined" style={{ color: '#F44336', height: '20px'}}>
@@ -151,8 +156,44 @@ function ReadNotification(){
                                         </Modal>
                                     </div>
                                 </div>
+                                )) : (
+                                    <>
+                                        <div className="box-details2">
+                                            <h2>アイテムの名前: --</h2>
+                                            <p>カテゴリー: {notification.category.name}</p>
+                                            <p>ブランド: --</p>
+                                            <p>シリーズ: --</p>
+                                            <p>ディスクリプション: --</p>
+                                            <Button disabled size="small" variant="outlined" style={{ color: '#4CAF50', height: '20px', marginRight: '5px'}}>
+                                                <b>{auction.start_date}</b>
+                                            </Button>
+                                            <Button disabled size="small" variant="outlined" style={{ color: '#F44336', height: '20px', marginRight: '5px'}}>
+                                                <b>{auction.end_date}</b>
+                                            </Button>
+                                            <Button disabled size="small" variant="outlined" style={{ color: '#F44336', height: '20px'}}>
+                                                <b>{auction.status}</b>
+                                            </Button>
+                                            
+                                            <Button onClick={handleOpen} size="small" style={{fontSize:'40px'}}>
+                                                <i class="fa fa-trash" aria-hidden="true" style={{color: '#dc3545'}}></i>
+                                            </Button>
+                                            <Modal
+                                                open={open}
+                                                onClose={handleClose}
+                                                aria-labelledby="parent-modal-title"
+                                                aria-describedby="parent-modal-description"
+                                            >
+                                                <Box sx={{ ...style, width: 400 }}>
+                                                <h4 id="parent-modal-title" style={{color: '#dc3545'}}><b>本当に削除しますか？</b></h4>
+                                                <hr></hr>
+                                                <Button onClick={() => handleDeleteNotification(auctionId)} variant="outlined" style={{color: '#dc3545', borderColor:'#dc3545'}}>削除</Button>
+                                                <Button onClick={handleClose} style={{float:'right'}} variant="outlined">キャンセル</Button>
+                                                </Box>
+                                            </Modal>
+                                        </div>
+                                    </>
                                 )
-            }
+                        }
                         </div>
                     </div>
                 </section>

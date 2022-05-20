@@ -4,7 +4,7 @@ export const statusKey = {
   2: 'もうすぐ',
   3: '終わった',
   4: '評価',
-  6: '売りました'
+  6: '配信中'
 };
 
 export const tabKey = {
@@ -15,9 +15,17 @@ export const tabKey = {
 export const role = {
   1: '管理者',
   2: 'ユーザー'
-}
+};
 
 export const typeNotification = {
   1: 'アクセプタンス',
   2: '拒否'
+};
+
+export const typeCategory = {
+  1: '電子',
+  2: 'ファッション',
+  3: '健康と着飾る',
+  4: '家事',
+  5: '他に'
 }

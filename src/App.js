@@ -18,10 +18,13 @@ import Auctions from './components/Auction/Auctions';
 import AuctionsK from './components/Auction/AuctionsK';
 import Like from './components/Auction/Like';
 import New from './components/News/New';
+import ReadNew from './components/News/ReadNew';
 import AuctionByCategory from './components/Auction/AuctionByCategory';
+import AuctionByTypeCategory from './components/Auction/AuctionByTypeCategory';
 import Notification from './components/Notification/Notification';
 import ReadNotification from './components/Notification/ReadNotification';
 import ListItem from './components/Auction/ListItem';
+import EditAuction from './components/Auction/EditAuction';
 import Chat from './components/Chat/Chat';
 
 
@@ -64,11 +67,16 @@ function App() {
                     <Route path={`/notifications/:id`}
                       element={<ReadNotification />}
                     />
-                    <Route path="/auctionsByCategory" element={<AuctionByCategory />}/>
+                    <Route path={`/auctionsByCategory/:id`} element={<AuctionByCategory />}/>
                     <Route path="/news" element={<New />}/>
+                    <Route path={`/news/:id`}
+                      element={<ReadNew />}
+                    />
                     <Route path="/changepass" element={<ChangePass />}/>
                     <Route path={`/listItem/:id`} element={<ListItem />}/>
                     <Route path="/chat" element={<Chat />}/>
+                    <Route path={`/auctionByTypeOfCategory/:id`} element={<AuctionByTypeCategory />}/>
+                    <Route path={`/editAuction/:id`} element={<EditAuction />}/>
                 </Routes>
             <Footer />
         </div>

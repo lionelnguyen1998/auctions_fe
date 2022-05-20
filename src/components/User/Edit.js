@@ -9,7 +9,6 @@ import { useNavigate } from 'react-router-dom';
 function Edit() {
     let navigate = useNavigate();
     const currentUser = AuthService.getCurrentUser();
-    console.log(currentUser);
     let userInfo = currentUser.user;
     const [email, setEmail] = useState(userInfo.email);
     const [address, setAddress] = useState(userInfo.address);

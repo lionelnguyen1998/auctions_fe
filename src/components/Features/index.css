@@ -7,3 +7,9 @@ select {
 .select-paginate {
     margin-top: 16px !important;
 }
+.auctionMenuInput {
+    width: 30%;
+    border: none;
+    border-bottom: 1px solid gray;
+    margin-right:30px;
+}
