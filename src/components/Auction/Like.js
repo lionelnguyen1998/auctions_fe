@@ -4,7 +4,8 @@ import {statusKey} from "../constant/index";
 import { Paper } from "@mui/material";
 import './index.css'
 import ListAuction from './ListAuction.js';
-import Paginate from '../Paginate/Paginate.js'
+import Paginate from '../Paginate/Paginate.js';
+import Search from './Search.js';
 
 const tabs = [0, 1, 2, 3, 6];
 
@@ -17,6 +18,11 @@ function Auctions() {
     const [total, setTotal] = useState('')
     const [query, setQuery] = useState('')
 
+    const keys = ['title', 'start_date', 'end_date'];
+
+    const search = (data) => {
+        return data.filter((auction) => keys.some((key) => auction[key].toLowerCase().includes(query)));
+    };
     const getRequestParams = (index, count) => {
         let params = {};
         if (index) {
@@ -56,6 +62,7 @@ function Auctions() {
                             </div>
                             <div className="featured__controls">
                                     <ul>
+                                        <Search setQuery={setQuery} />
                                         {
                                             tabs.map(tab => (
                                                 <li 
@@ -76,8 +83,7 @@ function Auctions() {
                         <div>
                             <b style={{color:'#7FAD39'}}>{total} オークション</b>
                             <ListAuction
-                                auctions={auctions}
-                                query={query}
+                                auctions={search(auctions)}
                             />
                             <Paginate 
                                 counts={counts}

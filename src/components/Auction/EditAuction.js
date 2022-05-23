@@ -15,8 +15,8 @@ function EditAuction() {
     const [name, setName] = useState('');
     const [categories, setCategory] = useState([])
     const [categoryId, setCategoryId] = useState('')
-    const [end_date, setEndDate] = useState(new Date())
-    const [start_date, setStartDate] = useState(new Date());
+    const [end_date, setEndDate] = useState('')
+    const [start_date, setStartDate] = useState('');
     const [messageName, setMessageName] = useState("");
     const [messageCategory, setMessageCategory] = useState("");
     const [messageStartDate, setMessageStartDate] = useState("");
@@ -34,14 +34,14 @@ function EditAuction() {
         .catch(e => console.log(e))
     }, [])
 
-
-    const handleCreateAuction = (e) => {
+    const handleEditAuction = (e) => {
       e.preventDefault();
       setMessageName("");
       setMessageCategory("");
       setMessageStartDate("");
       setMessageEndDate("");
-      auctionApi.createAuction(
+      auctionApi.editAuction(
+        auctionId,
         name,
         categoryId,
         start_date,
@@ -50,7 +50,7 @@ function EditAuction() {
         (response) => {
           if (response.data.code === 1000) {
             const auctionId = response.data.data.auction_id;
-            navigate(`/item/${auctionId}`);
+            navigate(`/detailwait/${auctionId}`);
           } else {
             const errors = response.data.message.split('&')
             setMessageCategory(errors[0].slice(10));
@@ -78,10 +78,19 @@ function EditAuction() {
         { value: `${category.category_id}`, label: `${category.category_id} : ${category.name}`}
       ))
     ]
-
-    console.log(options[0][4])
     return (
         <Fragment>
+          <section className="featured spad">
+            <div className="container">
+                <div className="row">
+                    <div className="col-lg-12">
+                        <div className="section-title">
+                           <p onClick={() => navigate(-1)}>オークション一覧</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </section>
           <Paper style={{ padding: "20px", marginBottom: "40px"}} className="container">
             <div className="container">
               <div className="row">
@@ -94,7 +103,7 @@ function EditAuction() {
               <Form 
                 className="form-test"
                 method="POST"
-                onSubmit={handleCreateAuction}
+                onSubmit={handleEditAuction}
                 >
                 <div className="form-group">
                   <label htmlFor="name"><b>オークションのタイトル </b><i className="fa fa-asterisk" style={{color:"red"}}></i></label>

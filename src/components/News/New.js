@@ -9,7 +9,7 @@ function New() {
     const [news, setNews] = useState([])
     const [index, setPage] = useState(1);
     const [counts, setCount] = useState(1);
-    const [count, setPageSize] = useState(3);
+    const [count, setPageSize] = useState(4);
     const getRequestParams = (index, count) => {
         let params = {};
         if (index) {

@@ -17,7 +17,7 @@ function Auction({auctions, colors}) {
                             </div>
                             <div className="featured__item__text">
                                 <h6>{auction.title}</h6>
-                                <Button size="small" variant="outlined" style={{ color: colors[auction.statusId], height: '20px', borderColor:colors[auction.statusId]}}>
+                                <Button disabled size="small" variant="outlined" style={{ color: colors[auction.statusId], height: '20px', borderColor:colors[auction.statusId]}}>
                                     <b>{auction.status}</b>
                                 </Button>
                                 {
@@ -26,7 +26,7 @@ function Auction({auctions, colors}) {
                                             <b>{auction.start_date}</b>
                                         </Button>
                                     ) : (
-                                        <Button size="small" variant="outlined" style={{ color: colors[auction.statusId], height: '20px', borderColor:colors[auction.statusId], marginLeft: '5px'}}>
+                                        <Button disabled size="small" variant="outlined" style={{ color: colors[auction.statusId], height: '20px', borderColor:colors[auction.statusId], marginLeft: '5px'}}>
                                             <b>{auction.end_date}</b>
                                         </Button>
                                     )

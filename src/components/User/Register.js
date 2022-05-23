@@ -228,7 +228,8 @@ function Register() {
                   }
                 </div>
                 <div className="form-group">
-                  <button 
+                  <button
+                    style={{borderRadius:'15px'}}
                     className="site-btn"
                     disabled={!selectFile}
                     onClick={upload}

@@ -11,6 +11,7 @@ import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
 import { Link } from 'react-router-dom'
 import Search from './Search.js'
+import AuthService from "../services/auth.service";
 
 const tabs = [0, 1, 2, 3, 4, 6];
 const responsive = {
@@ -19,6 +20,8 @@ const responsive = {
     }
 };
 function Auctions() {
+    const currentUser = AuthService.getCurrentUser();
+    const userId = currentUser.user.user_id
     const [auctions, setAuctions] = useState([]);
     const [status, setStatus] = useState(0);
     const [index, setPage] = useState(1);
@@ -42,16 +45,6 @@ function Auctions() {
                 setCategories(category)
             })
     }, [])
-
-    useEffect(() => {
-        userApi.info()
-            .then((res) => {
-                setUserInfo(res.data.data)
-            })
-            .catch((e) => {
-                console.log(e);
-            });
-    }, [])
     
     const getRequestParams = (index, count) => {
         let params = {};
@@ -61,17 +54,21 @@ function Auctions() {
         if (count) {
           params["count"] = count;
         }
+        if (userId) {
+            params["user_id"] = userId;
+        }
         return params;
     };
     const retrieveAuctions = () => {
         const params = getRequestParams(index, count);
-        auctionApi.getAllAuctionsOfUser(status, params)
+        auctionApi.getAllAuctions(status, params)
             .then((response) => {
-                const { auctions, total} = response.data.data;
+                const { auctions, total, user_info} = response.data.data;
                 setAuctions(auctions);
                 setTotal(total);
                 const totalPage = Math.ceil(total/count)
                 setCount(totalPage);
+                setUserInfo(user_info)
             })
             .catch((e) => {
                 console.log(e);

@@ -36,11 +36,14 @@ function AuctionByCategory() {
         if (count) {
           params["count"] = count;
         }
+        if (categoryId) {
+            params["category_id"] = categoryId;
+        }
         return params;
     };
     const retrieveAuctions = () => {
         const params = getRequestParams(index, count);
-        auctionApi.getListAuctionByCategory(categoryId, status, params)
+        auctionApi.getAllAuctions(status, params)
             .then((response) => {
                 const { auctions, total, category} = response.data.data;
                 setAuctions(auctions);
@@ -75,7 +78,7 @@ function AuctionByCategory() {
                         <div className="row">
                         <div className="col-lg-12">
                             <div className="section-title">
-                                <h2>{category.name}</h2>
+                                <h2>{category}</h2>
                             </div>
                             <div className="featured__controls">
                                     <ul>

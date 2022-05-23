@@ -34,14 +34,14 @@ function UserInfo({userInfo}) {
                     </Typography>
                 </Grid>
             </Grid>
-            <Grid item>
+            {/* <Grid item>
                 <Typography variant="subtitle1" component="div">
                     <b>オークション:　　　</b> {userInfo.total_auctions} オークション
                 </Typography>
                 <Typography variant="subtitle1" component="div">
                     <b>気に入る:　　　　　</b> {userInfo.total_like} オークション
                 </Typography>
-            </Grid>
+            </Grid> */}
             </Grid>
         </Grid>
         </>

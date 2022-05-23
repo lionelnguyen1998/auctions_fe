@@ -12,7 +12,7 @@ function Footer() {
                            <ul>
                                <li><b style={{color: '#7FAD39'}}>アドレス:</b> 2P Trần Đại Nghĩa, Bách Khoa, Hai Bà Trưng, Hà Nội</li>
                                <li><b style={{color: '#7FAD39'}}>電話番号:</b> 1234567890</li>
-                               <li><b style={{color: '#7FAD39'}}>メールアドレス:</b> auction@gmail.com</li>
+                               <li><b style={{color: '#7FAD39'}}>メールアドレス:</b> auctionsabcdef@gmail.com</li>
                            </ul>
                        </div>
                    </div>

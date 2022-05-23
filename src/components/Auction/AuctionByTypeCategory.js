@@ -31,16 +31,19 @@ function AuctionByTypeCategory() {
     const getRequestParams = (index, count) => {
         let params = {};
         if (index) {
-          params["index"] = index;
+            params["index"] = index;
         }
         if (count) {
-          params["count"] = count;
+            params["count"] = count;
+        }
+        if (typeId) {
+            params["type"] = typeId;
         }
         return params;
     };
     const retrieveAuctionsOfTypeCategory = () => {
         const params = getRequestParams(index, count);
-        auctionApi.getListAuctionByType(typeId, status, params)
+        auctionApi.getAllAuctions(status, params)
             .then((response) => {
                 const { auctions, total, type} = response.data.data;
                 setAuctions(auctions);

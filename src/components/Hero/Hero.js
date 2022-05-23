@@ -55,7 +55,6 @@ function Hero() {
                     <div className="col-lg-3">
                         <div className="hero__categories">
                             <div className="hero__categories__all">
-                                <i className="fa fa-bars"></i>
                                 <span>全てカテゴリー</span>
                             </div>
                             <ul>

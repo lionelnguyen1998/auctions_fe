@@ -4,6 +4,7 @@ import auctionApi from '../api/auctionApi';
 import './detail.css'
 import {Paper, Button} from "@mui/material";
 import { useNavigate, Link } from 'react-router-dom';
+import ModalDelete from './ModalDelete.js'
 
 const colors = ['#2196F3', '#4CAF50', '#FF9800', '#F44336', '#2196F3'];
 export default function DetailWait() {
@@ -77,21 +78,27 @@ export default function DetailWait() {
                                 <b>{auction.status}</b>
                             </Button>
                             <Link to={`/editAuction/${auction.auction_id}`}>
-                                <Button size="small" variant="outlined" style={{ color: '#17a2b8', height: '20px'}}>
-                                    <b>編集</b>
+                                <Button size="small" variant="outlined" style={{ color: '#17a2b8', height: '20px', borderColor: '#17a2b8'}}>
+                                    <b>オークション編集</b>
                                 </Button>
                             </Link>
+                            <Link to={`/editItem/${item.item_id}/${auction.auction_id}`}>
+                                <Button size="small" variant="outlined" style={{ color: '#17a2b8', height: '20px', borderColor: '#17a2b8'}}>
+                                    <b>アイテム編集</b>
+                                </Button>
+                            </Link>
+                            
+                            <ModalDelete 
+                                auctionId={auction.auction_id}
+                            />
+                           
                             <DetailsThumb images={item.images} setIndex={setIndex} />
                         </div>
                    </div>
                 ) : (
                     <div className="box-details">
-                        <h2><b>アイテムの名前:</b>--</h2>
-                        <h3><b>始値:</b> -- 円</h3>
+                        <h2><b>まだアイテムがない</b></h2>
                         <p><b>カテゴリー:</b> {categoryInfo.name}</p>
-                        <p><b>ブランド:</b> --</p>
-                        <p><b>シリーズ:</b> --</p>
-                        <p><b>ディスクリプション:</b> --</p>
                         <Button disabled size="small" variant="outlined" style={{ color: '#4CAF50', height: '20px'}}>
                             <b>{auction.start_date}</b>
                         </Button>
@@ -102,11 +109,19 @@ export default function DetailWait() {
                         <Button disabled size="small" variant="outlined" style={{ color: colors[auction.statusId], height: '20px'}}>
                             <b>{auction.status}</b>
                         </Button>
-                        <Link to='/'>
-                            <Button size="small" variant="outlined" style={{ color: '#17a2b8', height: '20px'}}>
-                                <b>編集</b>
+                        <Link to={`/editAuction/${auction.auction_id}`}>
+                            <Button size="small" variant="outlined" style={{ color: '#17a2b8', height: '20px', borderColor: '#17a2b8'}}>
+                                <b>オークション編集</b>
                             </Button>
                         </Link>
+                        <Link to={`/item/${auction.auction_id}`}>
+                            <Button size="small" variant="outlined" style={{ color: '#28a745', height: '20px', borderColor: '#28a745'}}>
+                                <b>アイテム追加</b>
+                            </Button>
+                        </Link>
+                        <ModalDelete 
+                            auctionId={auction.auction_id}
+                        />
                     </div>
                 )
            }

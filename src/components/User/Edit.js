@@ -1,27 +1,37 @@
 import React, { Fragment, useState, useEffect } from "react";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
-import AuthService from "../services/auth.service";
 import userApi from '../api/userApi';
 import UploadService from "../services/FileUploadService";
 import { useNavigate } from 'react-router-dom';
 
 function Edit() {
     let navigate = useNavigate();
-    const currentUser = AuthService.getCurrentUser();
-    let userInfo = currentUser.user;
-    const [email, setEmail] = useState(userInfo.email);
-    const [address, setAddress] = useState(userInfo.address);
-    const [phone, setPhone] = useState(userInfo.phone);
-    const [name, setName] = useState(userInfo.name);
+    const [email, setEmail] = useState('');
+    const [address, setAddress] = useState('');
+    const [phone, setPhone] = useState('');
+    const [name, setName] = useState('');
     const [messageN, setMessageN] = useState('');
     const [messageE, setMessageE] = useState('');
     const [messageA, setMessageA] = useState('');
     const [messagePhone, setMessagePhone] = useState('');
     const [successfull, setSuccessfull] = useState(false);
-    const [image, setImage] = useState(userInfo.avatar);
+    const [image, setImage] = useState('');
     const [imagePreview, setImagePreview] = useState([]);
     const [selectedFile, setSelectedFile] = useState(undefined);
+
+    useEffect(() => {
+        userApi.info() 
+        .then(res => {
+            const userInfo = res.data.data;
+            setEmail(userInfo.email);
+            setAddress(userInfo.address);
+            setPhone(userInfo.phone);
+            setName(userInfo.name);
+            setImage(userInfo.avatar);
+        })
+        .catch(e => console.log(e))
+    }, [])
 
     useEffect(() => {
         return () => {
@@ -62,7 +72,7 @@ function Edit() {
         ).then(
             response => {
                 if (response.data.code === 1000) {
-                    navigate("/");
+                    navigate("/auctions");
                     window.location.reload();
                     setSuccessfull(true)
                 } else {
@@ -171,17 +181,20 @@ function Edit() {
                         </div>
                     </div>
                     {
-                        imagePreview === true ? (
+                        (imagePreview) && (
                             <img src={imagePreview.preview} alt="" width="20%"/>
-                        ) : (
+                        )
+                    }
+                    {
+                        (image) && (
                             <img src={image} alt="" width="20%"/>
                         )
                     }
                 </div>
                 <div className="form-group">
                     <button className="site-btn"
-                     disabled={!selectFile}
-                     onClick={upload}
+                    disabled={!selectFile}
+                    onClick={upload}
                     >編集</button>
                 </div>
                 </>

@@ -35,25 +35,28 @@ function AuctionsK() {
         if (count) {
           params["count"] = count;
         }
+        if (userId) {
+            params["user_id"] = userId;
+        }
         return params;
     };
     const retrieveAuctions = () => {
         const params = getRequestParams(index, count);
-        auctionApi.getAllAuctionsOfUserK(userId, status, params)
+        auctionApi.getAllAuctions(status, params)
             .then((response) => {
-                const { auctions, total} = response.data.data;
+                const { auctions, total, user_info} = response.data.data;
                 setAuctions(auctions);
                 setTotal(total);
                 const totalPage = Math.ceil(total/count)
                 setCount(totalPage);
-                setUserInfo(response.data.data.userInfo)
+                setUserInfo(user_info)
             })
             .catch((e) => {
                 console.log(e);
             });
         };
 
-    useEffect(retrieveAuctions, [status, index, count]);
+    useEffect(retrieveAuctions, [userId, status, index, count]);
 
     return (
         <Fragment>

@@ -50,10 +50,10 @@ function Info ({auctionId, maxPrice, sellingUser, auction, categoryInfo, current
             item.images && (
                    <div className="details">
                        <div className="img-container" 
-                        ref={imgDiv}
-                        onMouseMove={handleMouseMove}
-                        onMouseLeave={() => imgDiv.current.style.backgroundPosition = `center`}
-                        style={{backgroundImage: `url(${item.images[indexs]})`}}
+                            ref={imgDiv}
+                            onMouseMove={handleMouseMove}
+                            onMouseLeave={() => imgDiv.current.style.backgroundPosition = `center`}
+                            style={{backgroundImage: `url(${item.images[indexs]})`}}
                         >
                        </div>
                        <div className="box-details">
@@ -74,7 +74,6 @@ function Info ({auctionId, maxPrice, sellingUser, auction, categoryInfo, current
                             </Grid>
                             <h2 title={item.name}>アイテムの名前　{item.name}</h2>
                             <h3>始値: {Number(item.starting_price).toLocaleString()} 円</h3>
-                            
                             {
                                 ((auction.statusId === 6)
                                 && (currentUser.user.user_id === sellingUser.selling_user_id))
@@ -88,7 +87,6 @@ function Info ({auctionId, maxPrice, sellingUser, auction, categoryInfo, current
                             <p><b>ブランド:</b> {item.brand}</p>
                             <p><b>シリーズ:</b> {item.series ?? '--'}</p>
                             <p style={{whiteSpace: 'pre-line'}}><b>ディスクリプション:</b>{item.description}</p>
-
                             {
                                 (auction.statusId === 6)
                                 && ((currentUser.user.user_id === sellingUser.selling_user_id) || (currentUser.user.user_id === buyingUser.buying_user_id) )

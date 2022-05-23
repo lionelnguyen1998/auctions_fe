@@ -36,7 +36,7 @@ function Features(){
 
     const retrieveAuctions = () => {
         const params = getRequestParams( index, count);
-        auctionApi.getList(status, params)
+        auctionApi.getAllAuctions(status, params)
             .then((response) => {
                 const { auctions, total} = response.data.data;
                 setAuctions(auctions);

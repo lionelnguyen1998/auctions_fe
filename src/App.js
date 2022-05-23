@@ -26,7 +26,7 @@ import ReadNotification from './components/Notification/ReadNotification';
 import ListItem from './components/Auction/ListItem';
 import EditAuction from './components/Auction/EditAuction';
 import Chat from './components/Chat/Chat';
-
+import EditItem from './components/Auction/EditItem';
 
 function App() {
   const currentUser = AuthService.getCurrentUser();
@@ -77,6 +77,7 @@ function App() {
                     <Route path="/chat" element={<Chat />}/>
                     <Route path={`/auctionByTypeOfCategory/:id`} element={<AuctionByTypeCategory />}/>
                     <Route path={`/editAuction/:id`} element={<EditAuction />}/>
+                    <Route path={`/editItem/:item_id/:auction_id`} element={<EditItem />}/>
                 </Routes>
             <Footer />
         </div>

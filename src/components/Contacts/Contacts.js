@@ -161,6 +161,7 @@ function Contacts() {
                         <div className="form-group">
                             <label htmlFor="content"><b>内容 </b><i className="fa fa-asterisk" style={{color:"red"}}></i></label>
                             <Textarea
+                                style={{height: '120px'}}
                                 type="text"
                                 className="form-control"
                                 name="content"

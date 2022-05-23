@@ -378,6 +378,7 @@ export default function Detail() {
                                                                 method="POST"
                                                                 >
                                                                     <Textarea
+                                                                        style={{height: '120px'}}
                                                                         type="text"
                                                                         className="form-control"
                                                                         name="selling_info"
