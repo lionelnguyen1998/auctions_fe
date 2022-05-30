@@ -3,13 +3,13 @@ import auctionApi from '../api/auctionApi';
 import {Button} from "@mui/material";
 import 'react-toastify/dist/ReactToastify.css';
 
-function DeleteComment({commentId, auctionId, setTotal}) {
+function DeleteComment({commentId, auctionId, setTotal, t}) {
     const [deleteComment, setDeleteComment] = useState('');
     const handleDeleteComment = () => {
         auctionApi.deleteComment(commentId)
             .then((response) => {
                 if (response.data.code === 1006) {
-                    setDeleteComment(response.data.message)
+                    setDeleteComment(`${t('errors.1006')}`)
                 } else {
                     setTotal(response.data.data.total)
                 }

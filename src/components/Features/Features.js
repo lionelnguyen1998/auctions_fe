@@ -6,6 +6,7 @@ import './index.css'
 import Search from '../Auction/Search.js';
 import Auction from './Auction.js';
 import Paginate from '../Paginate/Paginate.js'
+import { useTranslation } from 'react-i18next';
 
 const tabs = [0, 1, 2, 3, 6];
 function Features(){
@@ -18,6 +19,7 @@ function Features(){
     const [query, setQuery] = useState([])
     const colors = ['#2196F3', '#4CAF50', '#FF9800', '#F44336'];
     const keys = ['title', 'start_date', 'end_date'];
+    const {t} = useTranslation()
 
     const search = (data) => {
         return data.filter((auction) => keys.some((key) => auction[key].toLowerCase().includes(query)));
@@ -58,7 +60,7 @@ function Features(){
                         <div className="row">
                         <div className="col-lg-12">
                             <div className="section-title">
-                                <h2>オークション一覧</h2>
+                                <h2>{t('features.list')}</h2>
                                 
                             </div>
                             
@@ -66,6 +68,7 @@ function Features(){
                                     <ul>
                                     <Search
                                         setQuery={setQuery}
+                                        t={t}
                                     />
                                         {
                                             tabs.map(tab => (
@@ -76,7 +79,7 @@ function Features(){
                                                     } : {}}
                                                     onClick={() => setStatus(tab)}
                                                 >
-                                                    <b>{statusKey[tab]}</b>
+                                                    <b>{t(`status.${tab}`)}</b>
                                                     
                                                 </li>
                                             ))
@@ -88,7 +91,7 @@ function Features(){
                         </div>
                        
                         <div>
-                            <b style={{color:'#7FAD39'}}>{total} オークション</b>
+                            <b style={{color:'#7FAD39'}}>{total} {t('name.auctions')}</b>
                             <Auction 
                                 auctions={search(auctions)}
                                 colors={colors}

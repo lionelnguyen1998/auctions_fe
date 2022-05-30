@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from "@mui/material";
+import {useTranslation} from "react-i18next"
 
 function Auction({auctions, colors}) {
+    const {t} = useTranslation();
     return (
         <>
           <div className="row featured__filter">
@@ -18,7 +20,7 @@ function Auction({auctions, colors}) {
                             <div className="featured__item__text">
                                 <h6>{auction.title}</h6>
                                 <Button disabled size="small" variant="outlined" style={{ color: colors[auction.statusId], height: '20px', borderColor:colors[auction.statusId]}}>
-                                    <b>{auction.status}</b>
+                                    <b>{t(`status.${auction.statusId}`)}</b>
                                 </Button>
                                 {
                                     (auction.statusId === 2) ? (

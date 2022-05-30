@@ -5,7 +5,7 @@ import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import AuthService from "../services/auth.service";
 import './index.css'
-const Login = () => {
+const Login = ({t}) => {
   let navigate = useNavigate();
   const form = useRef();
   const checkBtn = useRef();
@@ -39,11 +39,25 @@ const Login = () => {
           } else if (response.code === 1001) {
             const errors = response.message.split("&");
             setLoading(false);
-            setMessageEmail(errors[0].slice(7));
-            setMessagePassword(errors[1].slice(10))
+            if (errors[0].slice(7) == 7000) {
+              setMessageEmail(`${t('errors.7000')}`);
+            }
+            if (errors[0].slice(7) == 7001) {
+              setMessageEmail(`${t('errors.7001')}`);
+            }
+
+            if (errors[0].slice(7) == 7002) {
+              setMessageEmail(`${t('errors.7002')}`);
+            }
+            if (errors[1].slice(10) == 7000) {
+              setMessagePassword(`${t('errors.7000')}`);
+            }
+            if (errors[1].slice(10) == 7001) {
+              setMessagePassword(`${t('errors.7001')}`);
+            }
           } else {
             setLoading(false);
-            setMessage(response.message);
+            setMessage(`${t('errors.1002')}`);
           }
         }
       );
@@ -57,7 +71,7 @@ const Login = () => {
         <div className="row">
             <div className="col-lg-12">
             <div className="section-title">
-                    <h2>ログイン</h2>
+                    <h2>{t('login.title')}</h2>
                 </div>
             </div>
         </div>
@@ -70,14 +84,14 @@ const Login = () => {
             </div>
           )}
           <div className="form-group">
-            <label htmlFor="email"><b>メールアドレス </b><i className="fa fa-asterisk" style={{color:"red"}}></i></label>
+            <label htmlFor="email"><b>{t('login.email')} </b><i className="fa fa-asterisk" style={{color:"red"}}></i></label>
             <Input
               type="text"
               className="form-control"
               name="email"
               value={email}
               onChange={onChangeUsername}
-              placeholder='メールアドレスを入力してください'
+              placeholder={t('login.input_email')}
             />
             {messageEmail && (
               <div className="form-group">
@@ -88,14 +102,14 @@ const Login = () => {
             )}
           </div>
           <div className="form-group">
-            <label htmlFor="password"><b>パスワード </b><i className="fa fa-asterisk" style={{color:"red"}}></i></label>
+            <label htmlFor="password"><b>{t('login.password')} </b><i className="fa fa-asterisk" style={{color:"red"}}></i></label>
             <Input
               type="password"
               className="form-control"
               name="password"
               value={password}
               onChange={onChangePassword}
-              placeholder='パスワードを入力してください'
+              placeholder={t('login.input_password')}
             />
             {messagePassword && (
               <div className="form-group">
@@ -110,7 +124,7 @@ const Login = () => {
               {loading && (
                 <span className="spinner-border spinner-border-sm"></span>
               )}
-              <span>ログイン</span>
+              <span>{t('login.button')}</span>
             </button>
           </div>
           <CheckButton style={{ display: "none" }} ref={checkBtn} />

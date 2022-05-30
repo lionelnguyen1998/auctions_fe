@@ -4,6 +4,7 @@ import 'react-alice-carousel/lib/alice-carousel.css';
 import { Paper } from "@mui/material";
 import { Link } from 'react-router-dom';
 import auctionApi from '../api/auctionApi';
+import {useTranslation} from 'react-i18next'
 
 const responsive = {
     0: {
@@ -12,6 +13,7 @@ const responsive = {
 };
 function Category() {
     const [categories, setCategories] = useState([])
+    const {t} = useTranslation();
     useEffect(() => {
         auctionApi.getListCategory()
             .then(res => {
@@ -24,7 +26,7 @@ function Category() {
                 <section className="categories">
                     <div className="container">
                         <div className="section-title">
-                            <h2>カテゴリー一覧</h2>
+                            <h2>{t('category.list')}</h2>
                         </div>
                         <div className="row">
                             <AliceCarousel 

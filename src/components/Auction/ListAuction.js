@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Button from '@mui/material/Button';
 
 const colors = ['#2196F3', '#4CAF50', '#FF9800', '#F44336', '#17a2b8'];
-function ListAuction({auctions}) {
+function ListAuction({auctions, t}) {
     return (
         <Fragment>
             <div className="row featured__filter">
@@ -30,11 +30,11 @@ function ListAuction({auctions}) {
                                     {
                                         (auction.statusId === 4) ? (
                                             <Button disabled size="small" variant="outlined" style={{ color: colors[auction.statusId], height: '20px', borderColor: colors[auction.statusId]}}>
-                                                <b>{auction.status}</b>
+                                                <b>{t(`status.${auction.statusId}`)}</b>
                                             </Button>
                                         ) : (
                                             <Button disabled size="small" variant="outlined" style={{ color: colors[auction.statusId], height: '20px', borderColor:colors[auction.statusId]}}>
-                                                <b>{auction.status}</b>
+                                                <b>{t(`status.${auction.statusId}`)}</b>
                                             </Button>
                                         )
                                     }

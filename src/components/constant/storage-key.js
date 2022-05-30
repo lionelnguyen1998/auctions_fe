@@ -4,7 +4,9 @@ export const statusKey = {
   2: 'もうすぐ',
   3: '終わった',
   4: '評価',
-  6: '配信中'
+  6: '配信中',
+  7: '配信しました',
+  8: '配信に成功'
 };
 
 export const tabKey = {

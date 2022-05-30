@@ -1,11 +1,11 @@
 import React from 'react';
 
-function Search({setQuery}) {
+function Search({setQuery, t}) {
     return (
         <>
             <input 
                 type="text"
-                placeholder="検索" 
+                placeholder={t('search.search')}
                 className="auctionMenuInput" 
                 onChange={(e) => setQuery(e.target.value.toLowerCase())}
             />

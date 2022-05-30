@@ -8,7 +8,7 @@ import auctionApi from '../api/auctionApi';
 import { useNavigate } from 'react-router-dom';
 import { Paper } from '@mui/material'
 
-function EditAuction() {
+function EditAuction({t}) {
     let navigate = useNavigate();
     const link = window.location.href;
     const auctionId = link.slice(34);
@@ -53,10 +53,40 @@ function EditAuction() {
             navigate(`/detailwait/${auctionId}`);
           } else {
             const errors = response.data.message.split('&')
-            setMessageCategory(errors[0].slice(10));
-            setMessageStartDate(errors[1].slice(12));
-            setMessageEndDate(errors[2].slice(10));
-            setMessageName(errors[3].slice(7));
+            if (errors[0].slice(10) == 7000) {
+              setMessageCategory(`${t('errors.7000')}`);
+            }
+            if (errors[0].slice(10) == 7007) {
+              setMessageCategory(`${t('errors.7007')}`);
+            }
+            if (errors[1].slice(12) == 7000) {
+              setMessageStartDate(`${t('errors.7000')}`);
+            }
+            if (errors[1].slice(12) == 7008) {
+              setMessageStartDate(`${t('errors.7008')}`);
+            }
+            if (errors[1].slice(12) == 7009) {
+              setMessageStartDate(`${t('errors.7009')}`);
+            }
+
+            if (errors[2].slice(10) == 7000) {
+              setMessageEndDate(`${t('errors.7000')}`);
+            }
+            if (errors[2].slice(10) == 7008) {
+              setMessageEndDate(`${t('errors.7008')}`);
+            } 
+            if (errors[2].slice(10) == 7010) {
+              setMessageEndDate(`${t('errors.7010')}`);
+            }
+            if (errors[3].slice(7) == 7000) {
+              setMessageName(`${t('errors.7000')}`);
+            } 
+            if (errors[3].slice(7) == 7001) {
+              setMessageName(`${t('errors.7001')}`);
+            } 
+            if (errors[3].slice(7) == 7005) {
+              setMessageName(`${t('errors.7005')}`);
+            }
           }
         }
       );
@@ -85,7 +115,7 @@ function EditAuction() {
                 <div className="row">
                     <div className="col-lg-12">
                         <div className="section-title">
-                           <p onClick={() => navigate(-1)}>オークション一覧</p>
+                           <p onClick={() => navigate(-1)}>{t('features.list')}</p>
                         </div>
                     </div>
                 </div>
@@ -96,7 +126,7 @@ function EditAuction() {
               <div className="row">
                   <div className="col-lg-12">
                   <div className="section-title">
-                          <h2>auctionを編集</h2>
+                          <h2>{t('detail_wait.auction_edit')}</h2>
                       </div>
                   </div>
               </div>  
@@ -106,14 +136,14 @@ function EditAuction() {
                 onSubmit={handleEditAuction}
                 >
                 <div className="form-group">
-                  <label htmlFor="name"><b>オークションのタイトル </b><i className="fa fa-asterisk" style={{color:"red"}}></i></label>
+                  <label htmlFor="name"><b>{t('input_auction.title')} </b><i className="fa fa-asterisk" style={{color:"red"}}></i></label>
                   <Input
                     type="text"
                     className="form-control"
                     name="name"
                     value={name}
                     onChange={e => setName(e.target.value)}
-                    placeholder='入力してください'
+                    placeholder={t('input_auction.input')}
                   />
                 {messageName && (
                     <div className="form-group">
@@ -124,11 +154,11 @@ function EditAuction() {
                   )}
                 </div>
                 <div className="form-group">
-                  <label htmlFor="category"><b>カテゴリー </b><i className="fa fa-asterisk" style={{color:"red"}}></i></label>
+                  <label htmlFor="category"><b>{t('input_auction.category')} </b><i className="fa fa-asterisk" style={{color:"red"}}></i></label>
                   <Select name='category'
                     onChange={e => setCategoryId(e.value)}
                     options={options[0]}
-                    placeholder='選択してください'
+                    placeholder={t('input_auction.choosecategory')}
                     defaultValue={options[0][4]}
                   />
                   {messageCategory && (
@@ -139,7 +169,7 @@ function EditAuction() {
                     </div>
                   )}
                 </div>
-                <label htmlFor="start_date"><b>始まる時間 </b><i className="fa fa-asterisk" style={{color:"red"}}></i></label>
+                <label htmlFor="start_date"><b>{t('input_auction.start_date')} </b><i className="fa fa-asterisk" style={{color:"red"}}></i></label>
                 <div className="form-group">
                   <DateTimePicker 
                       onChange={e => setStartDate(e)} 
@@ -155,7 +185,7 @@ function EditAuction() {
                     </div>
                   )}
                 </div>
-                <label htmlFor="end_date"><b>終わる時間 </b><i className="fa fa-asterisk" style={{color:"red"}}></i></label>
+                <label htmlFor="end_date"><b>{t('input_auction.end_date')} </b><i className="fa fa-asterisk" style={{color:"red"}}></i></label>
                 <div className="form-group">
                   <DateTimePicker 
                       onChange={e => setEndDate(e)} 
@@ -173,7 +203,7 @@ function EditAuction() {
                 </div>
                 <div className="form-group">
                   <button className="site-btn">
-                    <span>登録</span>
+                    <span>{t('button_input.edit')}</span>
                   </button>
                 </div>
               </Form>

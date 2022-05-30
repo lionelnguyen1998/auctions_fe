@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import UploadService from "../services/FileUploadService";
 import './upload.css'
 
-function Upload({images, setImages, index, t}) {
+function UploadEdit({images, setImages, index, t}) {
     const [imagePreview, setImagePreview] = useState([]);
     const [selectedFile, setSelectedFile] = useState(undefined);
     const [progress, setProgress] = useState(0);
@@ -32,8 +32,7 @@ function Upload({images, setImages, index, t}) {
             })
         setSelectedFile(undefined);
     };
-
-    console.log(images)
+    
     const handleRemoveImage = (id) => {
         // console.log(images)
         const s = images.filter((image, index) => index !== id)
@@ -86,7 +85,12 @@ function Upload({images, setImages, index, t}) {
                     </div>
                     {
                         imagePreview && (
-                            <img src={imagePreview.preview} alt="" width="30%"/>
+                            <img src={imagePreview.preview} alt="" width="20%"/>
+                        )
+                    }
+                    {
+                        images && (
+                            <img src={images} alt="" width="20%"/>
                         )
                     }
                      
@@ -98,4 +102,4 @@ function Upload({images, setImages, index, t}) {
     )
 }
 
-export default Upload;
+export default UploadEdit;

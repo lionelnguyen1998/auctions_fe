@@ -166,6 +166,10 @@ const auctionApi = {
   deleteAuction(auctionId) {
     const url =`/auctions/deleteAuction/${auctionId}`;
     return axiosClient.post(url)
+  },
+  delivery(auctionId) {
+    const url =`/auctions/updateDelivery/${auctionId}`;
+    return axiosClient.post(url)
   }
 };
 

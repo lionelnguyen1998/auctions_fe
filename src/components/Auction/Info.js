@@ -6,20 +6,16 @@ import { useNavigate, Link } from 'react-router-dom';
 import './detail.css'
 
 const colors = ['#2196F3', '#4CAF50', '#FF9800', '#F44336', '#2196F3'];
-function Info ({auctionId, maxPrice, sellingUser, auction, categoryInfo, currentUser}) {
+function Info ({auctionId, maxPrice, sellingUser, auction, categoryInfo, currentUser, item, t}) {
     let navigate = useNavigate();
     const [indexs, setIndex] = useState(0);
     const imgDiv = useRef();
-    const [item, setItem] = useState([]);
     const [liked, setLiked] = useState('');
-    const [buyingUser, setBuyingUser] = useState('');
     
     useEffect(() => {
         auctionApi.detail(auctionId)
             .then((res) => {
-                setItem(res.data.data.items)
                 setLiked(res.data.data.like)
-                setBuyingUser(res.data.data.buying_user)
             })
     }, [])
 
@@ -72,35 +68,20 @@ function Info ({auctionId, maxPrice, sellingUser, auction, categoryInfo, current
                                     </div>
                                 </Grid>
                             </Grid>
-                            <h2 title={item.name}>アイテムの名前　{item.name}</h2>
-                            <h3>始値: {Number(item.starting_price).toLocaleString()} 円</h3>
+                            <h2 title={item.name}>{t('detail.name')} {item.name}</h2>
+                            <h3>{t('detail.price')}: {Number(item.starting_price).toLocaleString()} {t('detail.money')}</h3>
                             {
                                 ((auction.statusId === 6)
                                 && (currentUser.user.user_id === sellingUser.selling_user_id))
                                 ? (
-                                    <h3>売値: {Number(maxPrice).toLocaleString()} 円</h3>
+                                    <h3>{t('detail.sell_price')}: {Number(maxPrice).toLocaleString()} {t('detail.money')}</h3>
                                 ) : (
-                                    <h3>最高価格: {maxPrice ? Number(maxPrice).toLocaleString() : '--'} 円</h3>
+                                    <h3>{t('detail.max_price')}: {maxPrice ? Number(maxPrice).toLocaleString() : '--'} {t('detail.money')}</h3>
                                 )
                             }
-                            <p><b>カテゴリー:</b> {categoryInfo.name}</p>
-                            <p><b>ブランド:</b> {item.brand}</p>
-                            <p><b>シリーズ:</b> {item.series ?? '--'}</p>
-                            <p style={{whiteSpace: 'pre-line'}}><b>ディスクリプション:</b>{item.description}</p>
-                            {
-                                (auction.statusId === 6)
-                                && ((currentUser.user.user_id === sellingUser.selling_user_id) || (currentUser.user.user_id === buyingUser.buying_user_id) )
-                                && (
-                                    <>
-                                        <hr/>
-                                        <p><b style={{color: '#7FAD39'}}>配送先住所</b></p>
-                                        <p><b>名前：</b> {buyingUser.buying_user_name}</p>
-                                        <p><b>電話番号:</b> {buyingUser.buying_user_phone}</p>
-                                        <p><b>アドレス:</b> {buyingUser.buying_user_address}</p>
-                                        <p style={{whiteSpace: 'pre-line'}}><b>販売情報:</b>{item.selling_info}</p>
-                                    </>
-                                )
-                            }
+                            <p><b>{t('detail.category')}:</b> {categoryInfo.name}</p>
+                            <p><b>{t('detail.brand')}:</b> {item.brand}</p>
+                            <p><b>{t('detail.series')}:</b> {item.series ?? '--'}</p>
                             <Button disabled size="small" variant="outlined" style={{ color: '#4CAF50', height: '20px', borderColor:'#4CAF50'}}>
                                 <b>{auction.start_date}</b>
                             </Button>
@@ -108,7 +89,7 @@ function Info ({auctionId, maxPrice, sellingUser, auction, categoryInfo, current
                                 <b>{auction.end_date}</b>
                             </Button>
                             <Button disabled size="small" variant="outlined" style={{ color: colors[auction.statusId], height: '20px', borderColor: colors[auction.statusId]}}>
-                                <b>{auction.status}</b>
+                                <b>{t(`status.${auction.statusId}`)}</b>
                             </Button>
                             <DetailsThumb images={item.images} setIndex={setIndex} />
                             {/* {

@@ -4,13 +4,13 @@ import Category from '../Category/Category';
 import Features from '../Features/Features';
 import auctionApi from '../api/auctionApi';
 
-function HomePage(){
+function HomePage({t}){
     useEffect(() => {
         auctionApi.update();
     }, [])
     return (
         <Fragment>
-            <Hero />
+            <Hero t={t}/>
             <Features />
             <Category/>
         </Fragment>

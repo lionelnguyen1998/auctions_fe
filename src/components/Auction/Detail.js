@@ -11,6 +11,8 @@ import DeleteComment from './DeleteComment';
 import Paginate from '../Paginate/Paginate.js'
 import Info from './Info';
 import { format } from "timeago.js";
+import Description from "./Description.js";
+import BuyingInfo from "./BuyingInfo.js";
 
 const tabs = ['bids', 'comments'];
 const style = {
@@ -27,7 +29,7 @@ const style = {
     px: 4,
     pb: 3,
 };
-export default function Detail() {
+export default function Detail({t}) {
     const currentUser = AuthService.getCurrentUser();
     let navigate = useNavigate();
     const link = window.location.href;
@@ -52,6 +54,8 @@ export default function Detail() {
     const [sellingInfo, setSellingInfo] = useState('')
     const [sellingInfoM, setSellingInfoM] = useState('')
     const [categoryInfo, setCategoryInfo] = useState('')
+    const [item, setItem] = useState([]);
+    const [buyingUser, setBuyingUser] = useState('');
     
     useEffect(() => {
         auctionApi.detail(auctionId)
@@ -59,6 +63,8 @@ export default function Detail() {
                 setAuction(res.data.data.auctions)
                 setSellingUser(res.data.data.selling_user)
                 setCategoryInfo(res.data.data.category)
+                setItem(res.data.data.items)
+                setBuyingUser(res.data.data.buying_user)
             })
     }, [])
 
@@ -134,7 +140,15 @@ export default function Detail() {
         .then(res => {
             if (res.data.code === 1001) {
                 const errors = res.data.message
-                setPriceM(errors.slice(7))
+                if (errors.slice(7) == 7000) {
+                    setPriceM(`${t('errors.7000')}`)
+                }
+                if (errors.slice(7) == 7006) {
+                    setPriceM(`${t('errors.7006')}`)
+                }
+                if (errors.slice(7) == 7014) {
+                    setPriceM(`${t('errors.7014')}`)
+                }
             } else {
                 setTotalPrice(res.data.total)
             }
@@ -186,7 +200,7 @@ export default function Detail() {
                 <div className="row">
                     <div className="col-lg-12">
                         <div className="section-title">
-                           <p onClick={() => navigate(-1)}>オークション一覧</p>
+                           <p onClick={() => navigate(-1)}>{t('features.list')}</p>
                         </div>
                     </div>
                 </div>
@@ -199,7 +213,27 @@ export default function Detail() {
             auction={auction}
             categoryInfo={categoryInfo}
             currentUser={currentUser}
+            item={item}
+            t={t}
         />
+        <Description 
+        description={item.description}
+        t={t}
+        />
+        {
+            (auction.statusId === 6 || auction.statusId === 7 || auction.statusId === 8)
+            && ((currentUser.user.user_id === sellingUser.selling_user_id) || (currentUser.user.user_id === buyingUser.buying_user_id) )
+            && (
+                <BuyingInfo 
+                    buyingUser={buyingUser}
+                    item={item}
+                    status={auction.statusId}
+                    auctionId={auction.auction_id}
+                    t={t}
+                />
+            )
+        }
+       
         <Paper style={{ padding: "20px 200px", marginBottom: '40px' }} className="container">
             <section>
                 <div className="container">
@@ -216,7 +250,7 @@ export default function Detail() {
                                                 } : {}}
                                                 onClick={() => setType(tab)}
                                             >
-                                                <b>{tabKey[tab]}</b>
+                                                <b>{t(`detail.${tab}`)}</b>
                                             </li>
                                         ))
                                     }
@@ -238,7 +272,7 @@ export default function Detail() {
                                             type="text"
                                             className="form-control"
                                             name="content"
-                                            placeholder='入力してください'
+                                            placeholder={t('detail.comment_input')}
                                             value={content}
                                             onChange={e => setContent(e.target.value)}
                                             />
@@ -252,7 +286,7 @@ export default function Detail() {
                                         </div>
                                         <div className="form-group">
                                             <button className="site-btn send">
-                                            <span>送信</span>
+                                            <span>{t('button_input.send')}</span>
                                             </button>
                                         </div>
                                     </Form>
@@ -262,7 +296,7 @@ export default function Detail() {
                         }
                         {
                             (type === 'comments') && (
-                                <p>{total} コメント</p>
+                                <p>{total} {t(`detail.comments`)}</p>
                             )
                         }
                         {
@@ -288,6 +322,7 @@ export default function Detail() {
                                                 commentId = {comment.comment_id}
                                                 auctionId = {auctionId}
                                                 setTotal = {setTotal}
+                                                t={t}
                                                 />
                                                 </p>
                                             </Grid>
@@ -310,7 +345,7 @@ export default function Detail() {
                                             type="text"
                                             className="form-control"
                                             name="price"
-                                            placeholder='入力してください'
+                                            placeholder={t('detail.bid_input')}
                                             value={price}
                                             onChange={e => setPrice(e.target.value)}
                                             />
@@ -324,7 +359,7 @@ export default function Detail() {
                                         </div>
                                         <div className="form-group">
                                             <button className="site-btn send">
-                                            <span>送信</span>
+                                            <span>{t('button_input.send')}</span>
                                             </button>
                                         </div>
                                     </Form>
@@ -334,7 +369,7 @@ export default function Detail() {
                         }
                         {
                             (type === 'bids') && (
-                                <p>{totalPrice} 入札</p>
+                                <p>{totalPrice} {t(`detail.bids`)}</p>
                             )
                         }
                         {
@@ -351,7 +386,7 @@ export default function Detail() {
                                                     <span style={{float:"right"}}>{ format(bid.updated_at) }</span>
                                                 </div>
                                                 <p style={{ textAlign: "left" }}>
-                                                    {Number(bid.price).toLocaleString()} 円
+                                                    {Number(bid.price).toLocaleString()} {t('bid.money')}
                                                 </p>
                                                 <p style={{ textAlign: "left", color: "gray" }}>
                                                 <Button color="success"><i class="fa fa-thumbs-up" aria-hidden="true"></i></Button>
@@ -363,7 +398,7 @@ export default function Detail() {
                                                     && (
                                                         <>
                                                             <Button size="small" onClick={handleOpen} variant="outlined" style={{ color: '#4CAF50', borderColor:'#4CAF50', height: '20px', marginRight: '20px'}}>
-                                                                アクセプタンス
+                                                            {t('bid.accept')}
                                                             </Button>
                                                             <Modal
                                                                 open={open}
@@ -372,7 +407,7 @@ export default function Detail() {
                                                                 aria-describedby="parent-modal-description"
                                                             >
                                                                 <Box sx={{ ...style, width: 400 }}>
-                                                                <h4 id="parent-modal-title" style={{color: '#28a745'}}><b>オークションの買い取り情報</b></h4>
+                                                                <h4 id="parent-modal-title" style={{color: '#28a745'}}><b>{t('bid.title_modal')}</b></h4>
                                                                 <br/>
                                                                 <Form
                                                                 method="POST"
@@ -383,7 +418,7 @@ export default function Detail() {
                                                                         className="form-control"
                                                                         name="selling_info"
                                                                         onChange={e => setSellingInfo(e.target.value)}
-                                                                        placeholder='入力してください'
+                                                                        placeholder={t('bid.input_modal')}
                                                                     />
                                                                     {   sellingInfoM && (
                                                                         <div className="form-group">
@@ -394,12 +429,12 @@ export default function Detail() {
                                                                     )}
                                                                 </Form>
                                                                 <hr></hr>
-                                                                <Button onClick={handleAccept} variant="outlined" style={{color: '#28a745', borderColor:'#28a745'}}>アクセプタンス</Button>
-                                                                <Button onClick={handleClose} style={{float:'right'}} variant="outlined">キャンセル</Button>
+                                                                <Button onClick={handleAccept} variant="outlined" style={{color: '#28a745', borderColor:'#28a745'}}>{t('bid.button_accept')}</Button>
+                                                                <Button onClick={handleClose} style={{float:'right'}} variant="outlined">{t('button_input.cancel')}</Button>
                                                                 </Box>
                                                             </Modal>
                                                             <Button size="small" onClick={handleOpen2} variant="outlined" style={{ color: '#FF9800', borderColor:'#FF9800', height: '20px'}}>
-                                                                相談する
+                                                            {t('bid.button_negotiate')}
                                                             </Button>
                                                             <Modal
                                                                 open={open2}
@@ -408,11 +443,11 @@ export default function Detail() {
                                                                 aria-describedby="parent-modal-description"
                                                             >
                                                                 <Box sx={{ ...style, width: 450 }}>
-                                                                <h4 id="parent-modal-title" style={{color: '#FF9800'}}><b>値段について相談したいですか？</b></h4>
+                                                                <h4 id="parent-modal-title" style={{color: '#FF9800'}}><b>{t('bid.title_modal_negotiate')}</b></h4>
                                                                 <br/>
                                                                 <hr></hr>
-                                                                <Button onClick={handleNegotiate} variant="outlined" style={{color: '#FF9800', borderColor:'#FF9800'}}>はい</Button>
-                                                                <Button onClick={handleClose2} style={{float:'right'}} variant="outlined">いいえ</Button>
+                                                                <Button onClick={handleNegotiate} variant="outlined" style={{color: '#FF9800', borderColor:'#FF9800'}}>{t('bid.yes')}</Button>
+                                                                <Button onClick={handleClose2} style={{float:'right'}} variant="outlined">{t('bid.no')}</Button>
                                                                 </Box>
                                                             </Modal>
                                                         </>
@@ -423,7 +458,7 @@ export default function Detail() {
                                                     && (bid.price === maxPrice) 
                                                     && (
                                                         <Button size="small" disabled onClick={handleOpen} variant="outlined" style={{ color: '#4CAF50', borderColor:'#4CAF50', height: '20px', marginRight: '20px'}}>
-                                                            配信中
+                                                            {t('receive.delivery1')}
                                                         </Button>
                                                     )
                                                 }

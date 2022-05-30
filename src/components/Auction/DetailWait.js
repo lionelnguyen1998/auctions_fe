@@ -5,9 +5,10 @@ import './detail.css'
 import {Paper, Button} from "@mui/material";
 import { useNavigate, Link } from 'react-router-dom';
 import ModalDelete from './ModalDelete.js'
+import Description from './Description.js';
 
 const colors = ['#2196F3', '#4CAF50', '#FF9800', '#F44336', '#2196F3'];
-export default function DetailWait() {
+export default function DetailWait({t}) {
     let navigate = useNavigate();
     const [indexs, setIndex] = useState(0);
     const imgDiv = useRef();
@@ -40,7 +41,7 @@ export default function DetailWait() {
                 <div className="row">
                     <div className="col-lg-12">
                         <div className="section-title">
-                           <p onClick={() => navigate(-1)}>オークション一覧</p>
+                           <p onClick={() => navigate(-1)}>{t('features.list')}</p>
                         </div>
                     </div>
                 </div>
@@ -61,12 +62,11 @@ export default function DetailWait() {
                         >
                        </div>
                         <div className="box-details">
-                            <h2 title={item.name}>アイテムの名前　{item.name}</h2>
-                            <h3>始値: {Number(item.starting_price).toLocaleString()} 円</h3>
-                            <p><b>カテゴリー:</b> {categoryInfo.name}</p>
-                            <p><b>ブランド:</b> {item.brand}</p>
-                            <p><b>シリーズ:</b> {item.series ?? '--'}</p>
-                            <p style={{whiteSpace: 'pre-line'}}><b>ディスクリプション:</b>{item.description}</p>
+                            <h2 title={item.name}>{t('detail.name')} {item.name}</h2>
+                            <h3>{t('detail.price')}: {Number(item.starting_price).toLocaleString()} 円</h3>
+                            <p><b>{t('detail.category')}:</b> {categoryInfo.name}</p>
+                            <p><b>{t('detail.brand')}:</b> {item.brand}</p>
+                            <p><b>{t('detail.series')}:</b> {item.series ?? '--'}</p>
                             <Button disabled size="small" variant="outlined" style={{ color: '#4CAF50', height: '20px'}}>
                                 <b>{auction.start_date}</b>
                             </Button>
@@ -75,21 +75,22 @@ export default function DetailWait() {
                             </Button>
                             <br/>
                             <Button disabled size="small" variant="outlined" style={{ color: colors[auction.statusId], height: '20px'}}>
-                                <b>{auction.status}</b>
+                                <b>{t(`status.${auction.statusId}`)}</b>
                             </Button>
                             <Link to={`/editAuction/${auction.auction_id}`}>
                                 <Button size="small" variant="outlined" style={{ color: '#17a2b8', height: '20px', borderColor: '#17a2b8'}}>
-                                    <b>オークション編集</b>
+                                    <b>{t('detail_wait.auction_edit')}</b>
                                 </Button>
                             </Link>
                             <Link to={`/editItem/${item.item_id}/${auction.auction_id}`}>
                                 <Button size="small" variant="outlined" style={{ color: '#17a2b8', height: '20px', borderColor: '#17a2b8'}}>
-                                    <b>アイテム編集</b>
+                                    <b>{t('detail_wait.item_edit')}</b>
                                 </Button>
                             </Link>
                             
                             <ModalDelete 
                                 auctionId={auction.auction_id}
+                                t={t}
                             />
                            
                             <DetailsThumb images={item.images} setIndex={setIndex} />
@@ -97,8 +98,8 @@ export default function DetailWait() {
                    </div>
                 ) : (
                     <div className="box-details">
-                        <h2><b>まだアイテムがない</b></h2>
-                        <p><b>カテゴリー:</b> {categoryInfo.name}</p>
+                        <h2><b>{t('detail_wait.no_item')}</b></h2>
+                        <p><b>{t('detail.category')}:</b> {categoryInfo.name}</p>
                         <Button disabled size="small" variant="outlined" style={{ color: '#4CAF50', height: '20px'}}>
                             <b>{auction.start_date}</b>
                         </Button>
@@ -107,25 +108,35 @@ export default function DetailWait() {
                         </Button>
                         <br/>
                         <Button disabled size="small" variant="outlined" style={{ color: colors[auction.statusId], height: '20px'}}>
-                            <b>{auction.status}</b>
+                            <b>{t(`status.${auction.statusId}`)}</b>
                         </Button>
                         <Link to={`/editAuction/${auction.auction_id}`}>
                             <Button size="small" variant="outlined" style={{ color: '#17a2b8', height: '20px', borderColor: '#17a2b8'}}>
-                                <b>オークション編集</b>
+                                <b>{t('detail_wait.auction_edit')}</b>
                             </Button>
                         </Link>
                         <Link to={`/item/${auction.auction_id}`}>
                             <Button size="small" variant="outlined" style={{ color: '#28a745', height: '20px', borderColor: '#28a745'}}>
-                                <b>アイテム追加</b>
+                                <b>{t('detail_wait.add_item')}</b>
                             </Button>
                         </Link>
                         <ModalDelete 
                             auctionId={auction.auction_id}
+                            t={t}
                         />
                     </div>
                 )
            }
         </Paper>
+        {
+            (item.description) ? (
+                <Description
+                    description={item.description}
+                    t={t}
+                />
+            ) : (<></>)
+        }
+        
         </>
     )
 }

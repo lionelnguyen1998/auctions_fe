@@ -5,7 +5,7 @@ import userApi from '../api/userApi';
 import UploadService from "../services/FileUploadService";
 import { useNavigate } from 'react-router-dom';
 
-function Edit() {
+function Edit({t}) {
     let navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [address, setAddress] = useState('');
@@ -77,10 +77,36 @@ function Edit() {
                     setSuccessfull(true)
                 } else {
                     const errors = response.data.message.split("&");
-                    setMessageN(errors[0].slice(6))
-                    setMessagePhone(errors[1].slice(7))
-                    setMessageA(errors[2].slice(9))
-                    setMessageE(errors[3].slice(7))
+                    if (errors[0].slice(6) == 7000) {
+                        setMessageN(`${t('errors.7000')}`)
+                    }
+                    if (errors[0].slice(6) == 7001){
+                        setMessageN(`${t('errors.7001')}`)
+                    }
+        
+                    if (errors[1].slice(7) == 7000) {
+                        setMessagePhone(`${t('errors.7000')}`)
+                    }
+                    if (errors[1].slice(7) == 7013){
+                        setMessagePhone(`${t('errors.7013')}`)
+                    }
+                    
+                    if (errors[2].slice(9) == 7001) {
+                        setMessageA(`${t('errors.7001')}`)
+                    }
+    
+                    if (errors[3].slice(7) == 7000) {
+                        setMessageE(`${t('errors.7000')}`)
+                    } 
+                    if(errors[3].slice(7) == 7001) {
+                        setMessageE(`${t('errors.7001')}`)
+                    } 
+                    if (errors[3].slice(7) == 7002) {
+                        setMessageE(`${t('errors.7002')}`)
+                    } 
+                    if (errors[3].slice(7) == 7004){
+                        setMessageE(`${t('errors.7004')}`)
+                    }
                     setSuccessfull(false)
                 }
                 }
@@ -93,7 +119,7 @@ function Edit() {
             <div className="row">
                 <div className="col-lg-12">
                 <div className="section-title">
-                        <h2>プロファールを編集</h2>
+                        <h2>{t('edit.title')}</h2>
                     </div>
                 </div>
             </div>
@@ -103,10 +129,11 @@ function Edit() {
             {!successfull && (
                 <>
                 <div className="form-group">
-                    <label htmlFor="name"><b>名前 </b><i className="fa fa-asterisk" style={{color:"red"}}></i></label>
+                    <label htmlFor="name"><b>{t('register.name')} </b><i className="fa fa-asterisk" style={{color:"red"}}></i></label>
                     <Input
                     type="text"
                     className="form-control"
+                    placeholder={t('register.name_input')}
                     name="name"
                     value={name}
                     onChange={e => setName(e.target.value)}
@@ -118,11 +145,12 @@ function Edit() {
                         </label>
                     </div>
                     )}
-                    <label htmlFor="email"><b>メールアドレス </b><i className="fa fa-asterisk" style={{color:"red"}}></i></label>
+                    <label htmlFor="email"><b>{t('register.email')} </b><i className="fa fa-asterisk" style={{color:"red"}}></i></label>
                     <Input
                     type="text"
                     className="form-control"
                     name="email"
+                    placeholder={t('register.email_input')}
                     value={email}
                     onChange={e => setEmail(e.target.value)}
                     />
@@ -135,11 +163,12 @@ function Edit() {
                     )}
                 </div>
                 <div className="form-group">
-                    <label htmlFor="phone"><b>電話番号 </b><i className="fa fa-asterisk" style={{color:"red"}}></i></label>
+                    <label htmlFor="phone"><b>{t('register.phone')} </b><i className="fa fa-asterisk" style={{color:"red"}}></i></label>
                     <Input
                     type="text"
                     className="form-control"
                     name="phone"
+                    placeholder={t('register.phone_input')}
                     value={phone}
                     onChange={e => setPhone(e.target.value)}
                     />
@@ -152,11 +181,12 @@ function Edit() {
                     )}
                 </div>
                 <div className="form-group">
-                    <label htmlFor="address"><b>アドレス </b></label>
+                    <label htmlFor="address"><b>{t('register.address')} </b></label>
                     <Input
                     type="text"
                     className="form-control"
                     name="address"
+                    placeholder={t('register.address_input')}
                     value={address}
                     onChange={e => setAddress(e.target.value)}
                     />
@@ -169,7 +199,7 @@ function Edit() {
                     )}
                 </div>
                 <div className="form-group">
-                <label htmlFor="file"><b>アバター</b></label>
+                <label htmlFor="file"><b>{t('register.avatar')}</b></label>
                     <div className="row my-3">
                         <div className="col-8">
                         <label className="btn btn-default p-0">
@@ -195,7 +225,7 @@ function Edit() {
                     <button className="site-btn"
                     disabled={!selectFile}
                     onClick={upload}
-                    >編集</button>
+                    >{t('button_input.edit')}</button>
                 </div>
                 </>
             )}

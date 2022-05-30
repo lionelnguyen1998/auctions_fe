@@ -4,6 +4,7 @@ import auctionApi from '../api/auctionApi';
 import userApi from '../api/userApi';
 import notificationApi from '../api/notificationApi';
 import AuthService from "../services/auth.service";
+import {useTranslation} from 'react-i18next';
 import './index.css'
 
 function Header({auth}) {
@@ -14,6 +15,7 @@ function Header({auth}) {
     const index = 1;
     const isNotRead = 1;
     const count = 4;
+    const {t} = useTranslation()
     const logOut = () => {
         AuthService.logout();
     }
@@ -79,13 +81,13 @@ function Header({auth}) {
                                         {
                                             auth ? (
                                                 <>
-                                                    <div><b>おはよう {userInfo.name}</b></div>
+                                                    <div><b>{t('header.hello')} {userInfo.name}</b></div>
                                                     <span className="arrow_carrot-down"></span>
                                                     <ul className="dropdown">
                                                         <div class="dropdown-content">
-                                                            <li><a href="/" className="nav-link" onClick={logOut} style={{color:"#1C1C1C"}}>ログアウト</a></li>
-                                                            <li><Link to="/edit" style={{color:"#1C1C1C"}}>編集</Link></li>
-                                                            <li><Link to="/changepass" style={{color:"#1C1C1C"}}>パスワードを変更</Link></li>
+                                                            <li><a href="/" className="nav-link" onClick={logOut} style={{color:"#1C1C1C"}}>{t('account.logout')}</a></li>
+                                                            <li><Link to="/edit" style={{color:"#1C1C1C"}}>{t('account.edit')}</Link></li>
+                                                            <li><Link to="/changepass" style={{color:"#1C1C1C"}}>{t('account.changepass')}</Link></li>
                                                             
                                                         </div>
                                                     </ul>
@@ -96,8 +98,8 @@ function Header({auth}) {
                                                     <span className="arrow_carrot-down"></span>
                                                     <ul className="dropdown">
                                                         <div class="dropdown-content">
-                                                            <li> <Link to="/login" style={{color:"#1C1C1C"}}>ログイン</Link></li>
-                                                            <li> <Link to="/register" style={{color:"#1C1C1C"}}>登録</Link></li>
+                                                            <li> <Link to="/login" style={{color:"#1C1C1C"}}>{t('account.login')}</Link></li>
+                                                            <li> <Link to="/register" style={{color:"#1C1C1C"}}>{t('account.register')}</Link></li>
                                                         </div>
                                                     </ul>
                                                 </>
@@ -113,22 +115,22 @@ function Header({auth}) {
                 <div className="row">
                     <div className="col-lg-3">
                         <div className="header__logo">
-                            <Link to="/" className="logo"><b>オークション</b></Link>
+                            <Link to="/" className="logo"><b>{t('header.auctions')}</b></Link>
                         </div>
                     </div>
                     <div className="col-lg-6">
                         <nav className="header__menu">
                             <ul>
-                                <li className="active"><Link to="/">ホーム</Link></li>
+                                <li className="active"><Link to="/">{t('header.homepage')}</Link></li>
                                 {
                                     auth ? (
-                                        <li><Link to="/sell">販売</Link></li>
+                                        <li><Link to="/sell">{t('header.selling')}</Link></li>
                                     ) : (
-                                        <li><Link to="/login">販売</Link></li>
+                                        <li><Link to="/login">{t('header.selling')}</Link></li>
                                     )
                                 }
-                                <li><Link to='/news'>ニュース</Link></li>
-                                <li><Link to="/contacts">お問い合わせ</Link></li>
+                                <li><Link to='/news'>{t('header.news')}</Link></li>
+                                <li><Link to="/contacts">{t('header.contacts')}</Link></li>
                             </ul>
                         </nav>
                     </div>
@@ -156,7 +158,7 @@ function Header({auth}) {
                                                         </div>
                                                     ))
                                                 }
-                                                <Link to="/notifications"><b>すべて見る</b></Link>
+                                                <Link to="/notifications"><b>{t('notifications.all')}</b></Link>
                                             </div>
                                         </li>
                                         <li><Link to="/auctions"><i className="fa fa-buysellads"></i></Link></li>

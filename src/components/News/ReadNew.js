@@ -2,12 +2,14 @@ import React, {useEffect, useState} from 'react';
 import { Paper } from "@mui/material";
 import { useNavigate } from 'react-router-dom';
 import notificationApi from '../api/notificationApi';
+import {useTranslation} from 'react-i18next'
 
 function ReadNew() {
     const link = window.location.href;
     const newId = link.slice(27);
     let navigate = useNavigate();
     const [news, setNews] = useState('')
+    const {t} = useTranslation();
     const readNew = () => {
         notificationApi.readNews(newId)
             .then((response) => {
@@ -26,7 +28,7 @@ function ReadNew() {
                     <div className="row">
                         <div className="col-lg-12">
                             <div className="section-title">
-                                <p onClick={() => navigate(-1)}>ニュース一覧</p>
+                                <p onClick={() => navigate(-1)}>{t('news.list')}</p>
                             </div>
                         </div>
                     </div>
@@ -47,7 +49,7 @@ function ReadNew() {
                         <td dangerouslySetInnerHTML={{__html: news.content}} />
                     }
                 </section>
-                <p style={{float:'right', color:'#7FAD39'}}>{news.user_create_name} によって {news.updated_at}</p>
+                <p style={{float:'right', color:'#7FAD39'}}>{news.user_create_name}_{news.updated_at}</p>
             </Paper>
         </>
     )

@@ -1,51 +1,14 @@
 import React, {useState, useEffect, useRef} from 'react';
-import {Avatar, Paper, Grid, Button, Modal, Box, Slider} from "@mui/material";
+import {Avatar, Paper, Grid, Button} from "@mui/material";
 import DetailsThumb from './DetailsThumb'
+import Description from './Description'
+import Receive from './Receive'
 import auctionApi from '../api/auctionApi';
 import {Link} from 'react-router-dom'
-import Rater from 'react-rater'
 import 'react-rater/lib/react-rater.css'
 import './index.css'
 
-const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #e6efe6',
-    borderRadius: '10px',
-    boxShadow: 5,
-    pt: 2,
-    px: 4,
-    pb: 3,
-};
-
-const marks = [
-    {
-      value: 0,
-      label: '準備中',
-    },
-    {
-      value: 40,
-      label: '配信中',
-    },
-    {
-      value: 100,
-      label: '配信に成功',
-    },
-];
-
-function valuetext(value) {
-    return `${value}`;
-}
-
-function valueLabelFormat(value) {
-    return marks.findIndex((mark) => mark.value === value) + 1;
-  }
-
-function ItemDetail ({itemId}) {
+function ItemDetail ({itemId, t}) {
     const [indexs, setIndex] = useState(0);
     const imgDiv = useRef();
     const [item, setItem] = useState('')
@@ -53,7 +16,6 @@ function ItemDetail ({itemId}) {
     const [sellingUser, setSellingUser] = useState('');
     const [buyingUser, setBuyingUser] = useState('');
     const [liked, setLiked] = useState('')
-    const [open, setOpen] = useState('')
 
     const handleMouseMove = e =>{
         const {left, top, width, height} = e.target.getBoundingClientRect();
@@ -84,18 +46,6 @@ function ItemDetail ({itemId}) {
            console.log(e)
         })
     }
-
-    const handleRate = (e) => {
-        console.log(e.target)
-    }
-    
-    const handleOpen = () => {
-        setOpen(true);
-    };
-    
-    const handleClose = () => {
-        setOpen(false);
-    };
 
     return (
         <>
@@ -131,18 +81,11 @@ function ItemDetail ({itemId}) {
                                     </div>
                                 </Grid>
                             </Grid>
-                            <h3>始値: {Number(item.starting_price).toLocaleString()} 円</h3>
-                            <h3>買値: {Number(item.max_price).toLocaleString()} 円</h3>
-                            <p><b>カテゴリー:</b> {item.category}</p>
-                            <p><b>ブランド:</b> {item.brand}</p>
-                            <p><b>シリーズ:</b> {item.series ?? '--'}</p>
-                            <p style={{whiteSpace: 'pre-line'}}><b>ディスクリプション:</b>{item.description}</p>
-                            <hr></hr>
-                            <p><b style={{color: '#7FAD39'}}>配送先住所</b></p>
-                            <p><b>名前：</b> {buyingUser.buying_user_name}</p>
-                            <p><b>電話番号:</b> {buyingUser.buying_user_phone}</p>
-                            <p><b>アドレス:</b> {buyingUser.buying_user_address}</p>
-                            <p style={{whiteSpace: 'pre-line'}}><b>販売情報:</b>{item.selling_info}</p>
+                            <h3>{t('list_item.price')}: {Number(item.starting_price).toLocaleString()} 円</h3>
+                            <h3>{t('list_item.buy_price')}: {Number(item.max_price).toLocaleString()} 円</h3>
+                            <p><b>{t('input_auction.category')}:</b> {item.category}</p>
+                            <p><b>{t('input_item.brand')}:</b> {item.brand}</p>
+                            <p><b>{t('input_item.series')}:</b> {item.series ?? '--'}</p>
                             <Button disabled size="small" variant="outlined" style={{ color: '#4CAF50', height: '20px'}}>
                                 <b>{auction.start_date}</b>
                             </Button>
@@ -151,40 +94,7 @@ function ItemDetail ({itemId}) {
                             </Button>
                             <br/>
                         
-                            <Button size="small" variant="contained" style={{height: '20px'}} color='warning'>
-                                <b onClick={handleOpen}>商品を受け取りました</b>
-                            </Button>
-                            <Button size="small" variant="contained" style={{height: '20px'}}>
-                                <b >返品・返金をリクエストする</b>
-                            </Button>
-                            <Modal
-                                open={open}
-                                onClose={handleClose}
-                                aria-labelledby="parent-modal-title"
-                                aria-describedby="parent-modal-description"
-                            >
-                                <Box sx={{ ...style, width: 400 }}>
-                                <br/>
-                                <p>私は製品を受け取り、満足しています。返金や返品はいたしません。</p>
-                                <p>評判</p>
-                                <Rater total={5} rating={5} />
-                                <hr></hr>
-                                <Button onClick={handleRate} variant="outlined" style={{color: '#28a745', borderColor:'#28a745'}}>確認</Button>
-                                <Button onClick={handleClose} style={{float:'right'}} variant="outlined">今はやめる</Button>
-                                </Box>
-                            </Modal>
-
-                            <Box style={{marginTop:'10px'}} sx={{ width: 300 }}>
-                                <Slider
-                                    aria-label="Always visible"
-                                    defaultValue={0}
-                                    marks={marks}
-                                    step={null}
-                                    getAriaValueText={valuetext}
-                                    valueLabelFormat={valueLabelFormat}
-                                    valueLabelDisplay="auto"
-                                />
-                            </Box>
+                            
                             <DetailsThumb images={item.images} setIndex={setIndex} />
                             <Button size="small" style={{color:'#4CAF50', marginLeft: '10px', height: '20px'}}
                                 onClick={() => handleLiked(auction.auction_id)}
@@ -199,6 +109,17 @@ function ItemDetail ({itemId}) {
                 )
            }
         </Paper>
+        <Description
+            description={item.description}
+            t={t}
+        />
+        <Receive
+            item={item}
+            buyingUser={buyingUser}
+            status={auction.status}
+            auctionId={auction.auction_id}
+            t={t}
+        />
         </>
     )
 }

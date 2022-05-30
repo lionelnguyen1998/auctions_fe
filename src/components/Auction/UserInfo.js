@@ -3,7 +3,7 @@ import {Avatar, Grid, Typography} from "@mui/material";
 import './index.css'
 import {role} from "../constant/index";
 
-function UserInfo({userInfo}) {
+function UserInfo({userInfo, t}) {
     return (
         <>
         <Grid container spacing={10}>
@@ -18,19 +18,19 @@ function UserInfo({userInfo}) {
             <Grid item xs container direction="column" spacing={2}>
                 <Grid item xs>
                     <Typography gutterBottom variant="subtitle1" component="div">
-                        <b>名前:　　　　　　　</b> {userInfo.name}
+                        <b>{t('user_auctions.user_name')}:　　　　　　　</b> {userInfo.name}
                     </Typography>
                     <Typography gutterBottom variant="subtitle1" component="div">
-                        <b>メールアドレス:　　</b> {userInfo.email}
+                        <b>{t('user_auctions.email')}:　　</b> {userInfo.email}
                     </Typography>
                     <Typography gutterBottom variant="subtitle1" component="div">
-                        <b>電話番号:　　　　　</b> {userInfo.phone}
+                        <b>{t('user_auctions.phone')}:　　　　　</b> {userInfo.phone}
                     </Typography>
                     <Typography gutterBottom variant="subtitle1" component="div">
-                        <b>アドレス:　　　　　</b> {userInfo.address}
+                        <b>{t('user_auctions.address')}:　　　　　</b> {userInfo.address}
                     </Typography>
                     <Typography gutterBottom variant="subtitle1" component="div">
-                        <b>役割:　　　　　　　</b> {role[userInfo.role]}
+                        <b>{t('user_auctions.role')}:　　　　　　　</b> {t(`user_auctions.${userInfo.role}`)}
                     </Typography>
                 </Grid>
             </Grid>

@@ -6,7 +6,7 @@ import {typeNotification} from "../constant/index";
 import Paginate from '../Paginate/Paginate.js'
 import './index.css'
 
-export default function Notification() {
+export default function Notification({t}) {
     const [notifications, setNotifications] = useState([])
     const [index, setPage] = useState(1);
     const [counts, setCount] = useState(1);
@@ -48,7 +48,7 @@ export default function Notification() {
                     <div className="row">
                         <div className="col-lg-12">
                         <div className="section-title">
-                                <h2>お知らせ一覧</h2>
+                                <h2>{t('notifications.list')}</h2>
                             </div>
                         </div>
                     </div>
@@ -56,9 +56,9 @@ export default function Notification() {
                         <div>
                             <table id="customers">
                                 <tr>
-                                    <th>タイトル</th>
-                                    <th>オークション</th>
-                                    <th>時間</th>
+                                    <th>{t('notifications.title')}</th>
+                                    <th>{t('notifications.auction')}</th>
+                                    <th>{t('notifications.time')}</th>
                                     <th></th>
                                 </tr>
                                 {
@@ -70,12 +70,12 @@ export default function Notification() {
                                         <td style={{width: '25%'}}>
                                             {notification.title}
                                         </td>
-                                        <td style={{width: '23%'}}>
+                                        <td style={{width: '20%'}}>
                                             {notification.updated_at}
                                         </td>
                                         <td>
                                             <Button disabled size="small" variant="outlined" style={{marginRight: '20px',  height: '20px'}}>
-                                                <b className={`${(typeNotification[notification.type] === 1) ? 'accept' : 'reject'}`} >{typeNotification[notification.type]}</b>
+                                                <b className={`${(typeNotification[notification.type] === 1) ? 'accept' : 'reject'}`} >{t(`notifications.${notification.type}`)}</b>
                                             </Button>
                                             <Link to={`/notifications/${notification.auction_id}`}>
                                                 <Button size="small" variant="outlined"style={{ height: '20px', marginRight: '20px'}}>

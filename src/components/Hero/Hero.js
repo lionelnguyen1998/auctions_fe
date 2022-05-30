@@ -6,14 +6,13 @@ import { Link } from 'react-router-dom';
 import './index.css'
 import './SearchBar.css'
 
-const options = [
-    { value: '1', label: '値段' },
-    { value: '2', label: '始まる時間' },
-    { value: '3', label: '終わる時間' },
-    { value: '4', label: 'オークション' }
-]
-
-function Hero() {
+function Hero({t}) {
+    const options = [
+        { value: '1', label: `${t('search.price')}` },
+        { value: '2', label: `${t('search.start_date')}` },
+        { value: '3', label: `${t('search.end_date')}` },
+        { value: '4', label: `${t('search.auction')}` }
+    ]  
     const [type, setType] = useState()
     const [key, setKey] = useState('')
     const [values, setValues] = useState([])
@@ -55,14 +54,14 @@ function Hero() {
                     <div className="col-lg-3">
                         <div className="hero__categories">
                             <div className="hero__categories__all">
-                                <span>全てカテゴリー</span>
+                                <span>{t('category.all')}</span>
                             </div>
                             <ul>
-                                <li className="li-hover"><Link to={`/auctionByTypeOfCategory/1`}>電子</Link></li>
-                                <li className="li-hover"><Link to={`/auctionByTypeOfCategory/2`}>ファッション</Link></li>
-                                <li className="li-hover"><Link to={`/auctionByTypeOfCategory/3`}>健康と着飾る</Link></li>
-                                <li className="li-hover"><Link to={`/auctionByTypeOfCategory/4`}>家事</Link></li>
-                                <li className="li-hover"><Link to={`/auctionByTypeOfCategory/5`}>他に</Link></li>
+                                <li className="li-hover"><Link to={`/auctionByTypeOfCategory/1`}>{t('category.1')}</Link></li>
+                                <li className="li-hover"><Link to={`/auctionByTypeOfCategory/2`}>{t('category.2')}</Link></li>
+                                <li className="li-hover"><Link to={`/auctionByTypeOfCategory/3`}>{t('category.3')}</Link></li>
+                                <li className="li-hover"><Link to={`/auctionByTypeOfCategory/4`}>{t('category.4')}</Link></li>
+                                <li className="li-hover"><Link to={`/auctionByTypeOfCategory/5`}>{t('category.5')}</Link></li>
                                 <li><a>　</a></li>
                                 <li><a>　</a></li>
                                 <li><a>　</a></li>
@@ -77,10 +76,10 @@ function Hero() {
                                 <Select name='search-options'
                                     onChange={e => setType(e.value)}
                                     options={options}
-                                    placeholder="検索　　" 
+                                    placeholder={t('search.search')}
                                 />
                                 <input type="text" 
-                                placeholder="検索" 
+                                placeholder={t('search.search')} 
                                 value={key}
                                 onChange={(e) => setKey(e.target.value)}
                                 />
@@ -114,7 +113,7 @@ function Hero() {
                                     </div>
                                     <div className="hero__search__phone__text">
                                         <h5>1234567890</h5>
-                                        <span>８時午前～２２時午後</span>
+                                        <span>8{t('hour.hour')}~22{t('hour.hour')}</span>
                                     </div>
                                 </div>
                             </div>

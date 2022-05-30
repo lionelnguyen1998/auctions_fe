@@ -1,6 +1,5 @@
 import React, { useEffect, useState} from 'react';
 import auctionApi from '../api/auctionApi';
-import {statusKey} from "../constant/index";
 import { Paper } from "@mui/material";
 import {useNavigate} from 'react-router-dom'
 import ListAuction from './ListAuction.js'
@@ -10,7 +9,7 @@ import './index.css'
 
 const tabs = [0, 1, 2, 3];
 
-function AuctionByTypeCategory() {
+function AuctionByTypeCategory({t}) {
     let navigate = useNavigate();
     const link = window.location.href;
     const typeId = link.slice(46);
@@ -66,7 +65,7 @@ function AuctionByTypeCategory() {
                 <div className="row">
                     <div className="col-lg-12">
                         <div className="section-title">
-                           <p onClick={() => navigate(-1)}>ホームページ</p>
+                           <p onClick={() => navigate(-1)}> {t('name.homepage')}</p>
                         </div>
                     </div>
                 </div>
@@ -78,12 +77,13 @@ function AuctionByTypeCategory() {
                         <div className="row">
                         <div className="col-lg-12">
                             <div className="section-title">
-                                <h2>{type}</h2>
+                                <h2>{t(`category.${typeId}`)}</h2>
                             </div>
                             <div className="featured__controls">
                                     <ul>
                                         <Search 
                                             setQuery={setQuery}
+                                            t={t}
                                         />
                                         {
                                             tabs.map(tab => (
@@ -94,7 +94,7 @@ function AuctionByTypeCategory() {
                                                     } : {}}
                                                     onClick={() => setStatus(tab)}
                                                 >
-                                                    <b>{statusKey[tab]}</b>
+                                                    <b>{t(`status.${tab}`)}</b>
                                                 </li>
                                             ))
                                         }
@@ -103,9 +103,10 @@ function AuctionByTypeCategory() {
                         </div>
                         </div>
                         <div>
-                            <b style={{color:'#7FAD39'}}>{total} オークション</b>
+                            <b style={{color:'#7FAD39'}}>{total} {t('name.auctions')}</b>
                             <ListAuction
                                 auctions={search(auctions)}
+                                t={t}
                             />
                             <Paginate 
                             counts={counts}

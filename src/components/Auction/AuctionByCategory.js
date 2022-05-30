@@ -10,7 +10,7 @@ import Search from './Search';
 
 const tabs = [0, 1, 2, 3];
 
-function AuctionByCategory() {
+function AuctionByCategory({t}) {
     let navigate = useNavigate();
     const link = window.location.href;
     const categoryId = link.slice(41);
@@ -66,7 +66,7 @@ function AuctionByCategory() {
                 <div className="row">
                     <div className="col-lg-12">
                         <div className="section-title">
-                           <p onClick={() => navigate(-1)}>カテゴリー一覧</p>
+                           <p onClick={() => navigate(-1)}>{t('category.list')}</p>
                         </div>
                     </div>
                 </div>
@@ -82,7 +82,10 @@ function AuctionByCategory() {
                             </div>
                             <div className="featured__controls">
                                     <ul>
-                                        <Search setQuery={setQuery}/>
+                                        <Search 
+                                            setQuery={setQuery} 
+                                            t={t}
+                                        />
                                         {
                                             tabs.map(tab => (
                                                 <li 
@@ -92,7 +95,7 @@ function AuctionByCategory() {
                                                     } : {}}
                                                     onClick={() => setStatus(tab)}
                                                 >
-                                                    <b>{statusKey[tab]}</b>
+                                                    <b>{t(`status.${tab}`)}</b>
                                                 </li>
                                             ))
                                         }
@@ -101,9 +104,10 @@ function AuctionByCategory() {
                         </div>
                         </div>
                         <div>
-                            <b style={{color:'#7FAD39'}}>{total} オークション</b>
+                            <b style={{color:'#7FAD39'}}>{total} {t('name.auctions')}</b>
                             <ListAuction
                                 auctions={search(auctions)}
+                                t={t}
                             />
                             <Paginate 
                             counts={counts}

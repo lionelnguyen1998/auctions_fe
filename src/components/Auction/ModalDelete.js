@@ -17,7 +17,7 @@ const style = {
     px: 4,
     pb: 3,
 };
-function ModalDelete({auctionId}) {
+function ModalDelete({auctionId, t}) {
     let navigate = useNavigate();
     const [open, setOpen] = useState('')
     const handleDeleteAuction = (auctionId) => {
@@ -42,7 +42,7 @@ function ModalDelete({auctionId}) {
     return (
         <>
         <Button size="small" onClick={handleOpen} variant="outlined" style={{ color: '#dc3545', borderColor:'#dc3545', height: '20px'}}>
-            <b>削除</b>
+            <b>{t('modal.delete')}</b>
         </Button>
         <Modal
             open={open}
@@ -51,11 +51,11 @@ function ModalDelete({auctionId}) {
             aria-describedby="parent-modal-description"
         >
             <Box sx={{ ...style, width: 450 }}>
-            <h4 id="parent-modal-title" style={{color: '#dc3545'}}><b>本当に削除しますか？</b></h4>
+            <h4 id="parent-modal-title" style={{color: '#dc3545'}}><b>{t('modal.title_delete')}</b></h4>
             <br/>
             <hr></hr>
-            <Button onClick={() => handleDeleteAuction(auctionId)} variant="outlined" style={{color: '#dc3545', borderColor:'#dc3545'}}><b>削除</b></Button>
-            <Button onClick={handleClose} style={{float:'right'}} variant="outlined"><b>カンセル</b></Button>
+            <Button onClick={() => handleDeleteAuction(auctionId)} variant="outlined" style={{color: '#dc3545', borderColor:'#dc3545'}}><b>{t('modal.delete')}</b></Button>
+            <Button onClick={handleClose} style={{float:'right'}} variant="outlined"><b>{t('modal.cancel')}</b></Button>
             </Box>
         </Modal>
         </>

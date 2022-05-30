@@ -4,12 +4,14 @@ import notificationApi from '../api/notificationApi';
 import { Link } from 'react-router-dom';
 import Paginate from '../Paginate/Paginate.js'
 import './index.css';
+import {useTranslation} from 'react-i18next'
 
 function New() {
     const [news, setNews] = useState([])
     const [index, setPage] = useState(1);
     const [counts, setCount] = useState(1);
     const [count, setPageSize] = useState(4);
+    const {t} = useTranslation();
     const getRequestParams = (index, count) => {
         let params = {};
         if (index) {
@@ -27,7 +29,6 @@ function New() {
             .then((response) => {
                 const { news, total} = response.data.data;
                 setNews(news);
-                console.log(news);
                 const totalPage = Math.ceil(total/count)
                 setCount(totalPage);
             })
@@ -51,7 +52,7 @@ function New() {
                         <div className="row">
                             <div className="col-lg-12">
                                 <div className="section-title">
-                                    <h2>ニュース一覧</h2>
+                                    <h2>{t('news.list')}</h2>
                                 </div>
                             </div>
                         </div>
@@ -60,13 +61,13 @@ function New() {
                         news.map((newInfo, index) => (
                             <div key={index} className="div-news">
                                 <h2>{newInfo.title}</h2>
-                                {stripHTML(newInfo.content).substr(0, 100) + '...' }<Link to={`/news/${newInfo.new_id}`} className="link-address">もっと見る</Link>
+                                {stripHTML(newInfo.content).substr(0, 100) + '...' }<Link to={`/news/${newInfo.new_id}`} className="link-address">{t('news.see_more')}</Link>
                             
-                                <p>{newInfo.user} によって {newInfo.updated_at}
+                                <p>{newInfo.user}_{newInfo.updated_at}
                                     {
                                         newInfo.is_read === 1 && (
                                             <>
-                                                <p style={{color: '#7FAD39'}}>見た！</p>
+                                                <p style={{color: '#7FAD39'}}>{t('news.saw')}</p>
                                             </>
                                         )
                                     }

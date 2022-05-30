@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import chatApi from "../api/chatApi";
 import "./chatOnline.css";
 
-export default function ChatOnline({ onlineUsers, currentId, setCurrentChat }) {
+export default function ChatOnline({ onlineUsers, currentId, setCurrentChat, t }) {
     const [users, setUsers] = useState([]);
     const [onlineFriends, setOnlineFriends] = useState([]);
     const [query, setQuery] = useState([])
@@ -31,7 +31,7 @@ export default function ChatOnline({ onlineUsers, currentId, setCurrentChat }) {
         <>
             <input 
                 type="text"
-                placeholder="検索" 
+                placeholder={t('search.search')} 
                 className="chatMenuInput" 
                 onChange={(e) => setQuery(e.target.value)}
             />

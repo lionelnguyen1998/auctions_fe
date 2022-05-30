@@ -5,7 +5,7 @@ import Paginate from '../Paginate/Paginate.js'
 import auctionApi from '../api/auctionApi';
 import ItemDetail from './ItemDetail.js';
 
-function ListItem() {
+function ListItem({t}) {
     let navigate = useNavigate();
     const [index, setPage] = useState(1);
     const [counts, setCount] = useState(1);
@@ -54,7 +54,7 @@ function ListItem() {
                 <div className="row">
                     <div className="col-lg-12">
                         <div className="section-title">
-                           <p onClick={() => navigate(-1)}>オークション一覧</p>
+                           <p onClick={() => navigate(-1)}>{t('features.list')}</p>
                         </div>
                     </div>
                 </div>
@@ -66,12 +66,12 @@ function ListItem() {
                         <div className="row">
                             <div className="col-lg-12">
                                 <div className="section-title">
-                                    <h2>アイテム一覧</h2>
+                                    <h2>{t('list_item.list')}</h2>
                                 </div>
                             </div>
                         </div>
                         <div>
-                            <b style={{color:'#7FAD39'}}>{total} アイテム</b>
+                            <b style={{color:'#7FAD39'}}>{total} {t('list_item.item')}</b>
                             <div className="row featured__filter">
                                 {
                                     infos.map((info) => (
@@ -108,6 +108,7 @@ function ListItem() {
             itemId && (
                 <ItemDetail 
                     itemId={itemId}
+                    t={t}
                 />
             )
         }

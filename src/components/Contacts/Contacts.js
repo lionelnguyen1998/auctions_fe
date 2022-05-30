@@ -8,7 +8,7 @@ import Select from "react-select";
 import Textarea from "react-validation/build/textarea";
 import { Paper } from '@mui/material'
 
-function Contacts() {
+function Contacts({t}) {
     let navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
@@ -45,11 +45,33 @@ function Contacts() {
                     window.location.reload();
                 } else {
                     const errors = res.data.message.split('&')
-                    setMessageName(errors[0].slice(6));
-                    setMessageEmail(errors[2].slice(7));
-                    setMessagePhone(errors[1].slice(7));
-                    setMessageContent(errors[3].slice(9));
-                    setMessageType(errors[4].slice(12))
+                    if (errors[0].slice(6) == 7000) {
+                        setMessageName(`${t('errors.7000')}`);
+                    } 
+                    if (errors[0].slice(6) == 7001) {
+                        setMessageName(`${t('errors.7001')}`);
+                    } 
+
+                    if (errors[1].slice(7) == 7013) {
+                        setMessagePhone(`${t('errors.7013')}`);
+                    }
+                    if (errors[1].slice(7) == 7000) {
+                        setMessagePhone(`${t('errors.7000')}`);
+                    }
+
+                    if (errors[2].slice(7) == 7000) {
+                        setMessageEmail(`${t('errors.7000')}`);
+                    } 
+                    if (errors[2].slice(7) == 7001) {
+                        setMessageEmail(`${t('errors.7001')}`);
+                    }
+                    if (errors[2].slice(7) == 7002) {
+                        setMessageEmail(`${t('errors.7002')}`);
+                    }
+
+                    if (errors[4].slice(12) == 7000) {
+                        setMessageType(`${t('errors.7000')}`);
+                    }
                 }
             }
         );
@@ -78,25 +100,32 @@ function Contacts() {
       };
 
     const options = [
-        {value:'1', label: '1: システムエラー'},
-        {value:'2', label: '2: 使い方'},
-        {value:'3', label: '3: 他に'},
+        {value:'1', label: `${t('contacts.type1')}`},
+        {value:'2', label: `${t('contacts.type2')}`},
+        {value:'3', label: `${t('contacts.type3')}`},
     ]
 
     return (
         <Fragment>
             <Paper style={{ padding: "20px", marginBottom: "40px"}} className="container">
                 <div className="container">  
+                    <div className="row">
+                        <div className="col-lg-12">
+                            <div className="section-title">
+                                <h2>{t('contacts.contact')}</h2>
+                            </div>
+                        </div>
+                    </div>
                     <Form 
                         className="form-test"
                         method="POST"
                         onSubmit={handleContact}
                         >
                         <div className="form-group">
-                            <label htmlFor="report_type"><b>レポートのタイプ </b><i className="fa fa-asterisk" style={{color:"red"}}></i></label>
+                            <label htmlFor="report_type"><b>{t('contacts.type')} </b><i className="fa fa-asterisk" style={{color:"red"}}></i></label>
                             <Select name='report_type' 
                                 onChange={e => setType(e.value)}
-                                placeholder='選択してください'
+                                placeholder={t('contacts.type')}
                                 options={options}
                             />
                             {messageType && (
@@ -108,13 +137,13 @@ function Contacts() {
                             )}
                         </div>
                         <div className="form-group">
-                            <label htmlFor="name"><b>名前 </b><i className="fa fa-asterisk" style={{color:"red"}}></i></label>
+                            <label htmlFor="name"><b>{t('contacts.name')} </b><i className="fa fa-asterisk" style={{color:"red"}}></i></label>
                             <Input
                                 type="text"
                                 className="form-control"
                                 name="name"
                                 onChange={e => setName(e.target.value)}
-                                placeholder='名前を入力してください'
+                                placeholder={t('contacts.name_input')}
                             />
                             {messageName && (
                                 <div className="form-group">
@@ -125,13 +154,13 @@ function Contacts() {
                             )}
                         </div>
                         <div className="form-group">
-                            <label htmlFor="email"><b>メールアドレス </b><i className="fa fa-asterisk" style={{color:"red"}}></i></label>
+                            <label htmlFor="email"><b>{t('contacts.email')} </b><i className="fa fa-asterisk" style={{color:"red"}}></i></label>
                             <Input
                                 type="text"
                                 className="form-control"
                                 name="email"
                                 onChange={e => setEmail(e.target.value)}
-                                placeholder='メールアドレスを入力してください'
+                                placeholder={t('contacts.email_input')}
                             />
                             {messageEmail && (
                                 <div className="form-group">
@@ -142,13 +171,13 @@ function Contacts() {
                             )}
                         </div>
                         <div className="form-group">
-                            <label htmlFor="phone"><b>電話番号 </b><i className="fa fa-asterisk" style={{color:"red"}}></i></label>
+                            <label htmlFor="phone"><b>{t('contacts.phone')} </b><i className="fa fa-asterisk" style={{color:"red"}}></i></label>
                             <Input
                                 type="text"
                                 className="form-control"
                                 name="phone"
                                 onChange={e => setPhone(e.target.value)}
-                                placeholder='電話番号を入力してください'
+                                placeholder={t('contacts.phone_input')}
                             />
                             {messagePhone && (
                                 <div className="form-group">
@@ -159,14 +188,14 @@ function Contacts() {
                             )}
                         </div>
                         <div className="form-group">
-                            <label htmlFor="content"><b>内容 </b><i className="fa fa-asterisk" style={{color:"red"}}></i></label>
+                            <label htmlFor="content"><b>{t('contacts.content')} </b><i className="fa fa-asterisk" style={{color:"red"}}></i></label>
                             <Textarea
                                 style={{height: '120px'}}
                                 type="text"
                                 className="form-control"
                                 name="content"
                                 onChange={e => setContent(e.target.value)}
-                                placeholder='内容を入力してください'
+                                placeholder={t('contacts.content_input')}
                             />
                             {messageContent && (
                                 <div className="form-group">
@@ -177,7 +206,7 @@ function Contacts() {
                             )}
                         </div>
                         <div className="form-group">
-                            <label htmlFor="address"><b>写真</b></label>
+                            <label htmlFor="address"><b>{t('contacts.image')}</b></label>
                             <div className="row my-3">
                                 <div className="col-8">
                                 <label className="btn btn-default p-0">
@@ -200,7 +229,7 @@ function Contacts() {
                                 disabled={!selectFile}
                                 onClick={upload}
                             >
-                                <span>送信</span>
+                                <span>{t('contacts.send')}</span>
                             </button>
                         </div>
                     </Form>

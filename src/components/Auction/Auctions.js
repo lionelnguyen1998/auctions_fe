@@ -4,7 +4,6 @@ import { statusKey } from "../constant/index";
 import { Paper } from "@mui/material";
 import './index.css'
 import ListAuction from './ListAuction.js'
-import userApi from '../api/userApi';
 import UserInfo from './UserInfo.js'
 import Paginate from '../Paginate/Paginate.js'
 import AliceCarousel from 'react-alice-carousel';
@@ -19,7 +18,7 @@ const responsive = {
         items: 4
     }
 };
-function Auctions() {
+function Auctions({t}) {
     const currentUser = AuthService.getCurrentUser();
     const userId = currentUser.user.user_id
     const [auctions, setAuctions] = useState([]);
@@ -82,6 +81,7 @@ function Auctions() {
             <Paper style={{ padding: "20px", marginBottom: "40px"}} className="container">
                 <UserInfo 
                     userInfo={userInfo}
+                    t={t}
                 />
             </Paper>
             <Paper style={{ padding: "20px", marginBottom: "40px"}} className="container">
@@ -90,13 +90,14 @@ function Auctions() {
                         <div className="row">
                         <div className="col-lg-12">
                             <div className="section-title">
-                                <h2>ユーザーのオークションの一覧</h2>
+                                <h2>{t('user_auctions.title')}</h2>
                             </div>
                             
                             <div className="featured__controls">
                                     <ul>
                                     <Search 
                                         setQuery={setQuery}
+                                        t={t}
                                     />
                                         {
                                             tabs.map(tab => (
@@ -107,7 +108,7 @@ function Auctions() {
                                                     } : {}}
                                                     onClick={() => setStatus(tab)}
                                                 >
-                                                    <b>{statusKey[tab]}</b>
+                                                    <b>{t(`status.${tab}`)}</b>
                                                 </li>
                                             ))
                                         }
@@ -116,9 +117,10 @@ function Auctions() {
                         </div>
                         </div>
                         <div>
-                            <b style={{color:'#7FAD39'}}>{total} オークション</b>
+                            <b style={{color:'#7FAD39'}}>{total} {t('name.auctions')}</b>
                             <ListAuction
                                 auctions={search(auctions)}
+                                t={t}
                             />
                             <Paginate 
                             counts={counts}
@@ -137,7 +139,7 @@ function Auctions() {
                         <section className="categories">
                             <div className="container">
                                 <div className="section-title">
-                                    <h2>カテゴリー一覧</h2>
+                                    <h2>{t('user_auctions.title_category')}</h2>
                                 </div>
                                 <div className="row">
                                     <AliceCarousel 
@@ -166,7 +168,7 @@ function Auctions() {
                     </Paper>
                 ) : (
                     <div className="section-title">
-                        <h2>商品をまだ買いません！</h2>
+                        <h2>{t('user_auctions.no_category')}</h2>
                     </div>
                 )
             }

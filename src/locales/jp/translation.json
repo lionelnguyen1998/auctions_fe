@@ -1,0 +1,276 @@
+{
+    "name": {
+        "auctions": "オークション",
+        "category": "カテゴリー",
+        "address": "アドレス",
+        "phone": "電話番号",
+        "email": "メールアドレス",
+        "homepage": "ホームページ"
+    },
+
+    "header": {
+        "hello": "おはよう",
+        "auctions": "オークション",
+        "homepage": "ホーム",
+        "selling": "販売",
+        "news": "ニュース",
+        "contacts": "お問い合わせ"
+    },
+    "account": {
+        "login": "ログイン",
+        "logout": "ログアウト",
+        "edit": "編集",
+        "register": "登録",
+        "changepass": "パスワードを変更"
+    },
+
+    "category": {
+        "all": "全てカテゴリー",
+        "list": "カテゴリー一覧",
+        "1": "電子",
+        "2": "ファッション",
+        "3": "健康と着飾る",
+        "4": "家事",
+        "5": "他に"
+    },
+
+    "search": {
+        "search": "検索",
+        "price": "値段",
+        "start_date": "始まる時間",
+        "end_date": "終わる時間",
+        "auction": "オークション"
+    },
+
+    "hour": {
+        "hour": "時"
+    },
+
+    "footer": {
+        "address": "アドレス",
+        "phone": "電話番号",
+        "email": "メールアドレス"
+    },
+
+    "features": {
+        "list": "オークション一覧",
+        "auctions": "オークション"
+    },
+
+    "status": {
+        "0": "全て",
+        "1": "起こる",
+        "2": "もうすぐ",
+        "3": "終わった",
+        "4": "評価",
+        "5": "断られた",
+        "6": "配信中",
+        "7": "配信しました",
+        "8": "配信に成功"
+    },
+    "button_input": {
+        "create": "登録",
+        "edit": "編集",
+        "delete": "削除",
+        "register": "登録",
+        "cancel": "カンセル",
+        "confirm": "確認",
+        "send": "送信"
+    },
+    "input_auction": {
+        "input": "入力してください",
+        "choosecategory": "選択してください",
+        "title": "オークションのタイトル",
+        "category": "カテゴリー",
+        "start_date": "始まる時間",
+        "end_date": "終わる時間"  
+    },
+    "input_item": {
+        "name": "アイテムの名前",
+        "name_input": "名前を入力してください",
+        "brand": "ブランド",
+        "brand_choose": "選択してください",
+        "series": "シリーズ",
+        "series_input": "シリーズを入力してください",
+        "price": "値段（円）",
+        "price_input": "値段を入力してください",
+        "description": "ディスクリプション",
+        "description_input": "ディスクリプションを入力してください",
+        "add_images": "写真追加",
+        "upload": "アップ"
+    },
+    "list_item": {
+        "list": "アイテム一覧",
+        "item": "アイテム",
+        "price": "始値",
+        "buy_price": "買値"
+    },
+    "user": {
+        "name": "名前",
+        "phone": "電話番号",
+        "address": "アドレス"
+    },
+    "receive": {
+        "name": "名宛人",
+        "buy_info": "販売情報",
+        "delivery1": "配信中",
+        "delivery2": "配信に成功しますか？",
+        "receive1": "商品を受け取りました",
+        "receive2": "返品・返金をリクエストする",
+        "delivery_success": "配信に成功",
+        "receive_modal": "私は製品を受け取り、満足しています。返金や返品はいたしません。",
+        "rate": "評判",
+        "confirm_modal": "確認",
+        "cancel_modal": "今はやめる",
+        "receive_title": "配送先住所",
+        "received": "配信しました"
+    },
+    "news": {
+        "list": "ニュース一覧",
+        "see_more": "もっと見る",
+        "saw": "見た！"
+    },
+    "notifications": {
+        "all": "すべて見る",
+        "list": "お知らせ一覧",
+        "title": "タイトル",
+        "auction": "オークション",
+        "time": "時間",
+        "reason": "理由",
+        "2": "拒否",
+        "no_info": "アイテム情報がありません。"
+    },
+    "detail": {
+        "name": "アイテムの名前　",
+        "price": "始値",
+        "category": "カテゴリー",
+        "brand": "ブランド",
+        "series": "シリーズ",
+        "bids": "入札",
+        "comments": "コメント",
+        "bid_input": "入力してください",
+        "comment_input": "入力してください",
+        "money": "円",
+        "sell_price": "売値",
+        "max_price": "最高価格"
+    },
+    "bid": {
+        "accept": "アクセプタンス",
+        "title_modal": "オークションの買い取り情報",
+        "input_modal": "入力してください",
+        "button_accept": "アクセプタンス",
+        "button_negotiate": "相談する",
+        "title_modal_negotiate": "値段について相談したいですか？",
+        "yes": "はい",
+        "no": "いいえ",
+        "money": "円"
+    },
+    "detail_wait": {
+        "breadcumb": "オークション一覧",
+        "item_edit": "アイテム編集",
+        "auction_edit": "オークション編集",
+        "no_item": "まだアイテムがない",
+        "add_item": "アイテム追加"
+    },
+    "modal": {
+        "title_delete": "本当に削除しますか？",
+        "delete": "削除",
+        "cancel": "キャンセル"
+    },
+    "contacts": {
+        "contact": "お問い合わせ",
+        "type": "レポートのタイプ",
+        "choose": "選択してください",
+        "name": "名前",
+        "name_input": "名前を入力してください",
+        "email": "メールアドレス",
+        "email_input": "メールアドレスを入力してください",
+        "phone": "電話番号",
+        "phone_input": "電話番号を入力してください",
+        "content": "内容",
+        "content_input": "内容を入力してください",
+        "image": "写真",
+        "send": "送信",
+        "type1": "1: システムエラー",
+        "type2": "2: 使い方",
+        "type3": "3: 他に"
+    },
+    "like": {
+        "title": "人気が入るオークションの一覧"
+    },
+    "user_auctions": {
+        "title": "ユーザーのオークションの一覧",
+        "title_category": "カテゴリー一覧",
+        "no_category": "商品をまだ買いません！",
+        "user_name": "名前",
+        "address": "メールアドレス",
+        "phone": "電話番号",
+        "email": "アドレス",
+        "role": "役割",
+        "1": "管理者",
+        "2": "ユーザー"
+    },
+    "description": {
+        "des": "ディスクリプション"
+    },
+    "chat": {
+        "start_conv": "チャットして始めましょう！",
+        "input": "入力してください..."
+    },
+    "change_pass": {
+        "title": "パスワードを変更",
+        "old_pass": "現在のパスワード",
+        "input_old_pass": "現在のパスワードを入力してください",
+        "new_pass": "新しいパスワード",
+        "input_new_pass": "新しいパスワードを入力してください",
+        "re_pass": "新しいパスワードを再入力",
+        "input_re_pass": "再新しいパスワードを入力してください"
+    },
+    "login": {
+        "title": "ログイン",
+        "email": "メールアドレス",
+        "password": "パスワード",
+        "input_email": "メールアドレスを入力してください",
+        "input_password": "パスワードを入力してください",
+        "button": "ログイン"
+    },
+    "register": {
+        "title": "登録",
+        "name": "名前",
+        "name_input": "名前を入力してください",
+        "email": "メールアドレス",
+        "email_input": "メールアドレスを入力してください",
+        "password": "パスワード",
+        "input_password": "パスワードを入力してください",
+        "re_pass": "パスワードを確認する",
+        "re_pass_input": "パスワードを入力してください",
+        "phone": "電話番号",
+        "phone_input": "電話番号を入力してください",
+        "address": "アドレス",
+        "address_input": "アドレスを入力してください",
+        "button": "登録",
+        "avatar": "アバター"
+    },
+    "edit": {
+        "title": "プロファールを編集"
+    }, 
+    "errors": {
+        "1002": "メールとパスワードは違いました",
+        "7000": "必須項目が未入力です。",
+        "7001": "255文字以下入力してください",
+        "7002": "有効メールを入力してください",
+        "7003": "パスワードが違いました。",
+        "7004": "既に使用されています。",
+        "7005": "既に使用されています。",
+        "7006": "番号を入力してください。",
+        "7007": "パスワードが違いました。",
+        "7008": "存在しない。",
+        "7009": "始まる時間が明日か行かなければなりません",
+        "7010": "始まる時間よりです。",
+        "7011": "10文字以下入力してください",
+        "7012": "既に使用されています。",
+        "7013": "60文字以下入力してください",
+        "7014": "値段が今より高くなければなりません。",
+        "1006": "削除できません。"
+    }
+}

@@ -8,7 +8,7 @@ import "./chat.css";
 import AuthService from "../services/auth.service";
 import {io} from "socket.io-client"
 
-function Chat() {
+function Chat({t}) {
     const { default: axiosClient } = require('../api/axiosClient');
     const [conversations, setConversations] = useState([]);
     const [currentChat, setCurrentChat] = useState(null)
@@ -180,18 +180,18 @@ function Chat() {
                                     <div className="chatBoxBottom">
                                         <textarea
                                             className="chatMessageInput"
-                                            placeholder="入力してください..."
+                                            placeholder={t('chat.input')}
                                             ref={newMessageRef}
                                             value={newMessage}
                                             onChange={(e) => setNewMessage(e.target.value)}
                                         />
                                         <button className="chatSubmitButton" onClick={handleSubmit}>
-                                            送信
+                                            {t('button_input.send')}
                                         </button>
                                     </div>
                                 </>
                             ) : (
-                                <span className="noConversationText">チャットして始めましょう！</span>
+                                <span className="noConversationText">{t('chat.start_conv')}</span>
                             )
                         }
                     </div>
@@ -202,6 +202,7 @@ function Chat() {
                             onlineUsers={onlineUsers} 
                             currentId={currentUser.user.user_id} 
                             setCurrentChat={setCurrentChat}
+                            t={t}
                         />
                     </div>
                 </div>

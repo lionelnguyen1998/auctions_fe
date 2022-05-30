@@ -9,7 +9,7 @@ import Search from './Search.js';
 
 const tabs = [0, 1, 2, 3, 6];
 
-function Auctions() {
+function Auctions({t}) {
     const [auctions, setAuctions] = useState([]);
     const [status, setStatus] = useState(0);
     const [index, setPage] = useState(1);
@@ -58,11 +58,14 @@ function Auctions() {
                         <div className="row">
                         <div className="col-lg-12">
                             <div className="section-title">
-                                <h2>人気が入るオークションの一覧</h2>
+                                <h2>{t('like.title')}</h2>
                             </div>
                             <div className="featured__controls">
                                     <ul>
-                                        <Search setQuery={setQuery} />
+                                        <Search 
+                                        setQuery={setQuery} 
+                                        t={t}
+                                        />
                                         {
                                             tabs.map(tab => (
                                                 <li 
@@ -72,7 +75,7 @@ function Auctions() {
                                                     } : {}}
                                                     onClick={() => setStatus(tab)}
                                                 >
-                                                    <b>{statusKey[tab]}</b>
+                                                    <b>{t(`status.${tab}`)}</b>
                                                 </li>
                                             ))
                                         }
@@ -81,9 +84,10 @@ function Auctions() {
                         </div>
                         </div>
                         <div>
-                            <b style={{color:'#7FAD39'}}>{total} オークション</b>
+                            <b style={{color:'#7FAD39'}}>{total} {t('name.auctions')}</b>
                             <ListAuction
                                 auctions={search(auctions)}
+                                t={t}
                             />
                             <Paginate 
                                 counts={counts}
