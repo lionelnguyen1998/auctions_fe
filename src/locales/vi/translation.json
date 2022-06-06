@@ -92,7 +92,7 @@
         "brand_choose": "Chọn thương hiệu",
         "series": "Số series",
         "series_input": "Nhập số series",
-        "price": "Giá khởi điểm (VND)",
+        "price": "Giá khởi điểm",
         "price_input": "Nhập giá khởi điểm",
         "description": "Mô tả",
         "description_input": "Nhập mô tả",
@@ -147,10 +147,11 @@
         "brand": "Thương hiệu",
         "series": "Số series",
         "bids": "Trả giá",
+        "rates": "Đánh giá",
         "comments": "Bình luận",
         "bid_input": "Nhập giá",
         "comment_input": "Hãy nhập bình luận của bạn",
-        "money": "VND",
+        "money": "$",
         "sell_price": "Giá bán",
         "max_price": "Giá cao nhất"
     },
@@ -163,7 +164,7 @@
         "title_modal_negotiate": "Bạn có muốn thương lượng thêm về giá?",
         "yes": "Có",
         "no": "Không",
-        "money": "VND"
+        "money": "$"
     },
     "detail_wait": {
         "breadcumb": "Dánh sách phiên đấu giá",
@@ -264,7 +265,7 @@
         "7005": "Tiêu đề phiên đấu giá đã tồn tại",
         "7006": "Hãy nhập số",
         "7007": "Không tồn tại giá trị",
-        "7008": "Ngày không đúng định dạng",
+        "7008": "Ngày tháng không đúng định dạng",
         "7009": "Thời gian bắt đầu sớm nhất từ ngày mai",
         "7010": "Thời gian kết thúc phải sau thời gian bắt đầu",
         "7011": "Tối đa 10 ký tự",

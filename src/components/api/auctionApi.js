@@ -170,6 +170,28 @@ const auctionApi = {
   delivery(auctionId) {
     const url =`/auctions/updateDelivery/${auctionId}`;
     return axiosClient.post(url)
+  },
+  rate(auctionId, star, content, image) {
+    const url =`/auctions/rate/${auctionId}`;
+    return axiosClient.post(url, {
+      auctionId, 
+      star,
+      content,
+      image
+    })
+  },
+  editRate(rateId, star, content, image) {
+    const url =`/auctions/rate/edit/${rateId}`;
+    return axiosClient.post(url, {
+      rateId,
+      star,
+      content,
+      image
+    })
+  },
+  rateInfo(auctionId) {
+    const url =`/auctions/rate/info/${auctionId}`;
+    return axiosClient.get(url)
   }
 };
 

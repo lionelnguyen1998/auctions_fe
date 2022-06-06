@@ -94,11 +94,11 @@ function ListItem({t}) {
                                 }
                             </div>
                             <Paginate 
-                            counts={counts}
-                            index={index}
-                            setPage={setPage}
-                            count={count}
-                            setPageSize={setPageSize}
+                                counts={counts}
+                                index={index}
+                                setPage={setPage}
+                                count={count}
+                                setPageSize={setPageSize}
                             />
                         </div>
                     </div>
@@ -109,6 +109,7 @@ function ListItem({t}) {
                 <ItemDetail 
                     itemId={itemId}
                     t={t}
+                    categoryId={categoryId}
                 />
             )
         }

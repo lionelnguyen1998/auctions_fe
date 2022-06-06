@@ -69,14 +69,14 @@ function Info ({auctionId, maxPrice, sellingUser, auction, categoryInfo, current
                                 </Grid>
                             </Grid>
                             <h2 title={item.name}>{t('detail.name')} {item.name}</h2>
-                            <h3>{t('detail.price')}: {Number(item.starting_price).toLocaleString()} {t('detail.money')}</h3>
+                            <h3>{t('detail.price')}: {Number(item.starting_price).toLocaleString()} $</h3>
                             {
                                 ((auction.statusId === 6)
                                 && (currentUser.user.user_id === sellingUser.selling_user_id))
                                 ? (
-                                    <h3>{t('detail.sell_price')}: {Number(maxPrice).toLocaleString()} {t('detail.money')}</h3>
+                                    <h3>{t('detail.sell_price')}: {Number(maxPrice).toLocaleString()} $</h3>
                                 ) : (
-                                    <h3>{t('detail.max_price')}: {maxPrice ? Number(maxPrice).toLocaleString() : '--'} {t('detail.money')}</h3>
+                                    <h3>{t('detail.max_price')}: {maxPrice ? Number(maxPrice).toLocaleString() : '--'} $</h3>
                                 )
                             }
                             <p><b>{t('detail.category')}:</b> {categoryInfo.name}</p>

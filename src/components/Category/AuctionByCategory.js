@@ -2,24 +2,25 @@ import React, { useEffect, useState} from 'react';
 import auctionApi from '../api/auctionApi';
 import { Paper } from "@mui/material";
 import {useNavigate} from 'react-router-dom'
-import ListAuction from './ListAuction.js'
-import Paginate from '../Paginate/Paginate.js';
-import Search from './Search.js'
+import ListAuction from '../Auction/ListAuction.js'
+import Paginate from '../Paginate/Paginate.js'
 import './index.css'
+import Search from '../Auction/Search';
+import StatusTab from '../Auction/StatusTab.js';
 
 const tabs = [0, 1, 2, 3];
 
-function AuctionByTypeCategory({t}) {
+function AuctionByCategory({t}) {
     let navigate = useNavigate();
     const link = window.location.href;
-    const typeId = link.slice(46);
+    const categoryId = link.slice(41);
     const [auctions, setAuctions] = useState([]);
     const [status, setStatus] = useState(0);
     const [index, setPage] = useState(1);
     const [counts, setCount] = useState(1);
     const [count, setPageSize] = useState(4);
     const [total, setTotal] = useState('')
-    const [type, setType] = useState('');
+    const [category, setCategory] = useState('')
     const [query, setQuery] = useState('')
     const keys = ['title', 'start_date', 'end_date'];
 
@@ -30,24 +31,24 @@ function AuctionByTypeCategory({t}) {
     const getRequestParams = (index, count) => {
         let params = {};
         if (index) {
-            params["index"] = index;
+          params["index"] = index;
         }
         if (count) {
-            params["count"] = count;
+          params["count"] = count;
         }
-        if (typeId) {
-            params["type"] = typeId;
+        if (categoryId) {
+            params["category_id"] = categoryId;
         }
         return params;
     };
-    const retrieveAuctionsOfTypeCategory = () => {
+    const retrieveAuctions = () => {
         const params = getRequestParams(index, count);
         auctionApi.getAllAuctions(status, params)
             .then((response) => {
-                const { auctions, total, type} = response.data.data;
+                const { auctions, total, category} = response.data.data;
                 setAuctions(auctions);
                 setTotal(total)
-                setType(type);
+                setCategory(category);
                 const totalPage = Math.ceil(total/count)
                 setCount(totalPage);
             })
@@ -56,7 +57,7 @@ function AuctionByTypeCategory({t}) {
             });
         };
 
-    useEffect(retrieveAuctionsOfTypeCategory, [typeId, status, index, count]);
+    useEffect(retrieveAuctions, [categoryId, status, index, count]);
 
     return (
         <>
@@ -65,7 +66,7 @@ function AuctionByTypeCategory({t}) {
                 <div className="row">
                     <div className="col-lg-12">
                         <div className="section-title">
-                           <p onClick={() => navigate(-1)}> {t('name.homepage')}</p>
+                           <p onClick={() => navigate(-1)}>{t('category.list')}</p>
                         </div>
                     </div>
                 </div>
@@ -77,27 +78,20 @@ function AuctionByTypeCategory({t}) {
                         <div className="row">
                         <div className="col-lg-12">
                             <div className="section-title">
-                                <h2>{t(`category.${typeId}`)}</h2>
+                                <h2>{category}</h2>
                             </div>
                             <div className="featured__controls">
                                     <ul>
                                         <Search 
-                                            setQuery={setQuery}
+                                            setQuery={setQuery} 
                                             t={t}
                                         />
-                                        {
-                                            tabs.map(tab => (
-                                                <li 
-                                                    key={tab}
-                                                    style={status === tab ? {
-                                                        color: '#7FAD39',
-                                                    } : {}}
-                                                    onClick={() => setStatus(tab)}
-                                                >
-                                                    <b>{t(`status.${tab}`)}</b>
-                                                </li>
-                                            ))
-                                        }
+                                        <StatusTab
+                                            t={t}
+                                            tabs={tabs}
+                                            status={status}
+                                            setStatus={setStatus}
+                                        />
                                     </ul>
                             </div>
                         </div>
@@ -123,4 +117,4 @@ function AuctionByTypeCategory({t}) {
     )
 }
 
-export default AuctionByTypeCategory;
+export default AuctionByCategory;

@@ -2,8 +2,8 @@ import React, { Fragment, useState, useEffect } from "react";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import userApi from '../api/userApi';
-import UploadService from "../services/FileUploadService";
 import { useNavigate } from 'react-router-dom';
+import Upload from './Upload.js'
 
 function Edit({t}) {
     let navigate = useNavigate();
@@ -17,8 +17,6 @@ function Edit({t}) {
     const [messagePhone, setMessagePhone] = useState('');
     const [successfull, setSuccessfull] = useState(false);
     const [image, setImage] = useState('');
-    const [imagePreview, setImagePreview] = useState([]);
-    const [selectedFile, setSelectedFile] = useState(undefined);
 
     useEffect(() => {
         userApi.info() 
@@ -32,29 +30,6 @@ function Edit({t}) {
         })
         .catch(e => console.log(e))
     }, [])
-
-    useEffect(() => {
-        return () => {
-            image && URL.revokeObjectURL(image.preview)
-        }
-    }, [image])
-  
-    const selectFile = (event) => {
-      setSelectedFile(event.target.files);
-      const file = event.target.files[0];
-      file.preview = URL.createObjectURL(file);
-      setImagePreview(file)
-    };
-  
-    const upload = () => {
-      let currentFile = selectedFile[0];
-      UploadService.upload(currentFile, (event) => {
-          })
-          .then((response) => {
-              return setImage(response.data[0]);
-          })
-      setSelectedFile(undefined);
-    };
 
     const handleEdit = (e) => {
         e.preventDefault();
@@ -198,33 +173,13 @@ function Edit({t}) {
                     </div>
                     )}
                 </div>
-                <div className="form-group">
-                <label htmlFor="file"><b>{t('register.avatar')}</b></label>
-                    <div className="row my-3">
-                        <div className="col-8">
-                        <label className="btn btn-default p-0">
-                            <input type="file" onChange={selectFile} />
-                            {
-                                <input hidden name="avatar" value={image}/>
-                            }
-                        </label>
-                        </div>
-                    </div>
-                    {
-                        (imagePreview) && (
-                            <img src={imagePreview.preview} alt="" width="20%"/>
-                        )
-                    }
-                    {
-                        (image) && (
-                            <img src={image} alt="" width="20%"/>
-                        )
-                    }
-                </div>
+                <Upload 
+                  image={image}
+                  setImage={setImage}
+                  t={t}
+                />
                 <div className="form-group">
                     <button className="site-btn"
-                    disabled={!selectFile}
-                    onClick={upload}
                     >{t('button_input.edit')}</button>
                 </div>
                 </>

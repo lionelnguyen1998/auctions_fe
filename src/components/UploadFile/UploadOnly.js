@@ -2,8 +2,8 @@ import React, {useState} from 'react';
 import UploadService from "../services/FileUploadService";
 import './upload.css'
 
-function Upload({images, setImages, index, t}) {
-    const [imagePreview, setImagePreview] = useState([]);
+function UploadOnly({image, setImage, t}) {
+    const [imagePreview, setImagePreview] = useState();
     const [selectedFile, setSelectedFile] = useState(undefined);
     const [progress, setProgress] = useState(0);
     const [currentFiles, setCurrentFiles] = useState(undefined);
@@ -24,7 +24,7 @@ function Upload({images, setImages, index, t}) {
             setProgress(Math.round((100 * event.loaded) / event.total));
             })
             .then((response) => {
-                setImages([...images, response.data[0]]);
+                setImage(response.data[0]);
             })
             .catch(() => {
               setProgress(0);
@@ -32,17 +32,16 @@ function Upload({images, setImages, index, t}) {
             })
         setSelectedFile(undefined);
     };
-    const handleRemoveImage = (id) => {
-        // console.log(images)
-        const s = images.filter((image, index) => index !== id)
-        setImages(s)
+
+    const handleRemoveImage = () => {
+        setImage('')
         setShow(false)
     }
     return(
         <>
         {
             (show) && (
-                <div className="form-group" key={index}>
+                <div className="form-group">
                     {currentFiles && (
                         <div className="progress">
                         <div
@@ -62,7 +61,7 @@ function Upload({images, setImages, index, t}) {
                             <label className="btn btn-default p-0">
                                 <input type="file" onChange={selectFile} />
                                 {
-                                    <input hidden name="images" value={images}/>
+                                    <input hidden name="image" value={image}/>
                                 }
                             </label>
                         </div>
@@ -77,7 +76,7 @@ function Upload({images, setImages, index, t}) {
                             
                         </div>
                         <div className="col-1">
-                        <a class="btn-check" onClick={() => handleRemoveImage(index)}>
+                        <a class="btn-check" onClick={() => handleRemoveImage()}>
                                 <i class="fa fa-times" style={{color:'#dc3545'}}></i>
                             </a>
                         </div>
@@ -96,4 +95,4 @@ function Upload({images, setImages, index, t}) {
     )
 }
 
-export default Upload;
+export default UploadOnly;

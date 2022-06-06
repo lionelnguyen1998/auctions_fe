@@ -1,9 +1,9 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useState} from "react";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import AuthService from "../services/auth.service";
-import UploadService from "../services/FileUploadService";
 import { useNavigate } from 'react-router-dom';
+import Upload from './Upload.js'
 
 function Register({t}) {
   let navigate = useNavigate();
@@ -21,32 +21,7 @@ function Register({t}) {
   const [messageRePass, setMessageRePass] = useState('');
   const [successfull, setSuccessfull] = useState(false);
   const [image, setImage] = useState();
-  const [imagePreview, setImagePreview] = useState([]);
-  const [selectedFile, setSelectedFile] = useState(undefined);
 
-  useEffect(() => {
-      return () => {
-          image && URL.revokeObjectURL(image.preview)
-      }
-  }, [image])
-
-  const selectFile = (event) => {
-    setSelectedFile(event.target.files);
-    const file = event.target.files[0];
-    file.preview = URL.createObjectURL(file);
-    setImagePreview(file)
-  };
-
-  const upload = () => {
-    let currentFile = selectedFile[0];
-    UploadService.upload(currentFile, (event) => {
-        })
-        .then((response) => {
-            return setImage(response.data[0]);
-        })
-    setSelectedFile(undefined);
-  };
-  
   const handleRegister = (e) => {
       e.preventDefault();
       setMessageN('');
@@ -125,6 +100,7 @@ function Register({t}) {
           }
         );
   }
+  console.log(image)
   return (
     <Fragment>
       <div className="col-md-12">
@@ -251,30 +227,15 @@ function Register({t}) {
                     </div>
                   )}
                 </div>
-                <div className="form-group">
-                  <label htmlFor="file"><b>{t('register.avatar')}</b></label>
-                  <div className="row my-3">
-                    <div className="col-8">
-                      <label className="btn btn-default p-0">
-                        <input type="file" onChange={selectFile} />
-                        {
-                            <input hidden name="avatar" value={image}/>
-                        }
-                      </label>
-                    </div>
-                  </div>
-                  {
-                      imagePreview && (
-                          <img src={imagePreview.preview} alt="" width="20%"/>
-                      )
-                  }
-                </div>
+                <Upload 
+                  image={image}
+                  setImage={setImage}
+                  t={t}
+                />
                 <div className="form-group">
                   <button
                     style={{borderRadius:'15px'}}
                     className="site-btn"
-                    disabled={!selectFile}
-                    onClick={upload}
                   >
                     {t('register.button')}
                   </button>

@@ -1,16 +1,15 @@
 import React, {Fragment, useEffect, useState} from 'react';
 import auctionApi from '../api/auctionApi';
-import {statusKey} from "../constant/index";
 import { Paper, Avatar, Grid, Typography} from "@mui/material";
 import './index.css'
 import ListAuction from './ListAuction.js'
-import {role} from "../constant/index";
 import Search from './Search.js';
 import Paginate from '../Paginate/Paginate.js'
+import StatusTab from './StatusTab.js'
 
 const tabs = [0, 1, 2, 3, 6];
 
-function AuctionsK() {
+function AuctionsK({t}) {
     const link = window.location.href;
     const userId = link.slice(31);
     const [auctions, setAuctions] = useState([]);
@@ -74,19 +73,19 @@ function AuctionsK() {
                     <Grid item xs container direction="column" spacing={2}>
                         <Grid item xs>
                             <Typography gutterBottom variant="subtitle1" component="div">
-                                <b>名前:　　　　　　　</b> {userInfo.name}
+                                <b>{t('user_auctions.user_name')}:　　　　　　　</b> {userInfo.name}
                             </Typography>
                             <Typography gutterBottom variant="subtitle1" component="div">
-                                <b>メールアドレス:　　</b> {userInfo.email}
+                                <b>{t('user_auctions.email')}:　　</b> {userInfo.email}
                             </Typography>
                             <Typography gutterBottom variant="subtitle1" component="div">
-                                <b>電話番号:　　　　　</b> {userInfo.phone}
+                                <b>{t('user_auctions.phone')}:　　　　　</b> {userInfo.phone}
                             </Typography>
                             <Typography gutterBottom variant="subtitle1" component="div">
-                                <b>アドレス:　　　　　</b> {userInfo.address}
+                                <b>{t('user_auctions.address')}:　　　　　</b> {userInfo.address}
                             </Typography>
                             <Typography gutterBottom variant="subtitle1" component="div">
-                                <b>役割:　　　　　　　</b> {role[userInfo.role]}
+                                <b>{t('user_auctions.role')}:　　　　　　　</b> {t(`user_auctions.${userInfo.role}`)}
                             </Typography>
                         </Grid>
                     </Grid>
@@ -105,29 +104,24 @@ function AuctionsK() {
                                     <ul>
                                         <Search 
                                             setQuery={setQuery}
+                                            t={t}
                                         />
-                                        {
-                                            tabs.map(tab => (
-                                                <li 
-                                                    key={tab}
-                                                    style={status === tab ? {
-                                                        color: '#7FAD39',
-                                                    } : {}}
-                                                    onClick={() => setStatus(tab)}
-                                                >
-                                                    <b>{statusKey[tab]}</b>
-                                                </li>
-                                            ))
-                                        }
+                                        <StatusTab
+                                            t={t}
+                                            tabs={tabs}
+                                            status={status}
+                                            setStatus={setStatus}
+                                        />
                                     </ul>
                             </div>
                         </div>
                         </div>
                         <div>
-                            <b style={{color:'#7FAD39'}}>{total} オークション</b>
+                            <b style={{color:'#7FAD39'}}>{total} {t('name.auctions')}</b>
                             <ListAuction
                                 auctions={search(auctions)}
                                 query={query}
+                                t={t}
                             />
                            <Paginate 
                             counts={counts}

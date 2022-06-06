@@ -85,7 +85,7 @@ function ReadNotification({t}){
                                     </div>
                                     <div className="box-details">
                                         <h2 title={item.name}>{t('detail.name')} {item.name}</h2>
-                                        <h3>{t('detail.price')}: {Number(item.starting_price).toLocaleString()} 円</h3>
+                                        <h3>{t('detail.price')}: {Number(item.starting_price).toLocaleString()} $</h3>
                                         <p>{t('detail.category')}: {notification.category.name}</p>
                                         <p>{t('detail.brand')}: {item.brand}</p>
                                         <p>{t('detail.series')}: {item.series ?? '--'}</p>

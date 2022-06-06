@@ -2,7 +2,7 @@ import axios from 'axios';
 import authHeader from "../services/auth-header";
 
 const axiosClient = axios.create({
-  baseURL: 'https://auctions-app-2.herokuapp.com/api',
+  baseURL: 'http://localhost:8080/api/',
   headers: authHeader()
 });
 

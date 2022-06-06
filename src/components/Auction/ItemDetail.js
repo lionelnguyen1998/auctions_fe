@@ -8,7 +8,7 @@ import {Link} from 'react-router-dom'
 import 'react-rater/lib/react-rater.css'
 import './index.css'
 
-function ItemDetail ({itemId, t}) {
+function ItemDetail ({itemId, t, categoryId}) {
     const [indexs, setIndex] = useState(0);
     const imgDiv = useRef();
     const [item, setItem] = useState('')
@@ -81,8 +81,8 @@ function ItemDetail ({itemId, t}) {
                                     </div>
                                 </Grid>
                             </Grid>
-                            <h3>{t('list_item.price')}: {Number(item.starting_price).toLocaleString()} 円</h3>
-                            <h3>{t('list_item.buy_price')}: {Number(item.max_price).toLocaleString()} 円</h3>
+                            <h3>{t('list_item.price')}: {Number(item.starting_price).toLocaleString()} $</h3>
+                            <h3>{t('list_item.buy_price')}: {Number(item.max_price).toLocaleString()} $</h3>
                             <p><b>{t('input_auction.category')}:</b> {item.category}</p>
                             <p><b>{t('input_item.brand')}:</b> {item.brand}</p>
                             <p><b>{t('input_item.series')}:</b> {item.series ?? '--'}</p>
@@ -119,6 +119,7 @@ function ItemDetail ({itemId, t}) {
             status={auction.status}
             auctionId={auction.auction_id}
             t={t}
+            categoryId={categoryId}
         />
         </>
     )

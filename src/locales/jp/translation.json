@@ -92,7 +92,7 @@
         "brand_choose": "選択してください",
         "series": "シリーズ",
         "series_input": "シリーズを入力してください",
-        "price": "値段（円）",
+        "price": "値段",
         "price_input": "値段を入力してください",
         "description": "ディスクリプション",
         "description_input": "ディスクリプションを入力してください",
@@ -147,10 +147,11 @@
         "brand": "ブランド",
         "series": "シリーズ",
         "bids": "入札",
+        "rates": "評判",
         "comments": "コメント",
         "bid_input": "入力してください",
         "comment_input": "入力してください",
-        "money": "円",
+        "money": "$",
         "sell_price": "売値",
         "max_price": "最高価格"
     },
@@ -163,7 +164,7 @@
         "title_modal_negotiate": "値段について相談したいですか？",
         "yes": "はい",
         "no": "いいえ",
-        "money": "円"
+        "money": "$"
     },
     "detail_wait": {
         "breadcumb": "オークション一覧",

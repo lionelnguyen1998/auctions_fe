@@ -1,12 +1,12 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment, useState } from 'react';
 import contactApi from '../api/contactApi';
 import { useNavigate } from 'react-router-dom';
-import UploadService from "../services/FileUploadService";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import Select from "react-select";
 import Textarea from "react-validation/build/textarea";
 import { Paper } from '@mui/material'
+import Upload from './Upload.js'
 
 function Contacts({t}) {
     let navigate = useNavigate();
@@ -14,8 +14,6 @@ function Contacts({t}) {
     const [phone, setPhone] = useState('');
     const [name, setName] = useState('');
     const [file, setFile] = useState('');
-    const [imagePreview, setImagePreview] = useState([]);
-    const [selectedFile, setSelectedFile] = useState(undefined);
     const [typeReport, setType] = useState('');
     const [content, setContent] = useState('');
     const [messageEmail, setMessageEmail] = useState('');
@@ -76,28 +74,6 @@ function Contacts({t}) {
             }
         );
     }
-
-    useEffect(() => {
-        return () => {
-            imagePreview && URL.revokeObjectURL(imagePreview.preview)
-        }
-    }, [imagePreview])
-
-    const selectFile = (event) => {
-        setSelectedFile(event.target.files);
-        const file = event.target.files[0];
-        file.preview = URL.createObjectURL(file);
-        setImagePreview(file)
-      };
-
-    const upload = () => {
-        let currentFile = selectedFile[0];
-        UploadService.upload(currentFile)
-            .then((response) => {
-                return setFile(response.data);
-              })
-        setSelectedFile(undefined);
-      };
 
     const options = [
         {value:'1', label: `${t('contacts.type1')}`},
@@ -205,29 +181,14 @@ function Contacts({t}) {
                                 </div>
                             )}
                         </div>
-                        <div className="form-group">
-                            <label htmlFor="address"><b>{t('contacts.image')}</b></label>
-                            <div className="row my-3">
-                                <div className="col-8">
-                                <label className="btn btn-default p-0">
-                                    <input type="file" onChange={selectFile} />
-                                    {
-                                        <input hidden name="file" value={file}/>
-                                    }
-                                </label>
-                                </div>
-                            </div>
-                            {
-                                imagePreview && (
-                                    <img src={imagePreview.preview} alt="" width="20%"/>
-                                )
-                            }
-                        </div>
+                        <Upload 
+                            t={t}
+                            file={file}
+                            setFile={setFile}
+                        />
                         <div className="form-group">
                             <button 
                                 className="site-btn"
-                                disabled={!selectFile}
-                                onClick={upload}
                             >
                                 <span>{t('contacts.send')}</span>
                             </button>

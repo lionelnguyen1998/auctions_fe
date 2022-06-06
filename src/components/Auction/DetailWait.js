@@ -63,7 +63,7 @@ export default function DetailWait({t}) {
                        </div>
                         <div className="box-details">
                             <h2 title={item.name}>{t('detail.name')} {item.name}</h2>
-                            <h3>{t('detail.price')}: {Number(item.starting_price).toLocaleString()} 円</h3>
+                            <h3>{t('detail.price')}: {Number(item.starting_price).toLocaleString()} $</h3>
                             <p><b>{t('detail.category')}:</b> {categoryInfo.name}</p>
                             <p><b>{t('detail.brand')}:</b> {item.brand}</p>
                             <p><b>{t('detail.series')}:</b> {item.series ?? '--'}</p>

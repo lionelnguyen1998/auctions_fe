@@ -207,7 +207,7 @@ function Item() {
                   )}
                 </div>
                 <div className="form-group">
-                  <label htmlFor="price"><b>{t('input_item.price')} </b><i className="fa fa-asterisk" style={{color:"red"}}></i></label>
+                  <label htmlFor="price"><b>{t('input_item.price')} ($)</b><i className="fa fa-asterisk" style={{color:"red"}}></i></label>
                   <Input
                     type="text"
                     className="form-control"

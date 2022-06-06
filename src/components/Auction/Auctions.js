@@ -1,6 +1,5 @@
 import React, { Fragment, useEffect, useState} from 'react';
 import auctionApi from '../api/auctionApi';
-import { statusKey } from "../constant/index";
 import { Paper } from "@mui/material";
 import './index.css'
 import ListAuction from './ListAuction.js'
@@ -11,6 +10,7 @@ import 'react-alice-carousel/lib/alice-carousel.css';
 import { Link } from 'react-router-dom'
 import Search from './Search.js'
 import AuthService from "../services/auth.service";
+import StatusTab from './StatusTab.js'
 
 const tabs = [0, 1, 2, 3, 4, 6];
 const responsive = {
@@ -99,19 +99,12 @@ function Auctions({t}) {
                                         setQuery={setQuery}
                                         t={t}
                                     />
-                                        {
-                                            tabs.map(tab => (
-                                                <li 
-                                                    key={tab}
-                                                    style={status === tab ? {
-                                                        color: '#7FAD39',
-                                                    } : {}}
-                                                    onClick={() => setStatus(tab)}
-                                                >
-                                                    <b>{t(`status.${tab}`)}</b>
-                                                </li>
-                                            ))
-                                        }
+                                    <StatusTab
+                                        t={t}
+                                        tabs={tabs}
+                                        status={status}
+                                        setStatus={setStatus}
+                                    />
                                     </ul>
                             </div>
                         </div>
