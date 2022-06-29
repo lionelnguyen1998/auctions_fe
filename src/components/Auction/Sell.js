@@ -2,10 +2,12 @@ import React, { Fragment, useState, useEffect } from 'react';
 import './index.css';
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
-import Select from "react-validation/build/select";
+import Select from 'react-select';
 import DateTimePicker from 'react-datetime-picker';
 import auctionApi from '../api/auctionApi';
 import { useNavigate } from 'react-router-dom';
+import { Paper } from '@mui/material'
+import {useTranslation } from 'react-i18next'
 
 function Sell() {
     let navigate = useNavigate();
@@ -18,6 +20,7 @@ function Sell() {
     const [messageCategory, setMessageCategory] = useState("");
     const [messageStartDate, setMessageStartDate] = useState("");
     const [messageEndDate, setMessageEndDate] = useState("");
+    const {t} = useTranslation();
 
     const handleCreateAuction = (e) => {
       e.preventDefault();
@@ -32,15 +35,46 @@ function Sell() {
         end_date
       ).then(
         (response) => {
-          const auctionId = response.data.data.auctions.auction_id;
-          navigate(`/item/${auctionId}`);
-        },
-        (error) => {
-          const errors = error.response.data.errors
-          setMessageName(errors.title_ni);
-          setMessageCategory(errors.category_id);
-          setMessageStartDate(errors.start_date);
-          setMessageEndDate(errors.end_date);
+          if (response.data.code === 1000) {
+            const auctionId = response.data.data.auction_id;
+            navigate(`/item/${auctionId}`);
+          } else {
+            const errors = response.data.message.split('&')
+            if (errors[0].slice(10) == 7000) {
+              setMessageCategory(`${t('errors.7000')}`);
+            }
+            if (errors[0].slice(10) == 7007) {
+              setMessageCategory(`${t('errors.7007')}`);
+            }
+            if (errors[1].slice(12) == 7000) {
+              setMessageStartDate(`${t('errors.7000')}`);
+            }
+            if (errors[1].slice(12) == 7008) {
+              setMessageStartDate(`${t('errors.7008')}`);
+            }
+            if (errors[1].slice(12) == 7009) {
+              setMessageStartDate(`${t('errors.7009')}`);
+            }
+
+            if (errors[2].slice(10) == 7000) {
+              setMessageEndDate(`${t('errors.7000')}`);
+            }
+            if (errors[2].slice(10) == 7008) {
+              setMessageEndDate(`${t('errors.7008')}`);
+            } 
+            if (errors[2].slice(10) == 7010) {
+              setMessageEndDate(`${t('errors.7010')}`);
+            }
+            if (errors[3].slice(7) == 7000) {
+              setMessageName(`${t('errors.7000')}`);
+            } 
+            if (errors[3].slice(7) == 7001) {
+              setMessageName(`${t('errors.7001')}`);
+            } 
+            if (errors[3].slice(7) == 7005) {
+              setMessageName(`${t('errors.7005')}`);
+            }
+          }
         }
       );
     }
@@ -56,88 +90,93 @@ function Sell() {
       })()
     }, [])
 
+    const options = [
+      categories.map(category => (
+        { value: `${category.category_id}`, label: `${category.category_id} : ${category.name}`}
+      ))
+    ]
+    
     return (
         <Fragment>
-          <Form 
-            className="form-test"
-            method="POST"
-            onSubmit={handleCreateAuction}
-            >
-            <div className="form-group">
-              <label htmlFor="name">name</label>
-              <Input
-                type="text"
-                className="form-control"
-                name="name"
-                onChange={e => setName(e.target.value)}
-              />
-             {messageName && (
+          <Paper style={{ padding: "20px", marginBottom: "40px"}} className="container">
+            <div className="container">  
+              <Form 
+                className="form-test"
+                method="POST"
+                onSubmit={handleCreateAuction}
+                >
                 <div className="form-group">
-                  <label style={{color:"red"}}>
-                    {messageName}
-                  </label>
+                  <label htmlFor="name"><b>{t('input_auction.title')} </b><i className="fa fa-asterisk" style={{color:"red"}}></i></label>
+                  <Input
+                    type="text"
+                    className="form-control"
+                    name="name"
+                    onChange={e => setName(e.target.value)}
+                    placeholder={t('input_auction.input')}
+                  />
+                {messageName && (
+                    <div className="form-group">
+                      <label style={{color:"red"}}>
+                        {messageName}
+                      </label>
+                    </div>
+                  )}
                 </div>
-              )}
-            </div>
-            <div className="form-group">
-              <label htmlFor="category">category</label>
-              <Select name='category' 
-                value={categoryId}
-                onChange={e => setCategoryId(e.target.value)}
-              >
-                <option value=''>Chọn loại danh mục</option>
-                {
-                  categories.map(category => (
-                    <option key={category.category_id} value={category.category_id} onChange={e => setCategory(e.target.value)}>
-                        {category.category_id} : {category.name}
-                    </option>
-                  ))
-                }
-              </Select>
-              {messageCategory && (
                 <div className="form-group">
-                  <label style={{color:"red"}}>
-                    {messageCategory}
-                  </label>
+                  <label htmlFor="category"><b>{t('input_auction.category')} </b><i className="fa fa-asterisk" style={{color:"red"}}></i></label>
+                  <Select name='category'
+                    onChange={e => setCategoryId(e.value)}
+                    options={options[0]}
+                    placeholder={t('input_auction.choosecategory')}
+                  />
+                  {messageCategory && (
+                    <div className="form-group">
+                      <label style={{color:"red"}}>
+                        {messageCategory}
+                      </label>
+                    </div>
+                  )}
                 </div>
-              )}
-            </div>
-            <div className="form-group">
-              <label htmlFor="start_date">start_date</label>
-              <DateTimePicker 
-                  onChange={e => setStartDate(e)} 
-                  value={start_date}
-                  name="start_date"
-              />
-              {messageStartDate && (
+                <label htmlFor="start_date"><b>{t('input_auction.start_date')} </b><i className="fa fa-asterisk" style={{color:"red"}}></i></label>
                 <div className="form-group">
-                  <label style={{color:"red"}}>
-                    {messageStartDate}
-                  </label>
+                  <DateTimePicker 
+                      onChange={e => setStartDate(e)} 
+                      value={start_date}
+                      name="start_date"
+                      className="form-control"
+                  />
+                  {messageStartDate && (
+                    <div className="form-group">
+                      <label style={{color:"red"}}>
+                        {messageStartDate}
+                      </label>
+                    </div>
+                  )}
                 </div>
-              )}
-            </div>
-            <div className="form-group">
-              <label htmlFor="end_date">end_date</label>
-              <DateTimePicker 
-                  onChange={e => setEndDate(e)} 
-                  value={end_date} 
-                  name="end_date"
-              />
-              {messageEndDate && (
+                <label htmlFor="end_date"><b>{t('input_auction.end_date')} </b><i className="fa fa-asterisk" style={{color:"red"}}></i></label>
                 <div className="form-group">
-                  <label style={{color:"red"}}>
-                    {messageEndDate}
-                  </label>
+                  <DateTimePicker 
+                      onChange={e => setEndDate(e)} 
+                      value={end_date} 
+                      name="end_date"
+                      className="form-control"
+                  />
+                  {messageEndDate && (
+                    <div className="form-group">
+                      <label style={{color:"red"}}>
+                        {messageEndDate}
+                      </label>
+                    </div>
+                  )}
                 </div>
-              )}
+                <div className="form-group">
+                  <button className="site-btn">
+                    <span>{t('button_input.create')}</span>
+                  </button>
+                </div>
+              </Form>
             </div>
-            <div className="form-group">
-              <button className="site-btn">
-                <span>Create</span>
-              </button>
-            </div>
-          </Form>
+          </Paper>
         </Fragment>
     );
 }

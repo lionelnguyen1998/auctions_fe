@@ -1,173 +1,255 @@
-import React,{useState, useRef} from 'react'
-import {useParams} from 'react-router-dom'
-import Colors from './Colors'
-import Sizes from './Sizes'
-import DetailsThumb from './DetailsThumb'
+import React,{useState, useEffect} from 'react'
+import auctionApi from '../api/auctionApi';
 import './detail.css'
+import {Paper} from "@mui/material";
+import { useNavigate} from 'react-router-dom';
+import AuthService from "../services/auth.service";
+import Paginate from '../Paginate/Paginate.js'
+import Info from './Info';
+import Description from "./Description.js";
+import BuyingInfo from "./BuyingInfo.js";
+import CommentForm from "../Comment/CommentForm.js"
+import ListComments from "../Comment/ListComments.js"
+import BidForm from "../Bid/BidForm.js"
+import ListBids from "../Bid/ListBids.js"
+import RateForm from "../Rate/RateForm.js"
 
-export default function Detail() {
-    const [products, setProducts] = useState([
-        {
-            "_id":"1",
-             "title": "Wacth Product 01",
-             "images": [
-                 "https://www.upsieutoc.com/images/2020/07/18/img1.jpg",
-                 "https://www.upsieutoc.com/images/2020/07/18/img2.jpg",
-                 "https://www.upsieutoc.com/images/2020/07/18/img3.jpg",
-                 "https://www.upsieutoc.com/images/2020/07/18/img4.jpg"
-                 ],
-             "description": "How to and tutorial videos of cool CSS effect, Web Design ideas,JavaScript libraries, Node.",
-             "content": "Welcome to our channel Dev AT. Here you can learn web designing, UI/UX designing, html css tutorials, css animations and css effects, javascript and jquery tutorials and related so on.",
-             "colors": ["red", "black", "teal"],
-             "sizes": ["XL", "L", "M", "XM", "LX"],
-             "price": 101,
-             "count": 1
-         },
-         {
-             "_id": "2",
-             "title": "Wacth Product 02",
-             "images": [
-                 "https://www.upsieutoc.com/images/2020/07/18/img2.jpg",
-                 "https://www.upsieutoc.com/images/2020/07/18/img1.jpg",
-                 "https://www.upsieutoc.com/images/2020/07/18/img3.jpg",
-                 "https://www.upsieutoc.com/images/2020/07/18/img4.jpg"
-                 ],
-             "description": "How to and tutorial videos of cool CSS effect, Web Design ideas,JavaScript libraries, Node.",
-             "content": "Welcome to our channel Dev AT. Here you can learn web designing, UI/UX designing, html css tutorials, css animations and css effects, javascript and jquery tutorials and related so on.",
-             "colors": ["red", "black", "teal"],
-             "sizes": ["XL", "L", "M", "XM", "LX"],
-             "price": 102,
-             "count": 1
+const tabs = ['bids', 'comments', 'rates'];
 
-         },
-         {
-             "_id": "3",
-             "title": "Wacth Product 03",
-             "images": [
-                 "https://www.upsieutoc.com/images/2020/07/18/img3.jpg",
-                 "https://www.upsieutoc.com/images/2020/07/18/img2.jpg",
-                 "https://www.upsieutoc.com/images/2020/07/18/img1.jpg",
-                 "https://www.upsieutoc.com/images/2020/07/18/img4.jpg"
-                 ],
-             "description": "How to and tutorial videos of cool CSS effect, Web Design ideas,JavaScript libraries, Node.",
-             "content": "Welcome to our channel Dev AT. Here you can learn web designing, UI/UX designing, html css tutorials, css animations and css effects, javascript and jquery tutorials and related so on.",
-             "colors": ["red", "black", "teal"],
-             "sizes": ["XL", "L", "M", "XM", "LX"],
-             "price": 103,
-             "count": 1
-
-         },
-         {
-             "_id": "4",
-             "title": "Wacth Product 04",
-             "images": [
-                 "https://www.upsieutoc.com/images/2020/07/18/img4.jpg",
-                 "https://www.upsieutoc.com/images/2020/07/18/img2.jpg",
-                 "https://www.upsieutoc.com/images/2020/07/18/img3.jpg",
-                 "https://www.upsieutoc.com/images/2020/07/18/img1.jpg"
-                 ],
-             "description": "How to and tutorial videos of cool CSS effect, Web Design ideas,JavaScript libraries, Node.",
-             "content": "Welcome to our channel Dev AT. Here you can learn web designing, UI/UX designing, html css tutorials, css animations and css effects, javascript and jquery tutorials and related so on.",
-             "colors": ["red", "black", "teal"],
-             "sizes": ["XL", "L", "M", "XM", "LX"],
-             "price": 104,
-             "count": 1
-
-         },
-         {
-             "_id": "5",
-             "title": "Wacth Product 05",
-             "images": [
-                 "https://www.upsieutoc.com/images/2020/07/18/img5.jpg",
-                 "https://www.upsieutoc.com/images/2020/07/18/img2.jpg",
-                 "https://www.upsieutoc.com/images/2020/07/18/img3.jpg",
-                 "https://www.upsieutoc.com/images/2020/07/18/img4.jpg"
-                 ],
-             "description": "How to and tutorial videos of cool CSS effect, Web Design ideas,JavaScript libraries, Node.",
-             "content": "Welcome to our channel Dev AT. Here you can learn web designing, UI/UX designing, html css tutorials, css animations and css effects, javascript and jquery tutorials and related so on.",
-             "colors": ["red", "black", "teal"],
-             "sizes": ["XL", "L", "M", "XM", "LX"],
-             "price": 105,
-             "count": 1
-
-         },
-         {
-             "_id": "6",
-             "title": "Wacth Product 06",
-             "images": [
-                 "https://www.upsieutoc.com/images/2020/07/18/img6.jpg",
-                 "https://www.upsieutoc.com/images/2020/07/18/img2.jpg",
-                 "https://www.upsieutoc.com/images/2020/07/18/img3.jpg",
-                 "https://www.upsieutoc.com/images/2020/07/18/img4.jpg"
-                 ],
-             "description": "How to and tutorial videos of cool CSS effect, Web Design ideas,JavaScript libraries, Node.",
-             "content": "Welcome to our channel Dev AT. Here you can learn web designing, UI/UX designing, html css tutorials, css animations and css effects, javascript and jquery tutorials and related so on.",
-             "colors": ["red", "black", "teal"],
-             "sizes": ["XL", "L", "M", "XM", "LX"],
-             "price": 106,
-             "count": 1
-
-         }
-    ])
-    const {id} = useParams();
+export default function Detail({t}) {
+    const currentUser = AuthService.getCurrentUser();
+    let navigate = useNavigate();
+    const link = window.location.href;
+    const auctionId = link.slice(29);
+    const [maxPrice, setMaxPrice] = useState('');
+    const [auction, setAuction] = useState('');
+    const [index, setPage] = useState(1);
+    const [counts, setCount] = useState(1);
+    const [count, setPageSize] = useState(4);
+    const [comments, setComments] = useState([])
+    const [total, setTotal] = useState(0)
+    const [totalPrice, setTotalPrice] = useState(0)
+    const [bids, setBids] = useState([])
+    const [type, setType] = useState('bids');
+    const [sellingUser, setSellingUser] = useState('');
+    const [categoryInfo, setCategoryInfo] = useState('')
+    const [item, setItem] = useState([]);
+    const [rates, setRates] = useState([])
+    const [totalRates, setTotalRates] = useState('')
+    const [buyingUser, setBuyingUser] = useState('');
     
-    const [index, setIndex] = useState(0)
-    const imgDiv = useRef();
+    useEffect(() => {
+        auctionApi.detail(auctionId)
+            .then((res) => {
+                setAuction(res.data.data.auctions)
+                setSellingUser(res.data.data.selling_user)
+                setCategoryInfo(res.data.data.category)
+                setItem(res.data.data.items)
+                setBuyingUser(res.data.data.buying_user)
+            })
+    }, [])
 
-    // const details = products.filter((product, index) =>{
-    //     return product._id === id
-    // })
+    useEffect(() => {
+        auctionApi.maxBid(auctionId)
+            .then((res) => {
+                setMaxPrice(res.data.data)
+            })
+    }, [totalPrice])
 
-    const details = [
-        {
-            "_id": "6",
-            "title": "Wacth Product 06",
-            "images": [
-                "https://cdn.tgdd.vn/Products/Images/42/236780/Slider/iphone-13mini-1020x570.jpg",
-                "https://cdn.24h.com.vn/upload/1-2022/images/2022-02-20/iPhone-14-mat-toi-5-nam-deduoi-kip-Android-iphone-13-mini-vs-iphone-13-1645336342-493-width660height437.jpg",
-                "https://i.ex-cdn.com/60giay.com/files/content/2022/04/04/iphone-13-1401.jpg",
-                "https://cdn1.viettelstore.vn/images/Product/ProductImage/medium/1896092054.jpeg"
-                ],
-            "description": "How to and tutorial videos of cool CSS effect, Web Design ideas,JavaScript libraries, Node.",
-            "content": "Welcome to our channel Dev AT. Here you can learn web designing, UI/UX designing, html css tutorials, css animations and css effects, javascript and jquery tutorials and related so on.",
-            "colors": ["red", "black", "teal"],
-            "sizes": ["XL", "L", "M", "XM", "LX"],
-            "price": 106,
-            "count": 1
-
+    const getRequestParams = (index, count) => {
+        let params = {};
+        if (index) {
+          params["index"] = index;
         }
-    ]
+        if (count) {
+          params["count"] = count;
+        }
+        return params;
+    };
 
-    const handleMouseMove = e =>{
-        const {left, top, width, height} = e.target.getBoundingClientRect();
-        const x = (e.pageX - left) / width * 100
-        const y = (e.pageY - top) / height * 100
-        imgDiv.current.style.backgroundPosition = `${x}% ${y}%`
-    }
+    const retrieveAuctionsBidComment = () => {
+        const params = getRequestParams( index, count);
+        auctionApi.getListCommentsBids (type, auctionId, params)
+            .then((response) => {
+                if (type === 'comments') {
+                    const { comments, total} = response.data.data;
+                    setComments(comments);
+                    setTotal(total)
+                    const totalPage = Math.ceil(total/count)
+                    setCount(totalPage);
+                } else if (type === 'bids') {
+                    const { bids, total} = response.data.data;
+                    setBids(bids);
+                    setTotalPrice(total)
+                    const totalPage = Math.ceil(total/count)
+                    setCount(totalPage);
+                } else {
+                    const { rates, total} = response.data.data;
+                    setRates(rates);
+                    setTotalRates(total)
+                    const totalPage = Math.ceil(total/count)
+                    setCount(totalPage);
+                }
+            })
+            .catch((e) => {
+                console.log(e);
+            });
+    };
 
+    useEffect(retrieveAuctionsBidComment, [type, auctionId, index, count, total, totalPrice]);
 
     return (
-        <>
-           {
-               details.map(product =>(
-                   <div className="details" key={product._id}>
-                       <div className="img-container" onMouseMove={handleMouseMove}
-                       style={{backgroundImage: `url(${product.images[index]})`}} ref={imgDiv} 
-                       onMouseLeave={() => imgDiv.current.style.backgroundPosition = `center`} />
+    <>
+        <section className="featured spad">
+            <div className="container">
+                <div className="row">
+                    <div className="col-lg-12">
+                        <div className="section-title">
+                           <p onClick={() => navigate(-1)}>{t('features.list')}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <Info 
+            auctionId={auctionId}
+            maxPrice={maxPrice}
+            sellingUser={sellingUser}
+            auction={auction}
+            categoryInfo={categoryInfo}
+            currentUser={currentUser}
+            item={item}
+            t={t}
+        />
+        {
+            (auction.statusId === 6 || auction.statusId === 7 || auction.statusId === 8)
+            && ((currentUser.user.user_id === sellingUser.selling_user_id))
+            && (
+                <BuyingInfo 
+                    buyingUser={buyingUser}
+                    item={item}
+                    status={auction.statusId}
+                    auctionId={auction.auction_id}
+                    t={t}
+                />
+            )
+        }
+       
+        <Paper style={{ padding: "20px 200px", marginBottom: '40px' }} className="container">
+            <section>
+                <div className="container">
+                    <div className="row">
+                        <div className="col-lg-12">
+                            <div className="featured__controls">
+                                <ul>
+                                    {
+                                        tabs.map(tab => (
+                                            <li 
+                                                key={tab}
+                                                style={type === tab ? {
+                                                    color: '#7FAD39',
+                                                } : {}}
+                                                onClick={() => setType(tab)}
+                                            >
+                                                <b>{t(`detail.${tab}`)}</b>
+                                            </li>
+                                        ))
+                                    }
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                <div>
+                <div className="featured__filter">
+                        {
+                            (type === 'comments') && (
+                                <CommentForm
+                                    t={t}
+                                    auctionId={auctionId}
+                                    setTotal={setTotal}
+                                />
+                            )
+                        }
+                        {
+                            (type === 'comments') && (
+                                <p>{total} {t(`detail.comments`)}</p>
+                            )
+                        }
+                        {
+                            (type === 'comments') && (
+                                comments.map((comment) => (
+                                    <ListComments 
+                                        comment={comment}
+                                        t={t}
+                                        auctionId={auctionId}
+                                        setTotal={setTotal}
+                                    />
+                                ))
+                            )
 
-                       <div className="box-details">
-                           <h2 title={product.title}>{product.title}</h2>
-                           <h3>${product.price}</h3>
-                           <Colors colors={product.colors} />
-                           <Sizes sizes={product.sizes} />
-                           <p>{product.description}</p>
-                           <p>{product.content}</p>
-                           <DetailsThumb images={product.images} setIndex={setIndex} />
-                       </div>
-
-                   </div>
-               ))
-           }
-        </>
+                        }
+                        {
+                            (type === 'bids') && (auction.statusId === 1) && (
+                                <BidForm
+                                    t={t}
+                                    auctionId={auctionId}
+                                    setTotalPrice={setTotalPrice}
+                                />
+                            )
+                        }
+                        {
+                            (type === 'bids') && (
+                                <p>{totalPrice} {t(`detail.bids`)}</p>
+                            )
+                        }
+                        {
+                            (type === 'bids')  && (
+                                bids.map((bid, index) => (
+                                    <ListBids
+                                        t={t}
+                                        bid={bid}
+                                        auction={auction}
+                                        index={index}
+                                        currentUser={currentUser}
+                                        sellingUser={sellingUser}
+                                        maxPrice={maxPrice}
+                                        auctionId={auctionId}
+                                    />
+                                ))
+                            )
+                        }
+                        {
+                            (type === 'rates') && (
+                                <p>{totalRates} {t(`detail.rates`)}</p>
+                            )
+                        }
+                        {
+                            (type === 'rates') && (auction.statusId === 8) && (
+                                rates.map((rate) => (
+                                    <RateForm
+                                        t={t}
+                                        rate={rate}
+                                    />
+                                ))
+                            )
+                        }
+                    
+                    </div>
+                    <Paginate 
+                        counts={counts}
+                        index={index}
+                        setPage={setPage}
+                        count={count}
+                        setPageSize={setPageSize}
+                    />
+                    </div>
+                </div>
+            </section>
+        </Paper>
+        <Description 
+            description={item.description}
+            t={t}
+        />
+    </>
     )
 }

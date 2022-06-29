@@ -1,0 +1,278 @@
+{
+    "name": {
+        "auctions": "Phiên đấu giá",
+        "category": "Danh mục sản phẩm",
+        "address": "Địa chỉ",
+        "phone": "Số điện thoại",
+        "email": "Email",
+        "homepage": "Trang chủ"
+    },
+    "header": {
+        "hello": "Xin chào",
+        "auctions": "Sàn đấu giá",
+        "homepage": "Trang chủ",
+        "selling": "Bán hàng",
+        "news": "Bài viết",
+        "contacts": "Liên hệ"
+    },
+    "account": {
+        "login": "Đăng nhập",
+        "logout": "Đăng xuất",
+        "edit": "Chỉnh sửa tài khoản",
+        "register": "Đăng ký",
+        "changepass": "Thay đổi mật khẩu"
+    },
+  
+    "category": {
+        "all": "Nhóm danh mục",
+        "list": "Danh mục sản phẩm",
+        "1": "Điện tử",
+        "2": "Thời trang",
+        "3": "Sức khỏe & Sắc đẹp",
+        "4": "Đồ dùng gia đình",
+        "5": "Phương tiện giao thông",
+        "6": "Khác"
+    },
+    "search": {
+        "search": "Tìm kiếm",
+        "price": "Giá",
+        "start_date": "Thời gian bắt đầu",
+        "end_date": "Thời gian kết thúc",
+        "auction": "Phiên đấu giá"
+    },
+
+    "hour": {
+        "hour": "h"
+    },
+    "footer": {
+        "address": "Địa chỉ",
+        "phone": "Số điện thoại",
+        "email": "Email"
+    },
+    "features": {
+        "list": "Danh sách phiên đấu giá",
+        "auctions": "Phiên đấu giá"
+    },
+
+    "status": {
+        "0": "Toàn bộ",
+        "1": "Đang diễn ra",
+        "2": "Sắp diễn ra",
+        "3": "Đã kết thúc",
+        "4": "Đang chờ duyệt",
+        "5": "Đã bị từ chối",
+        "6": "Đang giao hàng",
+        "7": "Đã giao hàng",
+        "8": "Giao hàng thành công"
+    },
+
+    "auction": {
+        "auctions": "Phiên đấu giá"
+    },
+    "button_input": {
+        "create": "Tạo",
+        "edit": "Chỉnh sửa",
+        "delete": "Xóa",
+        "register": "Đăng ký",
+        "cancel": "Thoát",
+        "confirm": "Xác nhận",
+        "send": "Gửi"
+    },
+    "input_auction": {
+        "input": "Nhập thông tin",
+        "choosecategory": "Chọn loại sản phẩm",
+        "title": "Tiêu đề",
+        "category": "Loại sản phẩm",
+        "start_date": "Thời gian bắt đầu",
+        "end_date": "Thời gian kết thúc"
+    },
+    "input_item": {
+        "name": "Tên sản phẩm",
+        "name_input": "Nhập tên sản phẩm",
+        "brand": "Thương hiệu",
+        "brand_choose": "Chọn thương hiệu",
+        "series": "Số series",
+        "series_input": "Nhập số series",
+        "price": "Giá khởi điểm",
+        "price_input": "Nhập giá khởi điểm",
+        "description": "Mô tả",
+        "description_input": "Nhập mô tả",
+        "add_images": "Thêm ảnh",
+        "upload": "Tải lên"
+    },
+    "list_item": {
+        "list": "Danh sách sản phẩm",
+        "item": "Sản phẩm",
+        "price": "Giá khởi điểm",
+        "buy_price": "Giá mua"
+    },
+    "user": {
+        "name": "Tên",
+        "phone": "Số điện thoại",
+        "address": "Địa chỉ"
+    },
+    "receive": {
+        "name": "Tên người nhận",
+        "buy_info": "Thông tin giao hàng",
+        "delivery1": "Đang giao hàng",
+        "delivery2": "Đã giao hàng thành công ?",
+        "receive1": "Đã nhận được hàng",
+        "receive2": "Trả hàng/Hoàn tiền",
+        "delivery_success": "Giao hàng thành công",
+        "receive_modal": "Bạn đã nhận được hàng. Nếu có hài lòng thì hãy đánh giá. Nếu xác nhận đã nhận hàng thì không thể hoàn tiền, trả hàng",
+        "rate": "Đánh giá",
+        "confirm_modal": "Xác nhận",
+        "cancel_modal": "Không phải bây giờ",
+        "receive_title": "Thông tin giao hàng",
+        "received": "Đã giao hàng"
+    },
+    "news": {
+        "list": "Danh sách bài viết",
+        "see_more": "Xem thêm",
+        "saw": "Đã đọc"
+    },
+    "notifications": {
+        "all": "Xem toàn bộ",
+        "list": "Danh sách thông báo",
+        "title": "Tiêu đề",
+        "auction": "Phiên đấu giá",
+        "time": "Thời gian",
+        "reason": "Lý do từ chối",
+        "2": "Từ chối",
+        "no_info": "Không có thông tin về sản phẩm"
+    },
+    "detail": {
+        "name": "Tên sản phẩm",
+        "price": "Giá khởi điểm",
+        "category": "Loại sản phẩm",
+        "brand": "Thương hiệu",
+        "series": "Số series",
+        "bids": "Trả giá($)",
+        "rates": "Đánh giá",
+        "comments": "Bình luận",
+        "bid_input": "Nhập giá",
+        "comment_input": "Hãy nhập bình luận của bạn",
+        "money": "$",
+        "sell_price": "Giá bán",
+        "max_price": "Giá cao nhất"
+    },
+    "bid": {
+        "accept": "Chấp nhận",
+        "title_modal": "Thông tin khác về việc chấp nhận trả giá này",
+        "input_modal": "Hãy nhập thông tin",
+        "button_accept": "Chấp nhận",
+        "button_negotiate": "Thương lượng",
+        "title_modal_negotiate": "Bạn có muốn thương lượng thêm về giá?",
+        "yes": "Có",
+        "no": "Không",
+        "money": "$"
+    },
+    "detail_wait": {
+        "breadcumb": "Dánh sách phiên đấu giá",
+        "item_edit": "Chỉnh sửa sản phẩm",
+        "auction_edit": "Chỉnh sửa phiên đấu giá",
+        "no_item": "Chưa có sản phẩm nào",
+        "add_item": "Thêm sản phẩm"
+    },
+    "modal": {
+        "title_delete": "Bạn có chắc chắn xóa không?",
+        "delete": "Xóa",
+        "cancel": "Thoát"
+    },
+    "contacts": {
+        "contact": "Liên hệ",
+        "type": "Loại báo cáo",
+        "choose": "Chọn loại thông báo",
+        "name": "Tên người gửi",
+        "name_input": "Hãy nhập tên của bạn",
+        "email": "Email",
+        "email_input": "Hãy nhập email của bạn",
+        "phone": "Số điện thoại",
+        "phone_input": "Hãy nhập số điện thoại của bạn",
+        "content": "Nội dung",
+        "content_input": "Hãy nhập nội dung",
+        "image": "Hình ảnh",
+        "send": "Gửi",
+        "type1": "1: Lỗi hệ thống",
+        "type2": "2: Cách sử dụng",
+        "type3": "3: Khác"
+    },
+    "like": {
+        "title": "Danh sách phiên đấu giá yêu thích"
+    }, 
+    "user_auctions": {
+        "title": "Danh sách phiên đấu giá của tôi",
+        "title_category": "Danh mục sản phẩm",
+        "no_category": "Bạn chưa mua sản phẩm nào?",
+        "user_name": "Tên",
+        "address": "Địa chỉ",
+        "phone": "Số điện thoại",
+        "email": "Email",
+        "role": "Vai trò",
+        "1": "Admin",
+        "2": "User"
+    },
+    "description": {
+        "des": "Mô tả sản phẩm"
+    },
+    "chat": {
+        "start_conv": "Bắt đầu cuộc nói chuyện nào!",
+        "input": "Nhập tin nhắn"
+    },
+    "change_pass": {
+        "title": "Thay đổi mật khẩu",
+        "old_pass": "Mật khẩu hiện tại",
+        "input_old_pass": "Hãy nhập mật khẩu hiện tại",
+        "new_pass": "Mật khẩu mới",
+        "input_new_pass": "Hãy nhập mật khẩu mới",
+        "re_pass": "Nhập lại mật khẩu mới",
+        "input_re_pass": "Hãy nhập lại mật khẩu mới"
+    },
+    "login": {
+        "title": "Đăng nhập",
+        "email": "Email",
+        "password": "Mật khẩu",
+        "input_email": "Hãy nhập email của bạn",
+        "input_password": "Hãy nhập mật khẩu của bạn",
+        "button": "Đăng nhập"
+    },
+    "register": {
+        "title": "Đăng ký",
+        "name": "Tên",
+        "name_input": "Hãy nhập tên của bạn",
+        "email": "Email",
+        "email_input": "Hãy nhập email của bạn",
+        "password": "Mật khẩu",
+        "input_password": "Hãy nhập mật khẩu của bạn",
+        "re_pass": "Nhập lại mật khẩu",
+        "re_pass_input": "Hãy nhập lại mật khẩu",
+        "phone": "Số điện thoại",
+        "phone_input": "Hãy nhập số điện thoại của bạn",
+        "address": "Địa chỉ",
+        "address_input": "Hãy nhập địa chỉ của bạn",
+        "button": "Đăng ký",
+        "avatar": "Ảnh đại diện"
+    },
+    "edit": {
+        "title": "Chỉnh sửa tài khoản"
+    },
+    "errors": {
+        "1002": "Email hoặc Mật khẩu không đúng",
+        "7000": "Yêu cầu nhập",
+        "7001": "Tối đa 255 ký tự",
+        "7002": "Email không đúng định dạng",
+        "7003": "Mật khẩu không trùng khớp",
+        "7004": "Email này đã tồn tại",
+        "7005": "Tiêu đề phiên đấu giá đã tồn tại",
+        "7006": "Hãy nhập số",
+        "7007": "Không tồn tại giá trị",
+        "7008": "Ngày tháng không đúng định dạng",
+        "7009": "Thời gian bắt đầu sớm nhất từ ngày mai",
+        "7010": "Thời gian kết thúc phải sau thời gian bắt đầu",
+        "7011": "Tối đa 10 ký tự",
+        "7012": "Số series này đã tồn tại",
+        "7013": "Tối đa 60 ký tự",
+        "7014": "Bạn phải đưa ra giá cao hơn mức giá hiện tại ít nhất 5$",
+        "1006": "Bạn không có quyền xóa bình luận này."
+    }
+}

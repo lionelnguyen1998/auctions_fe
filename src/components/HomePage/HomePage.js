@@ -1,14 +1,18 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect} from 'react';
 import Hero from '../Hero/Hero';
 import Category from '../Category/Category';
 import Features from '../Features/Features';
+import auctionApi from '../api/auctionApi';
 
-function HomePage(){
+function HomePage({t}){
+    useEffect(() => {
+        auctionApi.update();
+    }, [])
     return (
         <Fragment>
-            <Hero />
-            <Category/>
+            <Hero t={t}/>
             <Features />
+            <Category/>
         </Fragment>
     )
 }
