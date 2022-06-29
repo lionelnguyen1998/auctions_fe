@@ -1,0 +1,21 @@
+.form-test {
+    max-width: 700px;
+    margin-left: 17%;
+}
+.react-datetime-picker__wrapper {
+    border: none !important;
+}
+.select-paginate {
+    margin-top: 16px !important;
+}
+.h3-auction {
+    font-weight: bolder;
+    color: #7FAD39;
+    margin-bottom: 10px;
+}
+.alice-carousel__stage-item {
+    width: 230px !important;
+}
+.css-1aznpnh-MuiSlider-root {
+    color: #7FAD39 !important;
+}

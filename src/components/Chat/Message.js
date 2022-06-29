@@ -12,7 +12,7 @@ export default function Message({ message, own}) {
         /> */}
         <p className="messageText">{message.content}</p>
       </div>
-      <div className="messageBottom" style={{color: '#e6efe6'}}>{format(message.created_at)}</div>
+      {/* <div className="messageBottom" style={{color: '#e6efe6'}}>{format(message.created_at)}</div> */}
     </div>
   );
 }

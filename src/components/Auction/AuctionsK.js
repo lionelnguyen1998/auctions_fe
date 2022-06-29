@@ -3,9 +3,9 @@ import auctionApi from '../api/auctionApi';
 import { Paper, Avatar, Grid, Typography} from "@mui/material";
 import './index.css'
 import ListAuction from './ListAuction.js'
-import Search from './Search.js';
+import Search from '../Search/Search.js';
 import Paginate from '../Paginate/Paginate.js'
-import StatusTab from './StatusTab.js'
+import StatusTab from '../Tab/StatusTab.js'
 
 const tabs = [0, 1, 2, 3, 6];
 

@@ -4,7 +4,7 @@ import auctionApi from '../api/auctionApi';
 import './detail.css'
 import {Paper, Button} from "@mui/material";
 import { useNavigate, Link } from 'react-router-dom';
-import ModalDelete from './ModalDelete.js'
+import ModalDelete from '../Modal/ModalDelete.js'
 import Description from './Description.js';
 
 const colors = ['#2196F3', '#4CAF50', '#FF9800', '#F44336', '#2196F3'];

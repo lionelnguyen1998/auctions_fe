@@ -3,14 +3,14 @@ import auctionApi from '../api/auctionApi';
 import { Paper } from "@mui/material";
 import './index.css'
 import ListAuction from './ListAuction.js'
-import UserInfo from './UserInfo.js'
+import UserInfo from '../../pages/User/UserInfo.js'
 import Paginate from '../Paginate/Paginate.js'
 import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
 import { Link } from 'react-router-dom'
-import Search from './Search.js'
+import Search from '../Search/Search.js'
 import AuthService from "../services/auth.service";
-import StatusTab from './StatusTab.js'
+import StatusTab from '../Tab/StatusTab.js'
 
 const tabs = [0, 1, 2, 3, 4, 6];
 const responsive = {

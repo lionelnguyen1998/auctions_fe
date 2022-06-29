@@ -2,7 +2,7 @@ import React from 'react';
 import {Avatar, Grid, Button} from "@mui/material";
 import { format } from "timeago.js";
 import './index.css'
-import ModalAccept from '../Auction/ModalAccept.js'
+import ModalAccept from '../Modal/ModalAccept.js'
 
 function ListBids ({bid, t, auction, index, currentUser, sellingUser, maxPrice, auctionId}) {
     return (

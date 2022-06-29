@@ -3,7 +3,6 @@ import "./conversation.css";
 
 export default function Conversation({conversation}) {
   const userReceive = conversation.user_receive_info;
-  console.log(userReceive)
   return (
     <div className="conversation">
       <div className="chatOnlineImgContainer">

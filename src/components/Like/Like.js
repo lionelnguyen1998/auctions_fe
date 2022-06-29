@@ -1,29 +1,27 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
 import auctionApi from '../api/auctionApi';
 import { Paper } from "@mui/material";
-import './index.css'
+import ListAuction from '../Auction/ListAuction.js';
+import Paginate from '../Paginate/Paginate.js';
 import Search from '../Search/Search.js';
-import Auction from './Auction.js';
-import Paginate from '../Paginate/Paginate.js'
-import { useTranslation } from 'react-i18next';
+import './index.css'
 
 const tabs = [0, 1, 2, 3, 6];
-function Features(){
+
+function Auctions({t}) {
     const [auctions, setAuctions] = useState([]);
     const [status, setStatus] = useState(0);
     const [index, setPage] = useState(1);
     const [counts, setCount] = useState(1);
     const [count, setPageSize] = useState(4);
-    const [total, setTotal] = useState('');
-    const [query, setQuery] = useState([])
-    const colors = ['#2196F3', '#4CAF50', '#FF9800', '#F44336'];
+    const [total, setTotal] = useState('')
+    const [query, setQuery] = useState('')
+
     const keys = ['title', 'start_date', 'end_date'];
-    const {t} = useTranslation()
 
     const search = (data) => {
         return data.filter((auction) => keys.some((key) => auction[key].toLowerCase().includes(query)));
     };
-
     const getRequestParams = (index, count) => {
         let params = {};
         if (index) {
@@ -34,41 +32,39 @@ function Features(){
         }
         return params;
     };
-
     const retrieveAuctions = () => {
-        const params = getRequestParams( index, count);
-        auctionApi.getAllAuctions(status, params)
+        const params = getRequestParams(index, count);
+        auctionApi.getListLike(status, params)
             .then((response) => {
                 const { auctions, total} = response.data.data;
                 setAuctions(auctions);
-                setTotal(total)
+                setTotal(total);
                 const totalPage = Math.ceil(total/count)
                 setCount(totalPage);
             })
             .catch((e) => {
                 console.log(e);
             });
-      };
+        };
 
     useEffect(retrieveAuctions, [status, index, count]);
+
     return (
         <Fragment>
-            <Paper style={{ padding: "20px", marginBottom: "40px"}} className="container">
+             <Paper style={{ padding: "20px", marginBottom: "40px"}} className="container">
                 <section className="featured spad">
                     <div className="container">
                         <div className="row">
                         <div className="col-lg-12">
                             <div className="section-title">
-                                <h2>{t('features.list')}</h2>
-                                
+                                <h2>{t('like.title')}</h2>
                             </div>
-                            
                             <div className="featured__controls">
                                     <ul>
-                                    <Search
-                                        setQuery={setQuery}
+                                        <Search 
+                                        setQuery={setQuery} 
                                         t={t}
-                                    />
+                                        />
                                         {
                                             tabs.map(tab => (
                                                 <li 
@@ -79,21 +75,18 @@ function Features(){
                                                     onClick={() => setStatus(tab)}
                                                 >
                                                     <b>{t(`status.${tab}`)}</b>
-                                                    
                                                 </li>
                                             ))
                                         }
-                                  
                                     </ul>
                             </div>
                         </div>
                         </div>
-                       
                         <div>
                             <b style={{color:'#7FAD39'}}>{total} {t('name.auctions')}</b>
-                            <Auction 
+                            <ListAuction
                                 auctions={search(auctions)}
-                                colors={colors}
+                                t={t}
                             />
                             <Paginate 
                                 counts={counts}
@@ -105,9 +98,9 @@ function Features(){
                         </div>
                     </div>
                 </section>
-            </Paper>
+             </Paper>
         </Fragment>
     )
 }
 
-export default Features;
+export default Auctions;

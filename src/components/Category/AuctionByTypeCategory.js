@@ -4,8 +4,8 @@ import { Paper } from "@mui/material";
 import {useNavigate} from 'react-router-dom'
 import ListAuction from '../Auction/ListAuction.js'
 import Paginate from '../Paginate/Paginate.js'
-import Search from '../Auction/Search';
-import StatusTab from '../Auction/StatusTab.js';
+import Search from '../Search/Search';
+import StatusTab from '../Tab/StatusTab.js';
 import './index.css'
 
 const tabs = [0, 1, 2, 3];

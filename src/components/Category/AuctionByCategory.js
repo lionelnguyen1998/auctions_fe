@@ -5,8 +5,8 @@ import {useNavigate} from 'react-router-dom'
 import ListAuction from '../Auction/ListAuction.js'
 import Paginate from '../Paginate/Paginate.js'
 import './index.css'
-import Search from '../Auction/Search';
-import StatusTab from '../Auction/StatusTab.js';
+import Search from '../Search/Search';
+import StatusTab from '../Tab/StatusTab.js';
 
 const tabs = [0, 1, 2, 3];
 

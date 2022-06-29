@@ -30,7 +30,8 @@
         "2": "Thời trang",
         "3": "Sức khỏe & Sắc đẹp",
         "4": "Đồ dùng gia đình",
-        "5": "Khác"
+        "5": "Phương tiện giao thông",
+        "6": "Khác"
     },
     "search": {
         "search": "Tìm kiếm",
@@ -146,7 +147,7 @@
         "category": "Loại sản phẩm",
         "brand": "Thương hiệu",
         "series": "Số series",
-        "bids": "Trả giá",
+        "bids": "Trả giá($)",
         "rates": "Đánh giá",
         "comments": "Bình luận",
         "bid_input": "Nhập giá",
@@ -271,7 +272,7 @@
         "7011": "Tối đa 10 ký tự",
         "7012": "Số series này đã tồn tại",
         "7013": "Tối đa 60 ký tự",
-        "7014": "Bạn phải đưa ra giá cao hơn mức giá cao nhất hiện tại",
+        "7014": "Bạn phải đưa ra giá cao hơn mức giá hiện tại ít nhất 5$",
         "1006": "Bạn không có quyền xóa bình luận này."
     }
 }

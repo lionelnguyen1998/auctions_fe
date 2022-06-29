@@ -1,6 +1,6 @@
 import React from 'react';
 import {Paper, Button} from "@mui/material";
-import ModalRate from './ModalRate.js'
+import ModalRate from '../Rate/ModalRate.js'
 import './buyingInfo.css'
 
 function Receive({item, buyingUser, status, auctionId, t, categoryId}) {

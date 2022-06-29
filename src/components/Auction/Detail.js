@@ -8,11 +8,11 @@ import Paginate from '../Paginate/Paginate.js'
 import Info from './Info';
 import Description from "./Description.js";
 import BuyingInfo from "./BuyingInfo.js";
-import CommentForm from "./CommentForm.js"
-import ListComments from "./ListComments.js"
+import CommentForm from "../Comment/CommentForm.js"
+import ListComments from "../Comment/ListComments.js"
 import BidForm from "../Bid/BidForm.js"
 import ListBids from "../Bid/ListBids.js"
-import RateForm from "./RateForm.js"
+import RateForm from "../Rate/RateForm.js"
 
 const tabs = ['bids', 'comments', 'rates'];
 
@@ -119,10 +119,6 @@ export default function Detail({t}) {
             categoryInfo={categoryInfo}
             currentUser={currentUser}
             item={item}
-            t={t}
-        />
-        <Description 
-            description={item.description}
             t={t}
         />
         {
@@ -250,6 +246,10 @@ export default function Detail({t}) {
                 </div>
             </section>
         </Paper>
+        <Description 
+            description={item.description}
+            t={t}
+        />
     </>
     )
 }

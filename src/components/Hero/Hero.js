@@ -4,7 +4,7 @@ import Select from 'react-select';
 import auctionApi from '../api/auctionApi';
 import { Link } from 'react-router-dom';
 import './index.css'
-import './SearchBar.css'
+import '../Search/SearchBar.css'
 
 function Hero({t}) {
     const options = [
@@ -62,6 +62,7 @@ function Hero({t}) {
                                 <li className="li-hover"><Link to={`/auctionByTypeOfCategory/3`}>{t('category.3')}</Link></li>
                                 <li className="li-hover"><Link to={`/auctionByTypeOfCategory/4`}>{t('category.4')}</Link></li>
                                 <li className="li-hover"><Link to={`/auctionByTypeOfCategory/5`}>{t('category.5')}</Link></li>
+                                <li className="li-hover"><Link to={`/auctionByTypeOfCategory/6`}>{t('category.6')}</Link></li>
                                 <li><a>　</a></li>
                                 <li><a>　</a></li>
                                 <li><a>　</a></li>
