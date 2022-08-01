@@ -6,8 +6,14 @@ import auctionApi from '../api/auctionApi';
 
 function HomePage({t}){
     useEffect(() => {
-        auctionApi.update();
-    }, [])
+        let interval = setInterval(() => {
+            auctionApi.update();
+        }, 24000);
+        return () => {
+            clearInterval(interval);
+        };
+    }, []);
+    
     return (
         <Fragment>
             <Hero t={t}/>

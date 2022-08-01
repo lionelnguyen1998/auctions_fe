@@ -19,7 +19,7 @@ const style = {
     px: 4,
     pb: 3,
 };
-function ModalDelete({auctionId, t}) {
+function ModalAccept({auctionId, t}) {
     const [sellingInfo, setSellingInfo] = useState('')
     const [sellingInfoM, setSellingInfoM] = useState('')
     let navigate = useNavigate();
@@ -32,6 +32,7 @@ function ModalDelete({auctionId, t}) {
                 setSellingInfoM(res.data.message)
             } else {
                 setOpen(false);
+                window.location.reload();
             }
         })
         .catch((e) => {
@@ -118,4 +119,4 @@ function ModalDelete({auctionId, t}) {
     )
 }
 
-export default ModalDelete;
+export default ModalAccept;

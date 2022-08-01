@@ -88,6 +88,9 @@ function Item() {
               if (errors[2].slice(7) == 7012) {
                 setMessageSeries(`${t('errors.7012')}`);
               }
+              if (errors[2].slice(7) == 7004) {
+                setMessageSeries(`${t('errors.7004')}`);
+              }
 
               if (errors[3].slice(13) == 7000) {
                 setMessageDescription(`${t('errors.7000')}`);

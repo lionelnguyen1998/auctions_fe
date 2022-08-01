@@ -1,9 +1,18 @@
-import React, {Fragment} from 'react';
+import React, {Fragment, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import Button from '@mui/material/Button';
+import auctionApi from '../api/auctionApi';
 
 const colors = ['#2196F3', '#4CAF50', '#FF9800', '#F44336', '#17a2b8'];
 function ListAuction({auctions, t}) {
+    useEffect(() => {
+        let interval = setInterval(() => {
+            auctionApi.update();
+        }, 24000);
+        return () => {
+            clearInterval(interval);
+        };
+    }, []);
     return (
         <Fragment>
             <div className="row featured__filter">

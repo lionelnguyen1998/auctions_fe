@@ -8,7 +8,7 @@ import './index.css'
 import Search from '../Search/Search';
 import StatusTab from '../Tab/StatusTab.js';
 
-const tabs = [0, 1, 2, 3];
+const tabs = [0, 1, 2, 3, 6];
 
 function AuctionByCategory({t}) {
     let navigate = useNavigate();

@@ -37,15 +37,29 @@ export default function Detail({t}) {
     const [rates, setRates] = useState([])
     const [totalRates, setTotalRates] = useState('')
     const [buyingUser, setBuyingUser] = useState('');
-    
+
+    useEffect(() => {
+        let interval = setInterval(() => {
+            auctionApi.update();
+        }, 24000);
+        return () => {
+            clearInterval(interval);
+        };
+    }, []);
+
     useEffect(() => {
         auctionApi.detail(auctionId)
             .then((res) => {
-                setAuction(res.data.data.auctions)
-                setSellingUser(res.data.data.selling_user)
-                setCategoryInfo(res.data.data.category)
-                setItem(res.data.data.items)
-                setBuyingUser(res.data.data.buying_user)
+                console.log(res)
+                if(res.data.code === 9993) {
+                    navigate('/notfound')
+                } else {
+                    setAuction(res.data.data.auctions)
+                    setSellingUser(res.data.data.selling_user)
+                    setCategoryInfo(res.data.data.category)
+                    setItem(res.data.data.items)
+                    setBuyingUser(res.data.data.buying_user)
+                }
             })
     }, [])
 

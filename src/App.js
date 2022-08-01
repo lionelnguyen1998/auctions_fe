@@ -27,6 +27,7 @@ import ListItem from './pages/Item/ListItem';
 import EditAuction from './components/Auction/EditAuction';
 import Chat from './components/Chat/Chat';
 import EditItem from './pages/Item/EditItem';
+import NotFound from './components/NotFound/NotFound';
 import { useTranslation } from 'react-i18next';
 import { Button } from "@mui/material";
 import Flag from 'react-world-flags'
@@ -50,6 +51,7 @@ function App() {
                     <Route path="/" element={<HomePage t={t}/>}/>
                     <Route path="/contacts" element={<Contacts t={t}/>}/>
                     <Route path="/login" element={<Login  t={t}/>}/>
+                    <Route path="/notfound" element={<NotFound />}/>
                     <Route path="/sell" 
                       element={<Sell />}
                     />

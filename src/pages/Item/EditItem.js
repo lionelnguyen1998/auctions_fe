@@ -120,6 +120,7 @@ function EditItem({t}) {
             images={images}
             setImages={setImages}
             index={addImage.length}
+            t={t}
           />
       ))
     }

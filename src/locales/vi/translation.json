@@ -114,6 +114,7 @@
     "receive": {
         "name": "Tên người nhận",
         "buy_info": "Thông tin giao hàng",
+        "bought": "Đã bán",
         "delivery1": "Đang giao hàng",
         "delivery2": "Đã giao hàng thành công ?",
         "receive1": "Đã nhận được hàng",

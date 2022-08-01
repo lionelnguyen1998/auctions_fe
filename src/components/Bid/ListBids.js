@@ -39,7 +39,7 @@ function ListBids ({bid, t, auction, index, currentUser, sellingUser, maxPrice, 
                         && (bid.price === maxPrice) 
                         && (
                             <Button size="small" disabled variant="outlined" style={{ color: '#4CAF50', borderColor:'#4CAF50', height: '20px', marginRight: '20px'}}>
-                                {t('receive.delivery1')}
+                                {t('receive.bought')}
                             </Button>
                         )
                     }
