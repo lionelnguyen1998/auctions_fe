@@ -2,8 +2,8 @@ import React, {useState, useEffect, useRef} from 'react';
 import { Paper, Button} from "@mui/material";
 import notificationApi from '../../components/api/notificationApi';
 import { Link} from 'react-router-dom';
-import DetailsThumb from '../../components/Auction/DetailsThumb'
-import Description from '../../components/Auction/Description.js'
+import DetailsThumb from '../Auction/DetailsThumb'
+import Description from '../Auction/Description.js'
 import ModalBox from './ModalBox.js'
 import './index.css'
 

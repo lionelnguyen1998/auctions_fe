@@ -1,8 +1,8 @@
 import React, {useState, useEffect, useRef} from 'react';
 import {Avatar, Paper, Grid, Button} from "@mui/material";
-import DetailsThumb from '../../components/Auction/DetailsThumb'
-import Description from '../../components/Auction/Description'
-import Receive from '../../components/Auction/Receive'
+import DetailsThumb from '../Auction/DetailsThumb'
+import Description from '../Auction/Description'
+import Receive from '../Auction/Receive'
 import auctionApi from '../../components/api/auctionApi';
 import {Link} from 'react-router-dom'
 import 'react-rater/lib/react-rater.css'

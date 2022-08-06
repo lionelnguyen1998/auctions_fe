@@ -22,9 +22,7 @@ const style = {
 function ModalAccept({auctionId, t}) {
     const [sellingInfo, setSellingInfo] = useState('')
     const [sellingInfoM, setSellingInfoM] = useState('')
-    let navigate = useNavigate();
     const [open, setOpen] = useState('')
-    const [open2, setOpen2] = useState('')
     const handleAccept = () => {
         auctionApi.acceptBid(auctionId, sellingInfo)
         .then((res) => {
@@ -46,18 +44,6 @@ function ModalAccept({auctionId, t}) {
     
     const handleClose = () => {
         setOpen(false);
-    };
-
-    const handleNegotiate = () => {
-        navigate('/chat')
-    }
-
-    const handleOpen2 = () => {
-        setOpen2(true);
-    };
-
-    const handleClose2 = () => {
-        setOpen2(false);
     };
     
     return (
@@ -96,23 +82,6 @@ function ModalAccept({auctionId, t}) {
                 <hr></hr>
                 <Button onClick={handleAccept} variant="outlined" style={{color: '#28a745', borderColor:'#28a745'}}>{t('bid.button_accept')}</Button>
                 <Button onClick={handleClose} style={{float:'right'}} variant="outlined">{t('button_input.cancel')}</Button>
-                </Box>
-            </Modal>
-            <Button size="small" onClick={handleOpen2} variant="outlined" style={{ color: '#FF9800', borderColor:'#FF9800', height: '20px'}}>
-            {t('bid.button_negotiate')}
-            </Button>
-            <Modal
-                open={open2}
-                onClose={handleClose2}
-                aria-labelledby="parent-modal-title"
-                aria-describedby="parent-modal-description"
-            >
-                <Box sx={{ ...style, width: 450 }}>
-                <h4 id="parent-modal-title" style={{color: '#FF9800'}}><b>{t('bid.title_modal_negotiate')}</b></h4>
-                <br/>
-                <hr></hr>
-                <Button onClick={handleNegotiate} variant="outlined" style={{color: '#FF9800', borderColor:'#FF9800'}}>{t('bid.yes')}</Button>
-                <Button onClick={handleClose2} style={{float:'right'}} variant="outlined">{t('bid.no')}</Button>
                 </Box>
             </Modal>
         </>

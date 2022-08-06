@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import SliderHome from '../Slider/Slider'
+import SliderHome from '../../pages/Slider/Slider'
 import Select from 'react-select';
 import auctionApi from '../api/auctionApi';
 import { Link } from 'react-router-dom';
